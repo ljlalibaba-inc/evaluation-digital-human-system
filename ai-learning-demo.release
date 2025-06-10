@@ -1,0 +1,27 @@
+# 更多关于Release文件的规范和约定，请点击: https://yuque.antfin-inc.com/aone/geh0qs/252891532
+
+# 构建源码语言类型
+build.language=java
+
+# 构建使用的jdk版本
+java.jdk=ajdk-21
+
+# 构建打包所用的maven版本，pandora boot应用需要使用maven 3
+maven.version=maven3
+
+# 构建打包使用的maven settings文件
+maven.settings=tao
+
+# maven构建优化
+## bf算法开启 https://aliyuque.antfin.com/build2art/yx6wcx/pawwmpd43h035kow
+maven.enableBf=True
+## 并行构建 https://aliyuque.antfin.com/build2art/yx6wcx/uyrr0g1gt3ansqlz
+maven.args=-T 1C
+
+
+# 构建打包tgz产物的目录，pom中请指定antrun插件解压fat-jar到target/${appName}目录
+build.output=demo-start/target/ai-learning-demo
+
+# 设置Dockerfile里的APP_NAME变量，必须要配置
+docker.args=--build-arg APP_NAME=${APP_NAME}
+
