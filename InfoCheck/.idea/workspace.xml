@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fab55b9a-5beb-488c-8359-2fe0a44217bb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/Dockerfile_production" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/Dockerfile_project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/Dockerfile_staging" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/Dockerfile_testing" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/bin/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/bin/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/bin/appctl.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/bin/hook.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/bin/preload.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/bin/setenv.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/cai/bin/nginxctl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../APP-META/docker-config/environment/common/cai/conf/nginx-proxy.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ai-learning-demo.release" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/embedding/TokenizerEncodeDemo_gpt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/embedding/TokenizerEncodeDemo_qwen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/model/LLMChatStreamDemo_Qwen3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/model/LLMChatTextDemo_Qwen2_5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/model/LLMReasoningChatStreamDemo_DSR1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/model/LLMRichMediaDemo_DSQW.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/model/WhaleChatMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/service/WhaleSdkService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/token/cosineSimilarity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/src/main/java/com/alibaba/example/baseknowledge/token/tokenization.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/embedding/TokenizerEncodeDemo_gpt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/embedding/TokenizerEncodeDemo_qwen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMChatStreamDemo_Qwen3$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMChatStreamDemo_Qwen3$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMChatStreamDemo_Qwen3$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMChatStreamDemo_Qwen3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMChatTextDemo_Qwen2_5$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMChatTextDemo_Qwen2_5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMReasoningChatStreamDemo_DSR1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMReasoningChatStreamDemo_DSR1$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMReasoningChatStreamDemo_DSR1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMRichMediaDemo_DSQW$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMRichMediaDemo_DSQW$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMRichMediaDemo_DSQW$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/LLMRichMediaDemo_DSQW.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/model/WhaleChatMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/service/WhaleSdkService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/token/cosineSimilarity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-service/target/classes/com/alibaba/example/baseknowledge/token/tokenization.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/java/com/alibaba/example/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/java/com/alibaba/example/MainController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/resources/application-production.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/resources/application-staging.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/resources/application-testing.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/main/resources/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/test/java/com/alibaba/example/unitTest/MockitoAnnotationNoSpringContextTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/test/java/com/alibaba/example/unitTest/MockitoAnnotationWithSpringContextTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-start/src/test/resources/test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="3AkZWJ9Jtmi3O4gQJDKKCj9OhcF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/linjie/Documents/workspace/InfoCheck"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fab55b9a-5beb-488c-8359-2fe0a44217bb" name="Changes" comment="" />
+      <created>1773138559344</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773138559344</updated>
+    </task>
+    <servers />
+  </component>
+</project>
