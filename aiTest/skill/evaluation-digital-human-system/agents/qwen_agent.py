@@ -416,20 +416,10 @@ class QwenAgent(BaseAgent):
         # 构建消息
         messages = []
 
-        # 如果有system_prompt，添加为第一条消息
-        if system_prompt:
-            messages.append({
-                "content": system_prompt,
-                "mime_type": "text/plain",
-                "role": "system",
-                "meta_data": {}
-            })
-
-        # 添加用户消息
+        # 添加用户消息（与参考格式一致，不包含role字段）
         messages.append({
             "content": message,
             "mime_type": "text/plain",
-            "role": "user",
             "meta_data": {
                 "is_default_query": "0",
                 "ori_query": message,
