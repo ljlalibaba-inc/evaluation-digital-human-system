@@ -646,14 +646,9 @@ class QwenAgent(BaseAgent):
         
         return "".join(content_parts)
 
-    def _address_to_location(self, address: str) -> Dict:
-        """地址转换为location对象"""
-        return {
-            "address": address,
-            "latitude": "",
-            "longitude": "",
-            "type": "user"
-        }
+    def _address_to_location(self, address: str) -> str:
+        """地址转换为location（直接返回address字符串）"""
+        return address
 
     def execute(self, input_data: Dict) -> Dict:
         """执行调用任务"""
