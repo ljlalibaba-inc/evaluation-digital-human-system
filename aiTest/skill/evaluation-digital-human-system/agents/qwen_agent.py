@@ -456,7 +456,12 @@ class QwenAgent(BaseAgent):
             "bucket": {"no_debug": "on"},
             "cms_test_data_ids": "",
             "incremental_strategy": 0,
-            "location": None,
+            "location": {
+                "address": "OjXQtFFvLVxCMGjtmzqsHukhbBzSFPUTBhnMW6ESWx0Xg4lMBneYMkWPTRbb1P5SgePoDrH30F4tag7ZVvta54EPno2z70Y0bgirylSMG7G2RUgixokCMljvGvWD75p+LNrQC8PpURqgvMnPj5kqFDQa3TihFvZ9JXtWE76fANbYV07zuAgay7jW6hCwwrbY+xNzjPqFLQMxSgP5Jx6UKMmogBc81h9Ek6poiSthbsM8c78KxwIKtvbNq84oSOA5OyOqdbA82zJi5/p8ALLoYcf1cAHOGOdVH/19yhGVs7v5d4qK9Pb5C+X5iqanzX0jFW1q8leAjHrHW8DBrDosvzhNxQEicNK7D0xfjzKLrnnrAIe26pSaezpzFRxoIjXZ0ha2IGEgqbLsIm5IQMFA6+nOqnq/2DsNCa8q9QoHfIEbJL8ZA/lBEekUgddXhU0IP+gCbEIAHJ3FD2xezuy7KKrzLISFT0H0/ahsxxt/mi44YflMywq7ng7+mUD5HsFZUjW8MsAi+mLkJG9Fe7KAuS7apvxKFFlxuqLsGdE+i72FJbWDPUgHohItdGr70erVVx4wIDT5zXANWxwB57zsm0nY",
+                "latitude": "",
+                "longitude": "",
+                "type": "user"
+            },
             "original_session_id": None,
             "original_req_id": None,
             "client_tm": "1766659025244",
