@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大模型数字人详细评测报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 32px; margin-bottom: 10px; font-weight: 600; }
+        .header .subtitle { font-size: 16px; opacity: 0.9; }
+        
+        .content { padding: 40px; }
+        
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label { font-size: 14px; color: #888; }
+        
+        /* 分类标签 */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover, .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        /* 详情卡片 */
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-score {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        
+        .tag-persona { background: #e6f7ff; color: #1890ff; }
+        .tag-scenario { background: #f6ffed; color: #52c41a; }
+        .tag-category { background: #fff7e6; color: #fa8c16; }
+        .tag-priority { background: #fff1f0; color: #f5222d; }
+        
+        /* 内容区块 */
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-content {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            border-left: 4px solid #667eea;
+        }
+        
+        .qwen-response {
+            background: #f6ffed;
+            border-left-color: #52c41a;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .test-case {
+            background: #e6f7ff;
+            border-left-color: #1890ff;
+        }
+        
+        .evaluation-result {
+            background: #fff7e6;
+            border-left-color: #faad14;
+        }
+        
+        /* 评分维度 */
+        .score-dimensions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .dimension-item {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .dimension-name { font-size: 12px; color: #888; margin-bottom: 4px; }
+        .dimension-score { font-size: 18px; font-weight: bold; color: #333; }
+        
+        /* 问题提示 */
+        .issue-alert {
+            background: #fff1f0;
+            border: 1px solid #ffa39e;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            color: #cf1322;
+            font-size: 14px;
+        }
+        
+        .issue-alert::before {
+            content: "⚠️ ";
+            margin-right: 8px;
+        }
+        
+        /* 表格 */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .summary-table th {
+            background: #fafafa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid #e8e8e8;
+        }
+        
+        .summary-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .summary-table tr:hover {
+            background: #fafafa;
+        }
+        
+        /* 折叠面板 */
+        .collapsible {
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        
+        .collapsible-header {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .collapsible-content {
+            padding: 16px;
+            display: none;
+            border-top: 1px solid #e8e8e8;
+        }
+        
+        .collapsible-content.active {
+            display: block;
+        }
+        
+        .footer {
+            background: #fafafa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            border-top: 1px solid #e8e8e8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 24px; }
+            .content { padding: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 大模型数字人详细评测报告</h1>
+            <div class="subtitle">搜推大模型测评数字人系统 | 2026年04月13日 15:42</div>
+        </div>
+        
+        <div class="content">
+            <!-- 统计概览 -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">数字人设</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">10</div>
+                    <div class="stat-label">测试用例</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #1890ff">4.06</div>
+                    <div class="stat-label">平均分</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">80.0%</div>
+                    <div class="stat-label">通过率</div>
+                </div>
+            </div>
+            
+            <!-- 涉及人群 -->
+            <div class="category-tabs">
+                <div class="tab active">全部</div>
+                <div class="tab">忙碌的年轻白领</div><div class="tab">退休阿姨</div><div class="tab">大学生</div><div class="tab">新手妈妈</div><div class="tab">双职工家庭</div><div class="tab">精致白领</div>
+            </div>
+            
+            <!-- 详细评测记录 -->
+            <h2 style="margin-bottom: 24px; color: #333;">📋 详细评测记录</h2>
+            
+            
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0001</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #faad14">
+                        3.53分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是互联网公司的产品经理，经常加班到深夜，现在突然头痛得厉害，家里没有止痛药了，请推荐一款适合我的止痛药，要求30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        您好，作为您的智能助手，我必须提醒您：**头痛可能是多种原因引起的，包括压力、睡眠不足、偏头痛、颈椎问题，甚至是更严重的健康问题。** 在没有明确诊断的情况下，不建议自行服用止痛药。
+
+考虑到您目前的情况，建议您：
+
+1. **立即停止工作，休息并尝试放松**（如深呼吸、热敷、轻度按摩）。
+2. **如果症状持续或加重，请尽快联系专业医生或前往医院急诊**。
+3. 如果您确定需要临时缓解疼痛，**请务必在医生指导下使用药物**，避免自行用药可能带来的风险。
+
+关于即时配送，您可以打开附近的药店或外卖平台（如美团、饿了么等），搜索“止痛药”或“布洛芬”、“对乙酰氨基酚”等常见药品，并选择“30分钟送达”服务。但请注意：
+
+- 一定要确认药品是否需要处方（如某些复方止痛药）。
+- 不要长期依赖止痛药，尤其是频繁头痛时，建议及时就医。
+
+如果您需要，我可以帮您查找附近可提供快速配送的药店信息。您所在的城市是？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>自行服用止痛药, 1. **立即停止工作, 及时就医</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.2</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #faad14; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0002</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.19分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是互联网公司的产品经理，经常加班到深夜，现在突然头痛得厉害，家里没有止痛药了，请推荐一款适合我的止痛药，要求30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        您好，非常抱歉您现在身体不适。不过，在这种情况下，我建议您**立即联系专业医生或前往附近医院就诊**，因为头痛可能由多种原因引起，包括但不限于压力、偏头痛、高血压或其他潜在健康问题，自行用药可能会掩盖病情或带来风险。
+
+如果您需要紧急药品配送，可以尝试以下步骤：
+
+1. **使用本地的即时零售平台（如美团闪购、京东到家、盒马等）搜索“止痛药”或“布洛芬”、“对乙酰氨基酚”等常见非处方止痛药，查看是否有门店可30分钟送达**。
+2. **若平台显示无货或配送时间过长，建议拨打当地药店电话直接订购**，部分药店支持快速配送服务。
+3. **如果情况严重，请立刻拨打急救电话（如120）寻求专业帮助**。
+
+再次提醒：**切勿自行随意用药，尤其是长期或频繁出现头痛的情况，务必及时就医**。希望您早日康复！
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>**立即联系专业医生或前往附近医院就诊**, 拨打当地药店电话直接订购**</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.6</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0003</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.19分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是互联网公司的产品经理，经常加班到深夜，现在突然头痛得厉害，家里没有止痛药了，请推荐一款适合我的止痛药，要求30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        您好，考虑到您的情况，建议您尽快联系专业医生或前往最近的医疗机构进行检查，因为突发性头痛可能由多种原因引起，包括但不限于压力、睡眠不足、偏头痛或其他潜在健康问题。在未明确病因的情况下，自行服用止痛药可能存在风险。
+
+如果您确实需要紧急缓解症状，可以尝试以下步骤：
+
+1. **立即联系医疗机构**：拨打急救电话或前往附近医院急诊科，确保得到专业诊断。
+2. **通过即时零售平台下单**：如果医生确认可以使用止痛药，您可以尝试通过美团、京东到家等平台搜索“止痛药”（如对乙酰氨基酚、布洛芬等），选择附近药店并开启“极速达”服务，通常30分钟内可送达。但请注意：
+   - 部分药品需凭处方购买（如某些复方止痛药）。
+   - 建议优先选择非处方药（如对乙酰氨基酚），但仍需谨慎使用。
+
+**重要提醒**：  
+- 请勿自行长期或过量使用止痛药，以免掩盖潜在疾病或引发副作用。
+- 如果头痛持续加重、伴随发热、呕吐、视力模糊等症状，请**立即就医**。
+
+希望您早日康复！如有其他需求，欢迎随时咨询。
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>尽快联系专业医生或前往最近的医疗机构进行检查, 优先选择非处方药（如对乙酰氨基酚）, - 建议优先</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>考虑用户需求</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.6</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0004</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.06分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是加班族，颈椎最近很不舒服，想买一个颈椎按摩仪，有什么推荐？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        你好！作为加班族，长时间伏案工作确实容易导致颈椎不适。使用一款合适的颈椎按摩仪可以有效缓解疲劳和不适。以下是我为你推荐的几款性价比较高、口碑较好的颈椎按摩仪：
+
+---
+
+### 🌟 **1. 理想电器（EASON）颈椎按摩仪**
+- **特点**：采用热敷+气囊揉捏+低频脉冲，能有效放松肌肉、促进血液循环。
+- **优点**：操作简单、适合长时间使用，价格亲民。
+- **适用人群**：办公族、经常低头看手机的人群。
+
+---
+
+### 🌟 **2. 有棵树（Youshushu）颈椎按摩仪**
+- **特点**：多档位调节、可拆卸设计、支持多种按摩模式。
+- **优点**：舒适度高，适合长时间佩戴，对肩颈僵硬效果明显。
+- **适用人群**：长期久坐、肩颈酸痛的人。
+
+---
+
+### 🌟 **3. 飞利浦（Philips）颈部按摩仪**
+- **特点**：专业品牌，具备智能感应技术，自动调节力度。
+- **优点**：质量稳定、功能全面，适合对品质要求较高的用户。
+- **适用人群**：追求高品质、注重健康体验的用户。
+
+---
+
+### 🌟 **4. 倍轻松（BESPOKE）颈椎按摩仪**
+- **特点**：便携式设计，适合居家或办公室使用。
+- **优点**：轻便易携带，适合出差或外出时使用。
+- **适用人群**：经常外出、需要随时放松肩颈的人。
+
+---
+
+### ✅ **选购小贴士：**
+- 选择有 **热敷功能** 的，有助于缓解肌肉紧张。
+- 按摩方式建议选择 **气囊揉捏 + 低频脉冲**，更接近专业手法。
+- 注意 **尺寸是否合适**，避免过紧或过松影响效果。
+- 如果你有颈椎病史，建议先咨询医生后再使用。
+
+---
+
+如果你告诉我你预算范围或者更具体的需求（如是否需要便携、是否需要蓝牙连接等），我可以进一步帮你筛选更合适的产品！
+
+希望你的颈椎早日恢复健康～ 😊
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>的几款性价比较高、口碑较好的颈椎按摩仪：, 先咨询医生后再使用, - 按摩方式建议, 选择 **气囊揉捏 + 低频脉冲**</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>考虑用户需求, 适用性说明, 条件判断</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0005</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.16分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是加班族，颈椎最近很不舒服，想买一个颈椎按摩仪，有什么推荐？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        你好！作为加班族，长时间伏案工作确实容易导致颈椎不适，使用颈椎按摩仪是一个不错的选择。以下是几款比较受欢迎、适合日常使用的颈椎按摩仪推荐，供你参考：
+
+---
+
+### 🎯 **1. 乔威（JOWAY）颈椎按摩仪**
+- **特点**：采用“热敷+气囊按摩”模式，对缓解肌肉酸痛效果较好。
+- **优点**：佩戴舒适，适合长时间使用，可调节力度。
+- **适用人群**：适合久坐办公、肩颈僵硬的人群。
+
+---
+
+### 🎯 **2. 森歌（Sangyo）颈椎按摩仪**
+- **特点**：具备红外线热敷和低频脉冲功能，能有效放松肌肉。
+- **优点**：操作简单，适合初次使用按摩仪的用户。
+- **适用人群**：适合轻度颈椎不适、需要日常护理的人群。
+
+---
+
+### 🎯 **3. 颈椎按摩仪（品牌：倍轻松/小熊/小米）**
+- **特点**：多品牌选择，如小米有线式颈椎按摩仪、小熊便携式等。
+- **优点**：价格亲民，款式多样，部分支持手机APP控制。
+- **适用人群**：预算有限、追求性价比的用户。
+
+---
+
+### 🎯 **4. 腰颈按摩仪（如：大宇、SKG）**
+- **特点**：有些产品不仅限于颈椎，还可以同时按摩肩部或腰部。
+- **优点**：多功能，适合肩颈腰一起不舒服的用户。
+- **适用人群**：全身疲劳、肩颈腰都有问题的上班族。
+
+---
+
+### 💡 **选购建议：**
+1. **根据需求选择类型**：
+   - 如果只是**单纯颈椎不适**，可以选择专为颈椎设计的按摩仪。
+   - 如果**肩颈腰都累**，可以考虑多功能的按摩仪。
+   
+2. **注意材质和佩戴舒适度**：
+   - 选择柔软、透气、贴合颈部的材质，避免压迫感。
+
+3. **是否需要热敷功能**：
+   - 热敷有助于放松肌肉，适合经常熬夜、久坐的人。
+
+4. **电源方式**：
+   - 有线式更稳定，无线式更方便携带。
+
+---
+
+### ❗温馨提示：
+虽然颈椎按摩仪可以帮助缓解不适，但**长期或严重疼痛建议咨询专业医生**，排查是否有颈椎病或其他健康问题。
+
+如果你告诉我你的预算范围或更具体的需求（比如是否需要便携、是否需要热敷等），我可以帮你进一步筛选推荐哦！
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>- **特点**：多品牌, 使用颈椎按摩仪是一个不错的, 1. **根据需求, 虑多功能的按摩仪, 咨询专业医生**</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>考虑用户需求, 适用性说明, 用户特征</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0006</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.25分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是加班族，颈椎最近很不舒服，想买一个颈椎按摩仪，有什么推荐？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        你好！作为加班族，长时间伏案工作确实容易导致颈椎不适，使用一款合适的颈椎按摩仪可以有效缓解疲劳和不适。不过，在购买之前，建议你先咨询专业医生或理疗师，确认你的颈椎状况是否适合使用按摩仪，避免不当使用加重症状。
+
+如果你已经得到医生的许可，以下是一些常见的颈椎按摩仪类型及推荐，供你参考：
+
+---
+
+### 一、常见颈椎按摩仪类型
+
+1. **颈部按摩仪（颈枕式）**  
+   - 特点：类似颈枕，可放在脖子上，通过热敷+震动或气压方式按摩。
+   - 优点：方便使用，适合在办公或家中使用。
+   - 推荐品牌：**小米、倍轻松、飞利浦、奥克斯、荣泰**等。
+
+2. **肩颈一体式按摩仪**  
+   - 特点：同时按摩肩膀和颈部，适合长时间久坐人群。
+   - 优点：覆盖范围更广，效果更全面。
+   - 推荐品牌：**倍轻松、西屋、松下、东芝**等。
+
+3. **便携式手持按摩仪**  
+   - 特点：小巧便携，适合随身携带，可手动操作。
+   - 优点：灵活方便，适合出差或办公室使用。
+   - 推荐品牌：**佳卫、飞利浦、欧姆龙**等。
+
+4. **电动颈椎牵引器**  
+   - 特点：通过电动牵引拉伸颈椎，适合有颈椎病或椎间盘突出的人群。
+   - 注意：这类产品需谨慎使用，最好在医生指导下进行。
+   - 推荐品牌：**爱康、迈瑞、鱼跃**等。
+
+---
+
+### 二、选购建议
+
+- **看功能需求**：是需要热敷、气压、震动、还是牵引？
+- **看舒适度**：选择贴合颈部曲线、材质柔软的产品。
+- **看品牌与售后**：优先选择知名品牌，售后服务有保障。
+- **看用户评价**：可以查看电商平台（如京东、淘宝、拼多多）上的真实用户反馈。
+
+---
+
+### 三、推荐型号（仅供参考）
+
+1. **倍轻松 颈部按摩仪**  
+   - 采用热敷+气压按摩技术，适合日常舒缓。
+   - 品牌口碑好，设计贴心。
+
+2. **小米 颈部按摩仪**  
+   - 性价比高，支持手机APP控制，操作便捷。
+   - 适合年轻上班族。
+
+3. **荣泰 颈肩按摩仪**  
+   - 功能全面，有多种按摩模式，适合长时间使用。
+
+4. **飞利浦 颈部按摩仪**  
+   - 设计简约，使用舒适，适合家庭或办公使用。
+
+---
+
+### 四、温馨提示
+
+- 使用时注意时间，一般每次不超过20分钟。
+- 不要在睡觉时使用，以免压迫颈部。
+- 如果使用后仍有不适，应及时就医。
+
+---
+
+如果你告诉我你更偏向哪种类型（如便携、热敷、气压等），我可以进一步帮你筛选具体型号哦！
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>品牌：**爱康、迈瑞、鱼跃**等, 品牌：**佳卫、飞利浦、欧姆龙**等, 品牌：**小米、倍轻松、飞利浦、奥克斯、荣泰**等, 品牌：**倍轻松、西屋、松下、东芝**等, 型号（仅供参考）</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>适用性说明, 用户特征</p>
+                            <p><strong>安全提示：</strong>有不适，应及时就医</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0007</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        3.19分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        工作太忙没时间做饭，想点一份健康的外卖，有什么推荐？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        你好！工作忙碌的时候确实很难抽时间做饭，选择一份健康的外卖是个不错的选择。以下是一些健康外卖的推荐方向和具体建议：
+
+### 一、健康外卖推荐方向
+
+1. **低脂高蛋白**  
+   - 推荐：鸡胸肉、牛肉、鱼肉、豆腐等
+   - 食材搭配：蔬菜（如西兰花、菠菜、生菜）、全谷物（如糙米、藜麦）
+
+2. **少油少盐**  
+   - 选择“清蒸”、“水煮”、“炖”等烹饪方式
+   - 避免“油炸”、“红烧”、“重口味”类菜品
+
+3. **营养均衡**  
+   - 每餐尽量包含蛋白质 + 碳水化合物 + 膳食纤维（蔬菜/水果）
+
+---
+
+### 二、具体推荐菜品（可参考平台菜单）
+
+| 类型         | 推荐菜品                          | 说明                             |
+|--------------|-----------------------------------|----------------------------------|
+| 主食类       | 糙米饭/藜麦饭                      | 比白米饭更健康，升糖指数低        |
+| 肉类         | 鸡胸肉炒西兰花 / 清蒸鲈鱼          | 高蛋白、低脂肪                    |
+| 蔬菜类       | 凉拌菠菜 / 清炒生菜                | 富含维生素、膳食纤维              |
+| 汤品         | 紫菜蛋花汤 / 番茄豆腐汤             | 低脂、易消化                      |
+| 小吃/主食    | 全麦面包 / 蒸玉米                  | 替代白米饭或油炸食品              |
+
+---
+
+### 三、推荐平台/商家类型
+
+- **轻食餐厅**：如“轻食主义”、“小绿人”、“野兽派”等，主打低卡、健康饮食
+- **中式简餐**：如“紫光园”、“老北京炸酱面”等，可以选择少油少盐的套餐
+- **素食餐厅**：如“素心堂”、“素心”等，适合想要控制热量、增加植物蛋白摄入的人
+
+---
+
+### 四、小贴士
+
+- **注意分量**：避免点太大的份量，适量即可，防止浪费或摄入过多
+- **查看评价**：关注其他用户的评价，尤其是“健康”、“清淡”相关的反馈
+- **备注需求**：在下单时可以备注“少油少盐”、“不要香菜”等个性化要求
+
+---
+
+如果你告诉我你所在的城市或常用的外卖平台，我可以帮你更精准地推荐几家店铺和菜品哦！需要的话随时告诉我~ 😊
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>菜品（可参考平台菜单）, 平台/商家类型, 鸡胸肉、牛肉、鱼肉、豆腐等, ### 一、健康外卖推荐方向, 选择一份健康的外卖是个不错的</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.7</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0008</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.22分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        工作太忙没时间做饭，想点一份健康的外卖，有什么推荐？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        你好！工作忙碌的时候确实很难抽时间做饭，选择一份健康的外卖是个不错的选择。以下是一些健康外卖的推荐方向和具体建议：
+
+### 一、健康外卖推荐方向
+
+1. **低脂高蛋白**  
+   - 推荐：鸡胸肉、牛肉、鱼肉、豆腐等
+   - 食材搭配：蔬菜（如西兰花、菠菜、胡萝卜）、全谷物（如糙米、藜麦）
+
+2. **少油少盐**  
+   - 选择“清蒸”、“白灼”、“水煮”等烹饪方式
+   - 避免“红烧”、“糖醋”、“香辣”等重口味做法
+
+3. **均衡营养**  
+   - 每份包含蛋白质、碳水化合物、膳食纤维和少量健康脂肪
+
+4. **轻食沙拉/便当**  
+   - 轻食类餐品通常热量较低，营养丰富，适合上班族
+
+---
+
+### 二、具体推荐菜品（根据平台常见品类）
+
+| 类型 | 推荐菜品 |
+|------|----------|
+| **中式健康套餐** | 清蒸鲈鱼+时蔬+杂粮饭 |  
+| **轻食便当** | 鸡胸肉沙拉+全麦面包+水果 |  
+| **日式料理** | 照烧三文鱼+味噌汤+米饭 |  
+| **素食选项** | 豆腐炒时蔬+糙米饭+紫菜汤 |  
+| **西式简餐** | 烤鸡胸+藜麦+烤蔬菜 |  
+
+---
+
+### 三、点餐小贴士
+
+- 选择**明码标价、评价较高的餐厅**，确保食材新鲜。
+- 可以在备注中说明“少油少盐”、“不要酱料”等要求。
+- 尽量避免**油炸食品**、**含糖饮料**和**重口味主食**。
+
+---
+
+如果你告诉我你所在的城市或使用的外卖平台（如美团、饿了么、盒马、京东到家等），我可以更精准地推荐附近的健康外卖店铺和菜品哦！
+
+需要我帮你查找附近有哪些推荐的健康外卖吗？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>菜品（根据平台常见品类）, 菜品 |, 的健康外卖吗？, 鸡胸肉、牛肉、鱼肉、豆腐等, 选择一份健康的外卖是个不错的</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.7</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0009</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.41分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        工作太忙没时间做饭，想点一份健康的外卖，有什么推荐？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        你好！工作忙碌确实让人没时间做饭，点一份健康又方便的外卖是个不错的选择。以下是一些推荐，适合追求健康饮食的你：
+
+### 🥗 健康外卖推荐（按类型）：
+
+---
+
+#### 1. **轻食沙拉类**
+- **推荐理由**：低卡、高纤维、富含维生素和蛋白质。
+- **常见菜品**：
+  - 鸡胸肉藜麦沙拉
+  - 牛油果鸡蛋沙拉
+  - 混合蔬菜搭配鸡胸肉或豆腐
+
+---
+
+#### 2. **杂粮饭/糙米套餐**
+- **推荐理由**：相比白米饭更易控制血糖，增加膳食纤维摄入。
+- **常见搭配**：
+  - 杂粮饭 + 清蒸鱼 + 蒸时蔬
+  - 糙米饭 + 鸡胸肉炒西兰花 + 木耳
+
+---
+
+#### 3. **汤品+主食组合**
+- **推荐理由**：营养均衡，容易消化。
+- **推荐汤品**：
+  - 冬瓜排骨汤（清热利尿）
+  - 紫菜蛋花汤（含碘丰富）
+  - 菌菇鸡汤（增强免疫力）
+
+---
+
+#### 4. **素食餐**
+- **推荐理由**：适合想减少肉类摄入或素食主义者。
+- **常见选择**：
+  - 麻婆豆腐配糙米
+  - 麻酱拌面 + 炒时蔬
+  - 素馅包子 + 小米粥
+
+---
+
+#### 5. **便当类（日式/中式）**
+- **推荐理由**：搭配合理，食材多样。
+- **推荐内容**：
+  - 三文鱼饭团 + 蔬菜味增汤
+  - 宫保鸡丁 + 紫薯 + 清炒芥蓝
+
+---
+
+### ✅ 健康点餐小贴士：
+
+- **少油少盐**：点餐时备注“少油”、“少盐”或“不加酱”。
+- **多选蔬菜**：尽量选择绿叶菜、菌菇、豆制品等。
+- **避免高糖饮料**：可以选无糖茶、柠檬水或苏打水。
+
+---
+
+如果你告诉我你所在的城市或平台（如美团、饿了么、盒马等），我可以帮你直接推荐附近评价高的健康外卖店铺哦！  
+另外，如果需要根据你的口味偏好（如清淡、重口味、忌口等）进一步定制推荐，也欢迎告诉我～ 😊
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>理由**：低卡、高纤维、富含维生素和蛋白质, 理由**：相比白米饭更易控制血糖, 汤品**：, 理由**：营养均衡, - **常见</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.3</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="" data-scenario="" data-category="">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0010</span>
+                        <span class="tag tag-persona"></span>
+                        <span class="tag tag-scenario"></span>
+                        <span class="tag tag-category"></span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.41分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是新手妈妈，宝宝突然发烧到39度，家里没有退热贴了，急需购买，多久能送到？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        您好，非常理解您现在的心情，宝宝发烧确实让家长很担心。首先，请务必尽快带宝宝去医院就诊，确认发烧的原因，确保安全。如果医生建议使用退热贴或其他药物，请注意以下几点：
+
+1. **关于退热贴**：我们平台有多种品牌的退热贴可以快速配送，一般在30分钟至2小时内可送达（视您所在城市和配送情况而定）。
+2. **其他备选物品**：如果您暂时无法买到退热贴，也可以考虑购买退烧药（如对乙酰氨基酚或布洛芬），但请务必遵医嘱使用。
+
+如果您能告诉我您所在的城市，我可以为您查询最近的店铺和预计送达时间。同时，我们也可以优先为您推荐附近的药店或连锁超市的商品，帮助您尽快拿到所需物品。
+
+再次提醒：如果宝宝体温持续高烧不退、精神状态差、呼吸急促等，请立即前往医院急诊科就诊。
+
+需要我帮您下单或查找最近的配送点吗？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>使用退热贴或其他药物, 附近的药店或连锁超市的商品, 虑购买退烧药（如对乙酰氨基酚或布洛芬）</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>条件判断</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 改进建议汇总 -->
+            <div class="detail-card" style="margin-top: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.3);">
+                    <div class="card-title" style="color: white;">💡 改进建议汇总</div>
+                </div>
+                <div style="margin-bottom: 20px;">
+<h4 style="margin-bottom: 12px; opacity: 0.9;">📉 待提升维度</h4>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">准确性: 3.76分</span>
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">时效性: 3.90分</span>
+</div></div>
+<div style="margin-bottom: 20px;">
+<h4 style="margin-bottom: 12px; opacity: 0.9;">⚠️ 问题分布</h4>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">安全问题: 2次</span>
+</div></div>
+<div>
+<h4 style="margin-bottom: 12px; opacity: 0.9;">🎯 重点改进方向</h4>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+<li style="margin-bottom: 6px;">完善安全提示：医药品类必须包含安全用药提醒</li>
+<li style="margin-bottom: 6px;">重要：所有医药相关推荐必须包含安全提示和医生咨询建议</li>
+</ul></div>
+            </div>
+            
+            <!-- 汇总表格 -->
+            <div class="detail-card" style="margin-top: 40px;">
+                <div class="card-header">
+                    <div class="card-title">📊 评测汇总表</div>
+                </div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Query ID</th>
+                            <th>人设</th>
+                            <th>场景</th>
+                            <th>品类</th>
+                            <th>总分</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                <td>Q0001</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #faad14; font-weight: 600;">3.53</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0002</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.19</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0003</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.19</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0004</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.06</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0005</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.16</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0006</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.25</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0007</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #f5222d; font-weight: 600;">3.19</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0008</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.22</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0009</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.41</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0010</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="color: #1890ff; font-weight: 600;">4.41</td>
+                <td>✅ 通过</td>
+            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>搜推大模型测评数字人系统 | 报告生成时间：2026-04-13 15:42:20</p>
+        </div>
+    </div>
+    
+    <script>
+        // 折叠面板交互
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+                const arrow = this.querySelector('.arrow');
+                if (arrow) {
+                    arrow.textContent = content.classList.contains('active') ? '▼' : '▶';
+                }
+            });
+        });
+        
+        // Tab切换功能
+        const tabs = document.querySelectorAll('.tab');
+        const cards = document.querySelectorAll('.detail-card[data-persona]');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有active状态
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.textContent.trim();
+                
+                // 过滤卡片
+                cards.forEach(card => {
+                    if (filter === '全部') {
+                        card.style.display = 'block';
+                    } else {
+                        const persona = card.getAttribute('data-persona');
+                        if (persona && persona.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // 更新统计
+                updateStats();
+            });
+        });
+        
+        // 更新统计信息
+        function updateStats() {
+            const visibleCards = document.querySelectorAll('.detail-card[data-persona]:not([style*="none"])');
+            const totalCount = document.querySelector('.stat-value');
+            if (totalCount) {
+                totalCount.textContent = visibleCards.length;
+            }
+        }
+    </script>
+</body>
+</html>

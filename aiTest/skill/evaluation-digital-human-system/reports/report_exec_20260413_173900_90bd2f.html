@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大模型数字人详细评测报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 32px; margin-bottom: 10px; font-weight: 600; }
+        .header .subtitle { font-size: 16px; opacity: 0.9; }
+        
+        .content { padding: 40px; }
+        
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label { font-size: 14px; color: #888; }
+        
+        /* 分类标签 */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover, .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        /* 详情卡片 */
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-score {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        
+        .tag-persona { background: #e6f7ff; color: #1890ff; }
+        .tag-scenario { background: #f6ffed; color: #52c41a; }
+        .tag-category { background: #fff7e6; color: #fa8c16; }
+        .tag-priority { background: #fff1f0; color: #f5222d; }
+        
+        /* 内容区块 */
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-content {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            border-left: 4px solid #667eea;
+        }
+        
+        .qwen-response {
+            background: #f6ffed;
+            border-left-color: #52c41a;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .test-case {
+            background: #e6f7ff;
+            border-left-color: #1890ff;
+        }
+        
+        .evaluation-result {
+            background: #fff7e6;
+            border-left-color: #faad14;
+        }
+        
+        /* 评分维度 */
+        .score-dimensions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .dimension-item {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .dimension-name { font-size: 12px; color: #888; margin-bottom: 4px; }
+        .dimension-score { font-size: 18px; font-weight: bold; color: #333; }
+        
+        /* 问题提示 */
+        .issue-alert {
+            background: #fff1f0;
+            border: 1px solid #ffa39e;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            color: #cf1322;
+            font-size: 14px;
+        }
+        
+        .issue-alert::before {
+            content: "⚠️ ";
+            margin-right: 8px;
+        }
+        
+        /* 表格 */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .summary-table th {
+            background: #fafafa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid #e8e8e8;
+        }
+        
+        .summary-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .summary-table tr:hover {
+            background: #fafafa;
+        }
+        
+        /* 折叠面板 */
+        .collapsible {
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        
+        .collapsible-header {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .collapsible-content {
+            padding: 16px;
+            display: none;
+            border-top: 1px solid #e8e8e8;
+        }
+        
+        .collapsible-content.active {
+            display: block;
+        }
+        
+        .footer {
+            background: #fafafa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            border-top: 1px solid #e8e8e8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 24px; }
+            .content { padding: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 大模型数字人详细评测报告</h1>
+            <div class="subtitle">搜推大模型测评数字人系统 | 2026年04月13日 17:40</div>
+        </div>
+        
+        <div class="content">
+            <!-- 统计概览 -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">数字人设</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">16</div>
+                    <div class="stat-label">测试用例</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #f5222d">3.06</div>
+                    <div class="stat-label">平均分</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">0.0%</div>
+                    <div class="stat-label">通过率</div>
+                </div>
+            </div>
+            
+            <!-- 涉及人群 -->
+            <div class="category-tabs">
+                <div class="tab active">全部</div>
+                <div class="tab">新手妈妈</div><div class="tab">大学生</div><div class="tab">忙碌的年轻白领</div><div class="tab">双职工家庭</div><div class="tab">退休阿姨</div><div class="tab">精致白领</div>
+            </div>
+            
+            <!-- 详细评测记录 -->
+            <h2 style="margin-bottom: 24px; color: #333;">📋 详细评测记录</h2>
+            
+            
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0001</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.50分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个忙碌的年轻白领，昨晚加班太晚导致今天早上起来感觉有点感冒，需要买点感冒药应急，希望30分钟内能送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0002</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.50分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个忙碌的白领，昨晚加班到很晚今天突然感觉有点感冒了，需要买点感冒药和退烧药应急，希望30分钟内能送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0003</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        3.44分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一名忙碌的白领，宝宝突然没尿布了，家里也没有备用的，谁能帮我紧急送一包婴儿尿不湿过来？最好30分钟内能送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0004</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        3.44分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个忙碌的白领妈妈，宝宝突然没奶粉了，能帮我找一款适合6个月大的婴儿奶粉吗？最好是30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0005</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.69分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个忙碌的白领，最近总是加班到很晚，感觉身体有点吃不消了。想买点维生素C和抗疲劳的保健品来补充一下体力，希望30分钟内能送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0006</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.69分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个忙碌的白领，最近总是加班到很晚，感觉身体有点吃不消了，想买点维生素C增强免疫力，最好是能30分钟内送到的那种。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0007</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #faad14">
+                        3.62分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是个忙碌的白领，下班回家发现宝宝的尿布快用完了，急需买一些大号婴儿尿布，希望30分钟内能送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #faad14; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0008</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #faad14">
+                        3.62分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个忙碌的年轻白领，刚刚发现宝宝的纸尿裤不够用了，急需买一些适合夜间使用的婴儿纸尿裤，希望可以30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #faad14; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0009</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.50分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个新手妈妈，宝宝突然发烧了，家里没有退烧药了，急需要买儿童用的退烧药，能30分钟送到吗？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0010</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.50分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是个新手妈妈，宝宝突然有点发烧，家里没有退烧药了，急需买点儿童用的退烧药，能不能30分钟内送到？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0011</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        3.44分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个新手妈妈，宝宝突然拉肚子了，家里没有备用的尿不湿和婴儿湿巾了，能帮我30分钟内送到吗？需要适合新生儿用的。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0012</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        3.44分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是个新手妈妈，宝宝突然用完了尿不湿，急需要一包S号的婴儿纸尿裤，最好能30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0013</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.69分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个新手妈妈，宝宝突然有点发烧，家里没有退烧药了，想立刻买一些婴儿用的退烧药，最好是30分钟内能送到的，安全可靠的。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="医药健康">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0014</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">医药健康</span>
+                    </div>
+                    <div class="card-score" style="background: #f5222d">
+                        2.69分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个新手妈妈，宝宝突然有点拉肚子，想赶紧买点止泻药和益生菌，希望30分钟内能送到家。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #f5222d">2.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                <div class="issue-alert">医药品类缺少安全提示</div>
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #f5222d; font-weight: 500;">
+                        ⚠️ 发现问题
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0015</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #faad14">
+                        3.62分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是一个新手妈妈，想给宝宝买个质量好的奶瓶，最好是玻璃的，能30分钟内送到吗？
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #faad14; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="母婴用品">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0016</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">母婴用品</span>
+                    </div>
+                    <div class="card-score" style="background: #faad14">
+                        3.62分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我是个新手妈妈，宝宝突然哭闹不止，可能是肚子不舒服，急需买一些婴儿胀气滴剂，希望30分钟内能送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        （无响应内容）
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>无</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #faad14; font-weight: 500;">
+                        ❌ 未通过
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 改进建议汇总 -->
+            <div class="detail-card" style="margin-top: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.3);">
+                    <div class="card-title" style="color: white;">💡 改进建议汇总</div>
+                </div>
+                <div style="margin-bottom: 20px;">
+<h4 style="margin-bottom: 12px; opacity: 0.9;">📉 待提升维度</h4>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">时效性: 2.50分</span>
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">准确性: 3.00分</span>
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">个性化: 3.00分</span>
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">安全性: 3.50分</span>
+</div></div>
+<div style="margin-bottom: 20px;">
+<h4 style="margin-bottom: 12px; opacity: 0.9;">⚠️ 问题分布</h4>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">安全问题: 8次</span>
+</div></div>
+<div>
+<h4 style="margin-bottom: 12px; opacity: 0.9;">🎯 重点改进方向</h4>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+<li style="margin-bottom: 6px;">完善安全提示：医药品类必须包含安全用药提醒</li>
+<li style="margin-bottom: 6px;">增强时效感知：在应急场景下明确承诺配送时效</li>
+<li style="margin-bottom: 6px;">重要：所有医药相关推荐必须包含安全提示和医生咨询建议</li>
+</ul></div>
+            </div>
+            
+            <!-- 汇总表格 -->
+            <div class="detail-card" style="margin-top: 40px;">
+                <div class="card-header">
+                    <div class="card-title">📊 评测汇总表</div>
+                </div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Query ID</th>
+                            <th>人设</th>
+                            <th>场景</th>
+                            <th>品类</th>
+                            <th>总分</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                <td>Q0001</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.50</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0002</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.50</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0003</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>母婴用品</td>
+                <td style="color: #f5222d; font-weight: 600;">3.44</td>
+                <td>❌ 未通过</td>
+            </tr>
+<tr>
+                <td>Q0004</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>母婴用品</td>
+                <td style="color: #f5222d; font-weight: 600;">3.44</td>
+                <td>❌ 未通过</td>
+            </tr>
+<tr>
+                <td>Q0005</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.69</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0006</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.69</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0007</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>母婴用品</td>
+                <td style="color: #faad14; font-weight: 600;">3.62</td>
+                <td>❌ 未通过</td>
+            </tr>
+<tr>
+                <td>Q0008</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>母婴用品</td>
+                <td style="color: #faad14; font-weight: 600;">3.62</td>
+                <td>❌ 未通过</td>
+            </tr>
+<tr>
+                <td>Q0009</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.50</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0010</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.50</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0011</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>母婴用品</td>
+                <td style="color: #f5222d; font-weight: 600;">3.44</td>
+                <td>❌ 未通过</td>
+            </tr>
+<tr>
+                <td>Q0012</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>母婴用品</td>
+                <td style="color: #f5222d; font-weight: 600;">3.44</td>
+                <td>❌ 未通过</td>
+            </tr>
+<tr>
+                <td>Q0013</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.69</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0014</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>医药健康</td>
+                <td style="color: #f5222d; font-weight: 600;">2.69</td>
+                <td>⚠️ 问题</td>
+            </tr>
+<tr>
+                <td>Q0015</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>母婴用品</td>
+                <td style="color: #faad14; font-weight: 600;">3.62</td>
+                <td>❌ 未通过</td>
+            </tr>
+<tr>
+                <td>Q0016</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>母婴用品</td>
+                <td style="color: #faad14; font-weight: 600;">3.62</td>
+                <td>❌ 未通过</td>
+            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>搜推大模型测评数字人系统 | 报告生成时间：2026-04-13 17:40:34</p>
+        </div>
+    </div>
+    
+    <script>
+        // 折叠面板交互
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+                const arrow = this.querySelector('.arrow');
+                if (arrow) {
+                    arrow.textContent = content.classList.contains('active') ? '▼' : '▶';
+                }
+            });
+        });
+        
+        // Tab切换功能
+        const tabs = document.querySelectorAll('.tab');
+        const cards = document.querySelectorAll('.detail-card[data-persona]');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有active状态
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.textContent.trim();
+                
+                // 过滤卡片
+                cards.forEach(card => {
+                    if (filter === '全部') {
+                        card.style.display = 'block';
+                    } else {
+                        const persona = card.getAttribute('data-persona');
+                        if (persona && persona.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // 更新统计
+                updateStats();
+            });
+        });
+        
+        // 更新统计信息
+        function updateStats() {
+            const visibleCards = document.querySelectorAll('.detail-card[data-persona]:not([style*="none"])');
+            const totalCount = document.querySelector('.stat-value');
+            if (totalCount) {
+                totalCount.textContent = visibleCards.length;
+            }
+        }
+    </script>
+</body>
+</html>

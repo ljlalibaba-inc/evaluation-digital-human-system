@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大模型数字人详细评测报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 32px; margin-bottom: 10px; font-weight: 600; }
+        .header .subtitle { font-size: 16px; opacity: 0.9; }
+        
+        .content { padding: 40px; }
+        
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label { font-size: 14px; color: #888; }
+        
+        /* 分类标签 */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover, .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        /* 详情卡片 */
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-score {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        
+        .tag-persona { background: #e6f7ff; color: #1890ff; }
+        .tag-scenario { background: #f6ffed; color: #52c41a; }
+        .tag-category { background: #fff7e6; color: #fa8c16; }
+        .tag-priority { background: #fff1f0; color: #f5222d; }
+        
+        /* 内容区块 */
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-content {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            border-left: 4px solid #667eea;
+        }
+        
+        .qwen-response {
+            background: #f6ffed;
+            border-left-color: #52c41a;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .test-case {
+            background: #e6f7ff;
+            border-left-color: #1890ff;
+        }
+        
+        .evaluation-result {
+            background: #fff7e6;
+            border-left-color: #faad14;
+        }
+        
+        /* 评分维度 */
+        .score-dimensions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .dimension-item {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .dimension-name { font-size: 12px; color: #888; margin-bottom: 4px; }
+        .dimension-score { font-size: 18px; font-weight: bold; color: #333; }
+        
+        /* 问题提示 */
+        .issue-alert {
+            background: #fff1f0;
+            border: 1px solid #ffa39e;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            color: #cf1322;
+            font-size: 14px;
+        }
+        
+        .issue-alert::before {
+            content: "⚠️ ";
+            margin-right: 8px;
+        }
+        
+        /* 表格 */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .summary-table th {
+            background: #fafafa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid #e8e8e8;
+        }
+        
+        .summary-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .summary-table tr:hover {
+            background: #fafafa;
+        }
+        
+        /* 折叠面板 */
+        .collapsible {
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        
+        .collapsible-header {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .collapsible-content {
+            padding: 16px;
+            display: none;
+            border-top: 1px solid #e8e8e8;
+        }
+        
+        .collapsible-content.active {
+            display: block;
+        }
+        
+        .footer {
+            background: #fafafa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            border-top: 1px solid #e8e8e8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 24px; }
+            .content { padding: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 大模型数字人详细评测报告</h1>
+            <div class="subtitle">搜推大模型测评数字人系统 | 2026年04月09日 21:18</div>
+        </div>
+        
+        <div class="content">
+            <!-- 统计概览 -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">数字人设</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">16</div>
+                    <div class="stat-label">测试用例</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #1890ff">4.42</div>
+                    <div class="stat-label">平均分</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">100.0%</div>
+                    <div class="stat-label">通过率</div>
+                </div>
+            </div>
+            
+            <!-- 涉及人群 -->
+            <div class="category-tabs">
+                <div class="tab active">全部</div>
+                <div class="tab">新手妈妈</div><div class="tab">忙碌的年轻白领</div><div class="tab">大学生</div><div class="tab">双职工家庭</div><div class="tab">精致白领</div><div class="tab">退休阿姨</div>
+            </div>
+            
+            <!-- 详细评测记录 -->
+            <h2 style="margin-bottom: 24px; color: #333;">📋 详细评测记录</h2>
+            
+            
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0001</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.22分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我早上赶着上班没时间买菜，现在急需一盒新鲜的西红柿和几把青菜，30分钟内送到公司楼下。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        好的，我帮您查询一下附近可以30分钟内送到的商家。您现在的位置是？方便告诉我一下具体地址吗？这样我可以为您推荐最近、最快送达的店铺，并确认是否有新鲜的西红柿和青菜供应。
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>最近、最快送达的店铺</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #faad14">3.7</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0002</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.34分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚下班，家里没菜了，急需买点蔬菜水果，30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        好的，我帮您快速挑选一些适合的蔬菜水果，确保30分钟内送达：
+
+【推荐商品】
+1. 西兰花（598g）- 清爽营养，适合炒食或凉拌
+2. 番茄（1kg）- 多种烹饪方式，补充维生素C
+3. 苹果（红富士1kg）- 香甜脆爽，方便携带
+4. 胡萝卜（500g）- 健康食材，可做沙拉或炖汤
+5. 洋葱（500g）- 万能调味品，提升菜肴风味
+
+【配送信息】
+当前距离您最近的门店：XX便利店（约8分钟车程）
+预计送达时间：28分钟（具体以实际订单为准）
+
+需要我为您添加其他品类吗？比如肉类、主食或调味品？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>商品】</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.1</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0003</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #52c41a">
+                        4.53分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我早上出门太急忘记带零食了，现在在公司楼下找点能30分钟送到的休闲食品解馋。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        好的，您现在需要的是在30分钟内送达的休闲食品，我来为您推荐几款适合在办公室或路上食用的零食：
+
+1. **薯片（如乐事、上好佳）** – 酥脆可口，是很多人的最爱。
+2. **巧克力（如费列罗、德芙）** – 能快速补充能量，满足甜食欲望。
+3. **坚果（如三只松鼠、良品铺子）** – 健康又解馋，适合长时间工作时食用。
+4. **果干（如王饱饱、三只松鼠）** – 甜而不腻，方便携带。
+5. **小包装饼干/蛋卷** – 携带方便，口味多样。
+
+您可以直接通过您的即时零售平台下单，比如美团闪购、京东到家、盒马等，选择“30分钟送达”的服务。如果需要，我可以帮您筛选出最近的店铺和商品，或者根据您喜欢的口味进一步推荐。
+
+您更偏爱什么口味的零食呢？我可以为您定制推荐！
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>几款适合在办公室或路上食用的零食：</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>适用性说明</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.1</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #52c41a; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="应急补给" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0004</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #52c41a">
+                        4.50分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我早上出门太急忘了带零食，现在在公司楼下找点能30分钟送到的休闲食品。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        你好！现在在公司楼下找零食，30分钟内送到的话，可以考虑以下几类休闲食品：
+
+### 🍫 甜食类（适合快速补充能量）：
+- **巧克力**（如德芙、费列罗）
+- **夹心饼干**（如奥利奥、趣多多）
+- **米果/薯片**（如乐事、品客）
+
+### 🥜 坚果类（健康又解馋）：
+- **混合坚果**（如三只松鼠、良品铺子）
+- **原味瓜子/开心果**
+- **杏仁/腰果**（独立包装更方便）
+
+### 🍪 零食小点（方便携带）：
+- **蛋黄酥/绿豆糕**（适合喜欢中式点心的你）
+- **蛋糕卷/布丁**（如果想吃点甜点）
+- **果干/蜜饯**（如葡萄干、芒果干）
+
+### 🧃 饮品类（如果需要搭配）：
+- **果汁**（如农夫山泉、汇源）
+- **酸奶**（如伊利、蒙牛）
+- **功能性饮料**（如脉动、红牛）
+
+你可以通过即时零售平台（如美团闪购、京东到家、盒马等）搜索“30分钟送达”或“附近配送”，系统会根据你的位置推荐最近的店铺和商品。
+
+如果你告诉我你喜欢的口味或忌口，我可以进一步帮你筛选哦！😊
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>虑以下几类休闲食品：, 最近的店铺和商品</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.3</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #52c41a; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0005</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.31分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我需要一份新鲜的蔬菜和水果，30分钟内送到公司，今天下班前得吃上。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        好的，您需要一份新鲜的蔬菜和水果，并且希望在30分钟内送到公司，今天下班前吃上。我为您推荐以下商品：
+
+### 🥦 蔬菜推荐：
+1. **菠菜** - 富含铁和维生素，适合做沙拉或炒菜。
+2. **胡萝卜** - 甜脆可口，可以生吃或煮熟。
+3. **西红柿** - 新鲜多汁，适合拌沙拉或煎蛋。
+4. **西兰花** - 营养丰富，适合清炒或水煮。
+
+### 🍎 水果推荐：
+1. **苹果** - 简单方便，营养丰富，适合直接食用。
+2. **香蕉** - 高能量、易携带，非常适合上班族。
+3. **橙子** - 富含维生素C，有助于增强免疫力。
+4. **葡萄** - 多汁甜美，可以直接吃。
+
+如果您有特定的饮食需求（如低糖、低碳水、素食等），请告诉我，我可以为您进一步优化推荐。同时，您可以选择在我们平台下单，我们会尽快安排配送，确保您在30分钟内收到。是否需要我帮您下单？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>1. **苹果** - 简单方便, 以下商品：, 您可以, 1. **菠菜** - 富含铁和维生素</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>适用性说明</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #52c41a">4.6</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0006</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.34分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚下班想买点新鲜的蔬菜水果，30分钟内送到家。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        好的，您刚下班想买点新鲜的蔬菜水果，并且希望30分钟内送到家，我来为您推荐一些适合的选择：
+
+### 🥦【推荐蔬菜】
+- **菠菜**：富含铁和维生素，适合做炒菜或汤。
+- **西兰花**：营养丰富，适合清炒或焯水凉拌。
+- **胡萝卜**：可以生吃或炒食，是健康的好选择。
+- **番茄**：可直接吃或做沙拉、炒菜。
+
+### 🍎【推荐水果】
+- **苹果**：方便携带，营养丰富，适合饭后吃。
+- **香蕉**：富含钾，有助于缓解疲劳。
+- **橙子/橘子**：富含维生素C，帮助增强免疫力。
+- **葡萄**：口感好，适合解渴。
+
+### 🛒【配送建议】
+为了确保在30分钟内送达，请尽量选择：
+- **距离较近的商家**（如小区附近的超市或生鲜店）
+- **下单时间尽量早些**（如18:30前下单，避免高峰期）
+
+如果您告诉我您所在的城市或具体位置，我可以帮您查找附近最近的店铺并推荐更精准的商品哦！需要吗？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>水果】, 请尽量, 蔬菜】, 更精准的商品哦！需要吗？, 是健康的好</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #52c41a">4.7</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #f5222d">3.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0007</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.38分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我下班路上想买点零食解解馋，30分钟内送到家。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        好的，您下班路上想买点零食解解馋，并且希望30分钟内送到家，我来为您推荐一些适合的零食：
+
+### 🍫 推荐零食（30分钟内送达）：
+1. **巧克力（如费列罗、德芙、明治等）**  
+   - 甜食控必备，快速满足嘴馋。
+   - 常见品牌在大多数平台都有库存。
+
+2. **薯片/虾条/脆片（如乐事、上好佳、品客）**  
+   - 酥脆可口，方便食用，适合边走边吃。
+
+3. **坚果（如三只松鼠、良品铺子）**  
+   - 健康又解馋，多种口味可选。
+
+4. **饼干（如奥利奥、趣多多、小熊软糖）**  
+   - 轻便易携带，适合应急解馋。
+
+5. **棒棒糖/水果糖（如大白兔、金丝猴）**  
+   - 经典怀旧款，适合简单解馋。
+
+6. **小包装糖果或巧克力豆（如M&M's、士力架）**  
+   - 精致小巧，方便携带。
+
+---
+
+### 🛒 如何下单更快？
+- 选择您常使用的即时零售平台（如美团闪购、京东到家、盒马、朴朴等）。
+- 搜索“零食”或直接浏览“解馋专区”。
+- 注意查看配送时间是否为“30分钟达”。
+
+---
+
+需要我根据您的口味偏好进一步推荐吗？比如您喜欢甜的、咸的还是辣的？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>吗？比如您喜欢甜的、咸的还是辣的？, 一些适合的零食：, 零食（30分钟内送达）：</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="忙碌的年轻白领" data-scenario="即时享受" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0008</span>
+                        <span class="tag tag-persona">忙碌的年轻白领</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.28分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我需要一份快速送到的休闲零食，下班路上想解解馋，30分钟内送到就行
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        好的，您可以在我们平台搜索“30分钟送达”或“即时配送”的商品，这样能确保在下班路上就能收到。以下是一些受欢迎的休闲零食推荐，您可以根据口味选择：
+
+1. **薯片类**：如乐事、可比克、品客等，口感丰富，适合解馋。
+2. **坚果类**：如三只松鼠、良品铺子的混合坚果，健康又美味。
+3. **巧克力/糖类**：如德芙、费列罗、阿尔卑斯等，甜蜜滋味很适合放松时享用。
+4. **果干类**：如金润、三只松鼠的芒果干、葡萄干等，方便携带又好吃。
+5. **辣条类**：如卫龙大面筋、小王子等，适合喜欢重口味的用户。
+
+您可以告诉我您的口味偏好（比如甜食、咸食、辣味、健康类等），我可以为您进一步推荐！同时，建议您尽快下单，以便在30分钟内送达。需要我帮您挑选几款吗？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>尽快下单, ！同时, 您可以根据口味</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>适用性说明</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.2</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0009</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #52c41a">
+                        4.62分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的叶菜，希望30分钟内送到
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        您好！恭喜您喜得宝宝，祝宝宝健康成长！为了尽快送到您家，我为您推荐以下几种适合产后妈妈的叶菜，并且这些商品在平台上有较高的库存和配送效率，可以确保30分钟内送达：
+
+1. **菠菜** - 富含铁和叶酸，非常适合产后补血。
+2. **油麦菜** - 清爽可口，容易消化，适合产后恢复期食用。
+3. **生菜** - 适合做沙拉或夹饼，营养丰富又方便。
+4. **小白菜** - 简单易做，适合搭配各种食材。
+
+您可以选择「急送」服务，系统会优先安排最近的门店配送。如果您有特别想吃的蔬菜，也可以告诉我，我会为您推荐最合适的选项。
+
+需要我帮您下单吗？还是您有其他需求？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>最合适的选项, 您可以, 以下几种适合产后妈妈的叶菜</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>适用性说明</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.1</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #52c41a; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0010</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.47分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的菠菜和胡萝卜，希望30分钟内送到。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        您好，恭喜您喜得宝宝！祝宝宝健康成长，也祝您早日恢复元气。关于您需要的菠菜和胡萝卜，我们平台有多个合作的生鲜超市和便利店，可以保证新鲜蔬菜的快速配送。
+
+为了尽快送到，建议您优先选择以下方式：
+
+1. **立即下单**：在您的即时零售平台上（如京东到家、美团买菜、盒马等）搜索“菠菜”和“胡萝卜”，选择距离您最近的门店，并确认其是否支持30分钟送达。
+2. **选择保质期短的菜品**：菠菜和胡萝卜都是比较耐储存的蔬菜，但建议您尽量选择当天采摘或当天配送的，以确保新鲜度。
+3. **注意配送时间**：下单后请留意订单状态，如有延迟可联系客服跟进。
+
+如果您不确定哪家店铺更可靠，我可以帮您查询附近的可选店铺，只需告诉我您的位置信息即可。
+
+另外，如果您还需要其他母婴用品或营养补给，也可以告诉我，我会为您推荐合适的商品。祝您生活顺利，一切安好！
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>合适的商品, 尽量选择当天采摘或当天配送的, 2. **, 但建议您尽量, 建议您优先</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.2</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #faad14">3.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0011</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #52c41a">
+                        4.59分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，家里零食快吃完了，急需补货，30分钟送到最好
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        恭喜你成为妈妈！宝宝的到来一定让家里充满了幸福和忙碌吧～不过现在你最需要的是好好休息，同时也要注意补充能量哦！
+
+为了尽快帮你补货，我建议你选择一些方便、营养又适合产后恢复的零食：
+
+1. **坚果类**：如核桃、腰果、杏仁等，富含健康脂肪和蛋白质，有助于恢复体力。
+2. **酸奶或奶酪**：补充钙质和蛋白质，对产后身体恢复很有帮助。
+3. **全麦饼干或能量棒**：方便食用，能快速补充能量。
+4. **水果干或冻干水果**：如蔓越莓干、苹果干等，既方便又营养。
+
+如果你需要，我可以立刻帮你下单，并选择“30分钟送达”的服务。请告诉我你所在的城市和具体地址，我会为你推荐附近的优质商家和最快送达的商品。另外，如果需要，我也可以帮你挑选一些适合产妇的营养品或月子餐。
+
+你希望我先帮你推荐哪些商品呢？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>我建议你, 附近的优质商家和最快送达的商品, 哪些商品呢？, 选择一些方便、营养又适合产后恢复的零食：</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #52c41a; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="应急补给" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0012</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">应急补给</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #52c41a">
+                        4.53分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，家里零食快吃完了，急需买点小零食垫垫肚子，希望30分钟内送到
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        恭喜你成为妈妈！产后确实需要好好补充能量，我来帮你推荐一些适合的零食，既方便食用又营养丰富。
+
+以下是一些适合产后妈妈的零食推荐：
+
+### 1. **坚果类（如核桃、腰果、杏仁）**
+- 健康脂肪和蛋白质，有助于恢复体力。
+- 建议选择无添加、原味的。
+
+### 2. **小包装酸奶/奶酪**
+- 补充钙质，促进身体恢复。
+- 方便携带，适合随时吃。
+
+### 3. **水果干/冻干水果**
+- 如芒果干、苹果干、蓝莓干等。
+- 富含维生素，口感好，不会太甜。
+
+### 4. **麦片/燕麦棒**
+- 能量快，饱腹感强，适合快速补充体力。
+- 选择低糖、高纤维的。
+
+### 5. **巧克力（黑巧克力为佳）**
+- 适量吃可以缓解压力，提升心情。
+- 建议选择70%以上的可可含量。
+
+### 6. **即食粥/米糊**
+- 温和易消化，适合产后肠胃敏感的阶段。
+- 可以选择红枣、桂圆口味的。
+
+---
+
+如果你希望我直接帮你下单，可以告诉我你所在的城市或地址，我会根据你附近的店铺推荐商品。另外，有些平台有“妈妈专区”或“母婴专区”，可以优先查看。
+
+如果需要，我也可以帮你筛选出**30分钟内送达**的商品。你告诉我你所在的地区吧！
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>- 建议, - 可以, 选择无添加、原味的, ### 1. **坚果类（如核桃、腰果、杏仁）**, 选择70%以上的可可含量</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>适用性说明</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.1</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #52c41a; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0013</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.44分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟送到家。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        恭喜您成为新妈妈！在产后恢复期间，保持营养均衡非常重要。为了满足您的需求，我为您推荐以下新鲜蔬菜和水果：
+
+1. **菠菜** - 富含铁和叶酸，有助于产后恢复
+2. **胡萝卜** - 含有丰富的维生素A，对视力和免疫系统有益
+3. **苹果** - 含有丰富的纤维和维生素C，有助于消化和增强免疫力
+4. **香蕉** - 富含钾，有助于缓解产后疲劳和改善情绪
+5. **橙子** - 含有丰富的维生素C，有助于增强免疫力和促进铁的吸收
+
+此外，我们还提供快速配送服务，确保您能在30分钟内收到新鲜的蔬菜和水果。如果您有其他需求或疑问，请随时告诉我，我会为您提供更个性化的建议。祝您和宝宝健康快乐！
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>以下新鲜蔬菜和水果：</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>无</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.1</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="生鲜果蔬">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0014</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">生鲜果蔬</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.34分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟内送到家，方便做月子餐。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        恭喜您喜得宝宝！月子期间的营养补充非常重要，新鲜的蔬菜和水果是必不可少的。在30分钟内送到家的即时零售平台，您可以选择以下推荐的商品：
+
+### 🥦 推荐蔬菜类：
+1. **菠菜** – 富含铁质，有助于产后补血。
+2. **西兰花** – 含有丰富的维生素C和纤维，帮助消化和增强免疫力。
+3. **胡萝卜** – 促进乳汁分泌，同时富含β-胡萝卜素。
+4. **西红柿** – 清热解毒，适合产后调理。
+
+### 🍎 推荐水果类：
+1. **苹果** – 易于消化，富含膳食纤维和维生素，适合产后食用。
+2. **香蕉** – 补充钾元素，缓解产后便秘。
+3. **橙子/柚子** – 富含维生素C，增强免疫力。
+4. **猕猴桃** – 含有丰富的维C和叶酸，适合产后恢复。
+
+### 🥣 小贴士：
+- 建议选择当季、新鲜的蔬果，避免过于寒凉或刺激性的水果（如西瓜、梨等），可根据个人体质进行调整。
+- 如果您是剖腹产，建议避免生冷食物，可以优先选择温性的水果和蔬菜。
+- 也可以考虑购买一些有机或无农药残留的产品，更加安全健康。
+
+如果您需要，我可以帮您挑选一套“月子餐”搭配方案，或者直接下单配送哦！需要我帮忙吗？
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>选择当季、新鲜的蔬果, - 建议, 的商品：, 避免生冷食物, 虑购买一些有机或无农药残留的产品</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>适用性说明, 条件判断</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.1</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0015</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.47分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好照顾自己也很重要哦！
+
+为了满足你的需求，我推荐一些适合产后妈妈的零食，不仅美味，而且方便、营养均衡：
+
+### 🍫 健康小零食推荐：
+1. **坚果礼盒（如杏仁、核桃、腰果）**  
+   - 无添加、健康又饱腹，适合解馋。
+2. **水果干（如芒果干、葡萄干）**  
+   - 天然甜味，补充能量，但注意控制量哦。
+3. **酸奶/乳酸菌饮品**  
+   - 有助消化，还能补充益生菌，对身体恢复有帮助。
+4. **低糖饼干或全麦面包**  
+   - 清淡不油腻，容易消化。
+
+### 🛒 现在就可以下单，30分钟内送到家：
+- 如果你在城市中，建议选择平台上的“即时配送”服务，比如美团买菜、盒马、京东到家等，它们通常能保证30分钟送达。
+- 你可以搜索“产后零食”、“健康小吃”等关键词，系统会推荐适合的品类。
+
+### 💡 小贴士：
+- 注意饮食要清淡、易消化，避免过于油腻或辛辣。
+- 如果你正在哺乳期，建议选择低盐、低糖、无添加剂的食品。
+- 保持心情愉快也很重要，可以适当放松一下！
+
+需要我帮你筛选具体的商品链接或者品牌吗？欢迎告诉我你的位置和偏好，我可以更精准地推荐～ 😊
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>～ 😊, 选择平台上的“即时配送”服务, 1. **坚果礼盒（如杏仁、核桃、腰果）**, 适合的品类, 一些适合产后妈妈的零食</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>条件判断</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.2</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-card" data-persona="新手妈妈" data-scenario="即时享受" data-category="休闲零售">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>#Q0016</span>
+                        <span class="tag tag-persona">新手妈妈</span>
+                        <span class="tag tag-scenario">即时享受</span>
+                        <span class="tag tag-category">休闲零售</span>
+                    </div>
+                    <div class="card-score" style="background: #1890ff">
+                        4.44分
+                    </div>
+                </div>
+                
+                <!-- 测试用例 -->
+                <div class="section">
+                    <div class="section-title">📝 测试用例（用户输入）</div>
+                    <div class="section-content test-case">
+                        我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。
+                    </div>
+                </div>
+                
+                <!-- 千问返回内容 -->
+                <div class="section">
+                    <div class="section-title">🤖 千问模型返回内容</div>
+                    <div class="section-content qwen-response">
+                        恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好享受一下自己的小幸福吧！
+
+在30分钟内送到家的零食推荐如下：
+
+### 🍪 甜食类（解馋必备）：
+- **巧克力**（黑巧或牛奶巧）：补充能量、缓解疲劳
+- **曲奇饼干**：酥脆可口，方便食用
+- **坚果礼盒**（无盐/低盐）：营养丰富，适合产后恢复
+
+### 🍫 健康零食类（适合产后妈妈）：
+- **酸奶**：补钙、助消化，选择原味无糖的更健康
+- **水果干**（如葡萄干、苹果干）：天然甜味，方便携带
+- **麦片棒/能量棒**：方便吃，补充体力
+
+### 🍵 饮品类（提神解馋）：
+- **花茶**（如红枣枸杞茶、玫瑰花茶）：温和滋补
+- **鲜榨果汁**（如橙汁、苹果汁）：补充维生素
+- **咖啡/奶茶**（注意：哺乳期建议控制摄入量）
+
+如果你有特别想吃的口味或品牌，可以告诉我，我可以帮你快速找到附近的店铺和商品。另外，如果是哺乳期，建议避免含咖啡因过多的饮品哦～
+
+需要我帮你下单吗？或者你有其他需求也可以告诉我～
+                    </div>
+                </div>
+                
+                <!-- 解析结果 -->
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        <span>🔍 解析详情（点击展开）</span>
+                        <span class="arrow">▶</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>推荐商品：</strong>避免含咖啡因过多的饮品哦～, 控制摄入量）, 如下：</p>
+                            <p><strong>时效承诺：</strong>None</p>
+                            <p><strong>个性化元素：</strong>条件判断</p>
+                            <p><strong>安全提示：</strong>无</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评测结果 -->
+                <div class="section" style="margin-top: 20px;">
+                    <div class="section-title">📊 多维度评测结果</div>
+                    <div class="score-dimensions">
+                        
+                <div class="dimension-item">
+                    <div class="dimension-name">准确性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.1</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">时效性</div>
+                    <div class="dimension-score" style="color: #1890ff">4.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">个性化</div>
+                    <div class="dimension-score" style="color: #52c41a">4.5</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">安全性</div>
+                    <div class="dimension-score" style="color: #52c41a">5.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">多样性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+
+                <div class="dimension-item">
+                    <div class="dimension-name">新颖性</div>
+                    <div class="dimension-score" style="color: #f5222d">0.0</div>
+                </div>
+            
+                    </div>
+                </div>
+                
+                <!-- 问题提示 -->
+                
+                
+                <!-- 状态标签 -->
+                <div style="margin-top: 16px; text-align: right;">
+                    <span style="font-size: 14px; color: #1890ff; font-weight: 500;">
+                        ✅ 通过
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 改进建议汇总 -->
+            <div class="detail-card" style="margin-top: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.3);">
+                    <div class="card-title" style="color: white;">💡 改进建议汇总</div>
+                </div>
+                <div style="margin-bottom: 20px;">
+<h4 style="margin-bottom: 12px; opacity: 0.9;">📉 待提升维度</h4>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 16px; font-size: 13px;">个性化: 3.78分</span>
+</div></div>
+            </div>
+            
+            <!-- 汇总表格 -->
+            <div class="detail-card" style="margin-top: 40px;">
+                <div class="card-header">
+                    <div class="card-title">📊 评测汇总表</div>
+                </div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Query ID</th>
+                            <th>人设</th>
+                            <th>场景</th>
+                            <th>品类</th>
+                            <th>总分</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                <td>Q0001</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #1890ff; font-weight: 600;">4.22</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0002</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #1890ff; font-weight: 600;">4.34</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0003</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>休闲零售</td>
+                <td style="color: #52c41a; font-weight: 600;">4.53</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0004</td>
+                <td>忙碌的年轻白领</td>
+                <td>应急补给</td>
+                <td>休闲零售</td>
+                <td style="color: #52c41a; font-weight: 600;">4.50</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0005</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #1890ff; font-weight: 600;">4.31</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0006</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #1890ff; font-weight: 600;">4.34</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0007</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>休闲零售</td>
+                <td style="color: #1890ff; font-weight: 600;">4.38</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0008</td>
+                <td>忙碌的年轻白领</td>
+                <td>即时享受</td>
+                <td>休闲零售</td>
+                <td style="color: #1890ff; font-weight: 600;">4.28</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0009</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #52c41a; font-weight: 600;">4.62</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0010</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #1890ff; font-weight: 600;">4.47</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0011</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>休闲零售</td>
+                <td style="color: #52c41a; font-weight: 600;">4.59</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0012</td>
+                <td>新手妈妈</td>
+                <td>应急补给</td>
+                <td>休闲零售</td>
+                <td style="color: #52c41a; font-weight: 600;">4.53</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0013</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #1890ff; font-weight: 600;">4.44</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0014</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>生鲜果蔬</td>
+                <td style="color: #1890ff; font-weight: 600;">4.34</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0015</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>休闲零售</td>
+                <td style="color: #1890ff; font-weight: 600;">4.47</td>
+                <td>✅ 通过</td>
+            </tr>
+<tr>
+                <td>Q0016</td>
+                <td>新手妈妈</td>
+                <td>即时享受</td>
+                <td>休闲零售</td>
+                <td style="color: #1890ff; font-weight: 600;">4.44</td>
+                <td>✅ 通过</td>
+            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>搜推大模型测评数字人系统 | 报告生成时间：2026-04-09 21:18:01</p>
+        </div>
+    </div>
+    
+    <script>
+        // 折叠面板交互
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+                const arrow = this.querySelector('.arrow');
+                if (arrow) {
+                    arrow.textContent = content.classList.contains('active') ? '▼' : '▶';
+                }
+            });
+        });
+        
+        // Tab切换功能
+        const tabs = document.querySelectorAll('.tab');
+        const cards = document.querySelectorAll('.detail-card[data-persona]');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有active状态
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.textContent.trim();
+                
+                // 过滤卡片
+                cards.forEach(card => {
+                    if (filter === '全部') {
+                        card.style.display = 'block';
+                    } else {
+                        const persona = card.getAttribute('data-persona');
+                        if (persona && persona.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // 更新统计
+                updateStats();
+            });
+        });
+        
+        // 更新统计信息
+        function updateStats() {
+            const visibleCards = document.querySelectorAll('.detail-card[data-persona]:not([style*="none"])');
+            const totalCount = document.querySelector('.stat-value');
+            if (totalCount) {
+                totalCount.textContent = visibleCards.length;
+            }
+        }
+    </script>
+</body>
+</html>

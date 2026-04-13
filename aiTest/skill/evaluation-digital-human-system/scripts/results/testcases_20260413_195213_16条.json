@@ -1,0 +1,442 @@
+{
+  "metadata": {
+    "generated_at": "2026-04-13T19:52:13.846516",
+    "total_count": 16,
+    "dimensions": {
+      "personas": [
+        "P1",
+        "P2"
+      ],
+      "scenarios": [
+        "S1",
+        "S2"
+      ],
+      "categories": [
+        "C5",
+        "C4"
+      ]
+    },
+    "combinations": 8,
+    "cases_per_combination": 2,
+    "model": "qwen-max",
+    "api_mode": "dashscope"
+  },
+  "testcases": [
+    {
+      "query_id": "Q0001",
+      "query_text": "我是一个忙碌的白领，最近工作压力大，突然感觉有点感冒症状了，想买点感冒药和维生素C增强抵抗力，希望30分钟内能送到。",
+      "priority": "P0",
+      "tags": [
+        "P1",
+        "S1",
+        "C5"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S1",
+      "category_id": "C5",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S1_应急补给",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0002",
+      "query_text": "我是一个忙碌的白领，突然感觉头疼得厉害，手头没有止痛药了，能帮我找一下附近可以30分钟内送到的药店吗？最好是能买到布洛芬或者对乙酰氨基酚这种快速缓解疼痛的。",
+      "priority": "P0",
+      "tags": [
+        "P1",
+        "S1",
+        "C5"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S1",
+      "category_id": "C5",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S1_应急补给",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0003",
+      "query_text": "我是一名忙碌的白领妈妈，宝宝突然没奶粉了，急需一罐适合6个月大的婴儿奶粉，能30分钟送到吗？",
+      "priority": "P0",
+      "tags": [
+        "P1",
+        "S1",
+        "C4"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S1",
+      "category_id": "C4",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S1_应急补给",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0004",
+      "query_text": "我是个忙碌的白领，孩子突然发烧了需要换尿布，家里没有存货了，能不能帮我找找婴儿尿不湿，最好是30分钟内能送到的那种。",
+      "priority": "P1",
+      "tags": [
+        "P1",
+        "S1",
+        "C4"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S1",
+      "category_id": "C4",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S1_应急补给",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0005",
+      "query_text": "我是一个忙碌的年轻白领，晚上突然感觉有点发烧，需要马上买点退烧药，希望能30分钟内送到。",
+      "priority": "P1",
+      "tags": [
+        "P1",
+        "S2",
+        "C5"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S2",
+      "category_id": "C5",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S2_即时享受",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0006",
+      "query_text": "我是一个忙碌的白领，最近工作压力大有点上火，想买点清热解毒的药，最好是半小时内送到。",
+      "priority": "P1",
+      "tags": [
+        "P1",
+        "S2",
+        "C5"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S2",
+      "category_id": "C5",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S2_即时享受",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0007",
+      "query_text": "我是一位忙碌的白领妈妈，今天突然发现宝宝的纸尿裤快用完了，想立刻买到质量好的婴儿纸尿裤，最好30分钟内能送到家。",
+      "priority": "P1",
+      "tags": [
+        "P1",
+        "S2",
+        "C4"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S2",
+      "category_id": "C4",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S2_即时享受",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0008",
+      "query_text": "我是一名忙碌的年轻白领，宝宝突然哭闹不止，可能是尿布湿了，家里备用的尿布刚好用完，急需购买一包婴儿尿不湿，希望30分钟内能送到。",
+      "priority": "P1",
+      "tags": [
+        "P1",
+        "S2",
+        "C4"
+      ],
+      "persona_id": "P1",
+      "scenario_id": "S2",
+      "category_id": "C4",
+      "persona": "P1_忙碌的年轻白领",
+      "scenario": "S2_即时享受",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0009",
+      "query_text": "我是一个新手妈妈，宝宝突然发烧了，家里没有退烧药，能帮我30分钟内送到儿童退烧药吗？",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S1",
+        "C5"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S1",
+      "category_id": "C5",
+      "persona": "P2_新手妈妈",
+      "scenario": "S1_应急补给",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0010",
+      "query_text": "我是一个新手妈妈，宝宝突然发烧了，家里没有退烧药了，急需要买一些儿童用的退烧药，请问有30分钟内能送到的吗？",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S1",
+        "C5"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S1",
+      "category_id": "C5",
+      "persona": "P2_新手妈妈",
+      "scenario": "S1_应急补给",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0011",
+      "query_text": "我是一个新手妈妈，宝宝突然发烧了，家里没有退烧贴了，能帮我30分钟内送到吗？还要一盒婴儿用的棉签和生理盐水。",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S1",
+        "C4"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S1",
+      "category_id": "C4",
+      "persona": "P2_新手妈妈",
+      "scenario": "S1_应急补给",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0012",
+      "query_text": "我是个新手妈妈，宝宝突然长了尿布疹，家里的护臀膏用完了，急需买一瓶婴儿专用的护臀膏，最好能30分钟内送到。",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S1",
+        "C4"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S1",
+      "category_id": "C4",
+      "persona": "P2_新手妈妈",
+      "scenario": "S1_应急补给",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0013",
+      "query_text": "我是一个新手妈妈，宝宝突然有点发烧，家里没有退烧药了，急需买一盒儿童用的退烧药，希望30分钟内能送到。",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S2",
+        "C5"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S2",
+      "category_id": "C5",
+      "persona": "P2_新手妈妈",
+      "scenario": "S2_即时享受",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0014",
+      "query_text": "我是一个新手妈妈，宝宝有点轻微咳嗽，家里没有儿童止咳药了，想赶紧买点适合小宝宝喝的止咳糖浆，希望30分钟内能送到。",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S2",
+        "C5"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S2",
+      "category_id": "C5",
+      "persona": "P2_新手妈妈",
+      "scenario": "S2_即时享受",
+      "category": "C5_医药健康",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C5"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0015",
+      "query_text": "我是一个新手妈妈，宝宝突然有点发烧，家里没有退烧贴了，想赶紧买一些婴儿退烧贴，希望30分钟内能送到。",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S2",
+        "C4"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S2",
+      "category_id": "C4",
+      "persona": "P2_新手妈妈",
+      "scenario": "S2_即时享受",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0016",
+      "query_text": "我是个新手妈妈，宝宝突然长了湿疹，需要赶紧买点婴儿专用的湿疹膏，最好是30分钟内能送到的那种。",
+      "priority": "P1",
+      "tags": [
+        "P2",
+        "S2",
+        "C4"
+      ],
+      "persona_id": "P2",
+      "scenario_id": "S2",
+      "category_id": "C4",
+      "persona": "P2_新手妈妈",
+      "scenario": "S2_即时享受",
+      "category": "C4_母婴用品",
+      "expected_intent": {
+        "intent": "search",
+        "category": "C4"
+      },
+      "evaluation_criteria": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2430 @@
+{
+  "report_id": "rpt_exec_20260410_175318_a897b4",
+  "execution_summary": {
+    "execution_id": "exec_20260410_175318_a897b4",
+    "task_config": {
+      "name": "流式调用评测",
+      "target_model": "qwen-turbo",
+      "scope": {
+        "personas": [
+          "P1",
+          "P2"
+        ],
+        "scenarios": [
+          "S1",
+          "S2"
+        ],
+        "categories": [
+          "C1",
+          "C2"
+        ]
+      },
+      "count": 100,
+      "dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    "status": "completed",
+    "start_time": "2026-04-10T17:53:18.830167",
+    "end_time": "2026-04-10T18:01:06.192213",
+    "duration_seconds": 467.362046,
+    "stages": [
+      {
+        "name": "testcase_generation",
+        "status": "completed",
+        "duration_seconds": 87.046671,
+        "progress": {
+          "generated": 16
+        },
+        "error": null
+      },
+      {
+        "name": "model_calling",
+        "status": "completed",
+        "duration_seconds": 380.303221,
+        "progress": {
+          "completed": 16,
+          "total": 16,
+          "failed": 0
+        },
+        "error": null
+      },
+      {
+        "name": "result_parsing",
+        "status": "completed",
+        "duration_seconds": 0.009931,
+        "progress": {
+          "parsed": 16
+        },
+        "error": null
+      },
+      {
+        "name": "evaluation",
+        "status": "completed",
+        "duration_seconds": 0.001963,
+        "progress": {
+          "evaluated": 16
+        },
+        "error": null
+      }
+    ],
+    "results_summary": {
+      "total_evaluated": 16,
+      "average_score": 3.5299999999999994,
+      "pass_count": 0
+    },
+    "errors": []
+  },
+  "detailed_results": [
+    {
+      "query_id": "Q0001",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0002",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0003",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0004",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0005",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0006",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0007",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0008",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0009",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0010",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0011",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0012",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 2.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.44,
+      "issues": [],
+      "suggestions": [
+        "增强时效感知：在应急场景下明确承诺配送时效"
+      ],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0013",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0014",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0015",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0016",
+      "scores": {
+        "accuracy": 3.0,
+        "timeliness": 3.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 3.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    }
+  ],
+  "results": {
+    "testcases": [
+      {
+        "query_id": "Q0001",
+        "query_text": "我是一个忙碌的年轻白领，今天突然加班到很晚，冰箱里什么吃的都没有了，急需一些新鲜的水果和蔬菜来补充能量，能不能帮我找一家可以30分钟内送达的新鲜果蔬店？",
+        "priority": "P0",
+        "tags": [
+          "P1",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0002",
+        "query_text": "我今天加班到很晚才回家，发现冰箱里一点蔬菜水果都没有了，现在急需补充一些新鲜的食材做晚餐，能不能帮我找一家30分钟内能送到的生鲜果蔬店？",
+        "priority": "P0",
+        "tags": [
+          "P1",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0003",
+        "query_text": "我是一个忙碌的白领，今晚加班到很晚，突然很想吃点薯片解解馋，但是家里没有存货了，能帮我找一家可以30分钟内送到的便利店吗？",
+        "priority": "P0",
+        "tags": [
+          "P1",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0004",
+        "query_text": "我是一个忙碌的白领，晚上加班突然想吃点零食补充能量，有没有什么好吃的薯片或者坚果可以30分钟内送到？",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0005",
+        "query_text": "我是一个忙碌的白领，下班后突然想吃点新鲜水果，但没时间去超市，谁能推荐一下附近能30分钟内送到的新鲜苹果和橙子？",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0006",
+        "query_text": "我今天加班到很晚才回家，突然想吃点新鲜的水果解解乏，有没有什么推荐的？最好能30分钟内送到。",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0007",
+        "query_text": "我刚下班回家，想立刻吃点什么放松一下，能给我推荐一些30分钟内送到的零食吗？最好是有点新奇口味的。",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0008",
+        "query_text": "我刚下班，突然很想吃点薯片放松一下，能不能帮我找找附近有卖的，最好是30分钟内能送到的那种。",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0009",
+        "query_text": "我是一个新手妈妈，宝宝突然开始吃辅食了但是家里没有新鲜的水果和蔬菜了，能不能尽快送点新鲜的苹果和胡萝卜过来，最好30分钟内送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0010",
+        "query_text": "我是个新手妈妈，宝宝突然想吃新鲜的水果了，家里没有存货，能帮我马上送点新鲜的苹果和香蕉过来吗？最好是30分钟内送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0011",
+        "query_text": "我是一个新手妈妈，宝宝突然哭闹不止，可能是饿了，但我发现家里的小零食都吃完了，急需一些健康的休闲零食来安抚一下自己紧张的情绪，最好能在30分钟内送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0012",
+        "query_text": "我是一个新手妈妈，宝宝突然哭闹不止，可能是饿了，家里又没有适合他的零食了，急需买点健康的宝宝零食安抚一下，希望30分钟内能送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0013",
+        "query_text": "我是个新手妈妈，想今晚给宝宝做一顿新鲜的辅食，但家里没食材了，能帮我找找附近有卖新鲜胡萝卜和苹果的店吗？最好30分钟内能送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0014",
+        "query_text": "我是个新手妈妈，想给宝宝做顿新鲜的辅食，但家里没食材了，能帮我找找附近有卖新鲜有机胡萝卜和苹果的吗？最好30分钟内送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0015",
+        "query_text": "我是一个新手妈妈，想在家里休息的时候吃点小零食放松一下，但又不想出门，可以给我推荐一些健康的休闲零食吗？最好30分钟内能送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0016",
+        "query_text": "我是一个新手妈妈，想马上吃点什么放松一下，有没有什么好吃的零食可以30分钟内送到？最好是那种健康一点的。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      }
+    ],
+    "responses": [
+      {
+        "query": {
+          "query_id": "Q0001",
+          "query_text": "我是一个忙碌的年轻白领，今天突然加班到很晚，冰箱里什么吃的都没有了，急需一些新鲜的水果和蔬菜来补充能量，能不能帮我找一家可以30分钟内送达的新鲜果蔬店？",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 25399
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0002",
+          "query_text": "我今天加班到很晚才回家，发现冰箱里一点蔬菜水果都没有了，现在急需补充一些新鲜的食材做晚餐，能不能帮我找一家30分钟内能送到的生鲜果蔬店？",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 29631
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0003",
+          "query_text": "我是一个忙碌的白领，今晚加班到很晚，突然很想吃点薯片解解馋，但是家里没有存货了，能帮我找一家可以30分钟内送到的便利店吗？",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 16964
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0004",
+          "query_text": "我是一个忙碌的白领，晚上加班突然想吃点零食补充能量，有没有什么好吃的薯片或者坚果可以30分钟内送到？",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 24798
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0005",
+          "query_text": "我是一个忙碌的白领，下班后突然想吃点新鲜水果，但没时间去超市，谁能推荐一下附近能30分钟内送到的新鲜苹果和橙子？",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 26709
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0006",
+          "query_text": "我今天加班到很晚才回家，突然想吃点新鲜的水果解解乏，有没有什么推荐的？最好能30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 22865
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0007",
+          "query_text": "我刚下班回家，想立刻吃点什么放松一下，能给我推荐一些30分钟内送到的零食吗？最好是有点新奇口味的。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 29669
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0008",
+          "query_text": "我刚下班，突然很想吃点薯片放松一下，能不能帮我找找附近有卖的，最好是30分钟内能送到的那种。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 11914
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0009",
+          "query_text": "我是一个新手妈妈，宝宝突然开始吃辅食了但是家里没有新鲜的水果和蔬菜了，能不能尽快送点新鲜的苹果和胡萝卜过来，最好30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 23646
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0010",
+          "query_text": "我是个新手妈妈，宝宝突然想吃新鲜的水果了，家里没有存货，能帮我马上送点新鲜的苹果和香蕉过来吗？最好是30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 16138
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0011",
+          "query_text": "我是一个新手妈妈，宝宝突然哭闹不止，可能是饿了，但我发现家里的小零食都吃完了，急需一些健康的休闲零食来安抚一下自己紧张的情绪，最好能在30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 23785
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0012",
+          "query_text": "我是一个新手妈妈，宝宝突然哭闹不止，可能是饿了，家里又没有适合他的零食了，急需买点健康的宝宝零食安抚一下，希望30分钟内能送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 30643
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0013",
+          "query_text": "我是个新手妈妈，想今晚给宝宝做一顿新鲜的辅食，但家里没食材了，能帮我找找附近有卖新鲜胡萝卜和苹果的店吗？最好30分钟内能送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 22148
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0014",
+          "query_text": "我是个新手妈妈，想给宝宝做顿新鲜的辅食，但家里没食材了，能帮我找找附近有卖新鲜有机胡萝卜和苹果的吗？最好30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 7070
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0015",
+          "query_text": "我是一个新手妈妈，想在家里休息的时候吃点小零食放松一下，但又不想出门，可以给我推荐一些健康的休闲零食吗？最好30分钟内能送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 37436
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0016",
+          "query_text": "我是一个新手妈妈，想马上吃点什么放松一下，有没有什么好吃的零食可以30分钟内送到？最好是那种健康一点的。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 23911
+        }
+      }
+    ],
+    "parsed": [
+      {
+        "query": {
+          "query_id": "Q0001",
+          "query_text": "我是一个忙碌的年轻白领，今天突然加班到很晚，冰箱里什么吃的都没有了，急需一些新鲜的水果和蔬菜来补充能量，能不能帮我找一家可以30分钟内送达的新鲜果蔬店？",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 25399
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0002",
+          "query_text": "我今天加班到很晚才回家，发现冰箱里一点蔬菜水果都没有了，现在急需补充一些新鲜的食材做晚餐，能不能帮我找一家30分钟内能送到的生鲜果蔬店？",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 29631
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0003",
+          "query_text": "我是一个忙碌的白领，今晚加班到很晚，突然很想吃点薯片解解馋，但是家里没有存货了，能帮我找一家可以30分钟内送到的便利店吗？",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 16964
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0004",
+          "query_text": "我是一个忙碌的白领，晚上加班突然想吃点零食补充能量，有没有什么好吃的薯片或者坚果可以30分钟内送到？",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 24798
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0005",
+          "query_text": "我是一个忙碌的白领，下班后突然想吃点新鲜水果，但没时间去超市，谁能推荐一下附近能30分钟内送到的新鲜苹果和橙子？",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 26709
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0006",
+          "query_text": "我今天加班到很晚才回家，突然想吃点新鲜的水果解解乏，有没有什么推荐的？最好能30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 22865
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0007",
+          "query_text": "我刚下班回家，想立刻吃点什么放松一下，能给我推荐一些30分钟内送到的零食吗？最好是有点新奇口味的。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 29669
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0008",
+          "query_text": "我刚下班，突然很想吃点薯片放松一下，能不能帮我找找附近有卖的，最好是30分钟内能送到的那种。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 11914
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0009",
+          "query_text": "我是一个新手妈妈，宝宝突然开始吃辅食了但是家里没有新鲜的水果和蔬菜了，能不能尽快送点新鲜的苹果和胡萝卜过来，最好30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 23646
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0010",
+          "query_text": "我是个新手妈妈，宝宝突然想吃新鲜的水果了，家里没有存货，能帮我马上送点新鲜的苹果和香蕉过来吗？最好是30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 16138
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0011",
+          "query_text": "我是一个新手妈妈，宝宝突然哭闹不止，可能是饿了，但我发现家里的小零食都吃完了，急需一些健康的休闲零食来安抚一下自己紧张的情绪，最好能在30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 23785
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0012",
+          "query_text": "我是一个新手妈妈，宝宝突然哭闹不止，可能是饿了，家里又没有适合他的零食了，急需买点健康的宝宝零食安抚一下，希望30分钟内能送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 30643
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0013",
+          "query_text": "我是个新手妈妈，想今晚给宝宝做一顿新鲜的辅食，但家里没食材了，能帮我找找附近有卖新鲜胡萝卜和苹果的店吗？最好30分钟内能送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 22148
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0014",
+          "query_text": "我是个新手妈妈，想给宝宝做顿新鲜的辅食，但家里没食材了，能帮我找找附近有卖新鲜有机胡萝卜和苹果的吗？最好30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 7070
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0015",
+          "query_text": "我是一个新手妈妈，想在家里休息的时候吃点小零食放松一下，但又不想出门，可以给我推荐一些健康的休闲零食吗？最好30分钟内能送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 37436
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0016",
+          "query_text": "我是一个新手妈妈，想马上吃点什么放松一下，有没有什么好吃的零食可以30分钟内送到？最好是那种健康一点的。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "",
+          "raw_response": null,
+          "response_time_ms": 23911
+        },
+        "parsed": {
+          "original_response": "",
+          "recommended_products": [],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": false
+          },
+          "price_mentions": [],
+          "brand_mentions": []
+        }
+      }
+    ],
+    "evaluation": [
+      {
+        "query_id": "Q0001",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0002",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0003",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0004",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0005",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0006",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0007",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0008",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0009",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0010",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0011",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0012",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 2.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.44,
+        "issues": [],
+        "suggestions": [
+          "增强时效感知：在应急场景下明确承诺配送时效"
+        ],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0013",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0014",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0015",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0016",
+        "scores": {
+          "accuracy": 3.0,
+          "timeliness": 3.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 3.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      }
+    ]
+  },
+  "generated_at": "2026-04-10T18:01:07.732210"
+}

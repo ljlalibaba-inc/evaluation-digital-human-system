@@ -1,0 +1,130 @@
+{
+  "test_case": {
+    "query_id": "test_coke_001",
+    "query_text": "帮忙下单可口可乐",
+    "persona": {
+      "id": "P1",
+      "name": "忙碌的年轻白领",
+      "description": "工作繁忙，经常加班，时间紧张"
+    },
+    "scenario": {
+      "id": "S2",
+      "name": "即时享受",
+      "description": "想要快速获得商品，享受即时满足"
+    },
+    "category": {
+      "id": "C2",
+      "name": "休闲零售",
+      "description": "零食饮料等休闲食品"
+    }
+  },
+  "request_info": {
+    "api_mode": "qwen_chat",
+    "base_url": "https://chat2.qianwen.com",
+    "model": "quark-235b",
+    "query_text": "帮忙下单可口可乐",
+    "system_prompt": null,
+    "timestamp": "2026-04-13T18:04:24.027999",
+    "url": "https://chat2.qianwen.com/api/v1/chat/debug?bi=997&biz_id=ai_qwen&chat_client=native&fr=iphone&kps_wg=OjUEb%2B9gZOHZ%2FXIjTHFjdn70lyMsOp99xW5FcIcSO93XiTdqHIBg5uKlV7ZwRb0Ok1MbfiVfI6fTlJUNNrNbAx5o3Jq9QYvgUwJmjGc0y5vVnb0b1WlG1PqYmjdZeuDFur7SCUI8do%2BfYd%2BCib9B2JOqJXv%2B6OlqVTSXDG9kKk1W4Q%3D%3D&mt=%2BSQB0pZLPI%2Fg3xKbVLwhWJ5o88xVOrN3&nn=OjU%3D&nonce=709AEA8D045C491B8A4361B787D1FE05&pc=OjWqjjPaD70yY5oZssOhlyr1SEEoUxk9ZZIplEuMbiyPzhxt8RthnNeeOUQ94BLtWvtM%2FRsXB6PFx1zGD8TwozKj&pf=200&pr=qwen&protocol_version=v2&sign_type=2&sign_wg=OjXSN%2BtZ5zOpUEn%2B0pZndOnsJWyYmCqqYxxYdfPDrvLqOFWItFGYDPa4HGS8e9YQJlg%3D&sv=love&timestamp=1766659025252&uc_param_str=utmtpcsnnnvebipfdnprfrsvcgbcxsginx&ut=OjXcgGy9ah4NNZJcstSR9lJy%2FOnq7TSgk7oSJLu87Q%2BmSA%3D%3D&vcode=1766659025249&sign=3a35ec9df845f223e09c12f1098f2ef86fb7e3805dc8&ve=6.5.8.2774",
+    "headers": {
+      "sec-ch-ua-platform": "macOS",
+      "X-Appkey": "34400722",
+      "X-Wpk-Reqid": "8791d3864f7f4f80bb43790352518b86",
+      "X-Pv": "6.3",
+      "sec-ch-ua": "\"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"",
+      "X-Umt": "%2BSQB0pZLPI%2Fg3xKbVLwhWJ5o88xVOrN3",
+      "sec-ch-ua-mobile": "?0",
+      "X-App-Ver": "5.1.20",
+      "X-Bx-Version": "6.7.250903",
+      "Accept": "application/json, text/event-stream, text/event-stream",
+      "X-Mini-Wua": "iUgTzOsenPdfyUTYWbiCL0n6ffAca3euQshoOYYw7IQhXf2vH3tSVjzIP8jL0gilsrbs7m1gS%2B2vW%2FokjlDLKeeU8sp3g3yvjzOJUO6MDbMP8cKtoM0j28vl3sFd8A6H5bg666FaZCSgLVt%2BUJ7pEhAzDqgFkQx06Dgas%2F%2BxPqk%2Bx2rjMHbZ320tiajS%2Bi%2BTOpdK9WgHbJnAlyA%3D%3D",
+      "Content-Type": "application/json",
+      "X-Deviceid": "aR89N69/QVoDACshFdu81cwp",
+      "X-Utdid": "aR89N69/QVoDACshFdu81cwp",
+      "Cache-Control": "no-store",
+      "Referer": "https://pre-aisearch-debug.alibaba-inc.com/qwen-chat-scene/prod?req_id=AI_SEARCH_DEBUG_f8256028-d68d-43e4-901c-ba7442166b3e",
+      "Accept-Language": "zh-Hans-CN;q=1",
+      "X-T": "1766659025",
+      "X-Ttid": "qwen@qwen_ios_5.1.20",
+      "X-Wpk-Traceid": "d9cf28b282c6431ebe411022ffc98dcf",
+      "X-Sign": "iz0pIe007xAALA79Sn0WiQ8LY1n%2BTA78DW%2FfCpZf92Fhbk7hJ5i9NPDx%2F9W7t8zphxqBwMuvpct9tsqQXs1KqK%2B4qFwO7A78DuwO%2FA",
+      "X-Wpk-Bid": "a3ucabr5-b1ayd2v5",
+      "X-Sgext": "JBPVqs5csx3%2Fx9FBtsQ6XqrgmuSJ55%2Fhmvab5In2m%2BKc45zgkuGT44nlmuec5ZrlmuWa5ZrlmuWa9pr2mvaa5YnlmuWa9pr2k%2FaY9pP2m%2Fab9pv2mvac5ZrlmvaYscv2mfaS9pn20Lntu4n1ivXI9Yr1mvaTipv4mvj1tPX4m%2FOa85rl9bf17Zj4m%2Fia%2BJr4morOiv%2BD5If85OSN%2F7nj6PWz9eaH5Yflh%2BWH4vXkmoqOipvm9ZTNlOuU65TrlOuU65TrlOuU65TrlOuU65TrlOuKm%2BP15fXkyYqS54zljOWM5YzljOWM5YzljOWM5Yzl9eTPipr4mYqY5vXtmPOH5ITlmuWa85rzmvOa85rzmoqY4fXkh%2BWH7Yflh%2BWH5Yflh%2BWH5Yfl9eefio60%2F%2FX%2BX%2BpcGe05P%2BmfCG2Yeep8iazZjIkPm0wbjmvNmgwuDhp%2BCg76Ccipjj9eeM5IzljOWM5Izk9Q%3D%3D",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+    },
+    "request_body": {
+      "req_id": "AI_SEARCH_DEBUG_561e43771048448486b57bea782fcc1c",
+      "prefetch_req_id": null,
+      "session_id": "c7939328a24147debc91397f2c65d53c",
+      "res_id": null,
+      "scene": "chat",
+      "sub_scene": "chat",
+      "scene_param": "retry",
+      "agent_id": null,
+      "debug": "debug_level=DEBUG1",
+      "debug_info": null,
+      "from": "kkframenew",
+      "display_ext": "",
+      "deep_search": 0,
+      "grade": "",
+      "timestamp": 1775558599803,
+      "messages": [
+        {
+          "content": "帮忙下单可口可乐",
+          "mime_type": "text/plain",
+          "meta_data": {
+            "is_default_query": "0",
+            "ori_query": "帮忙下单可口可乐",
+            "paa_pass_through": {}
+          }
+        }
+      ],
+      "ai_tool_scene": "",
+      "u_supplement": "",
+      "chat_client": "native",
+      "messages_merge": true,
+      "protocol_version": "v2",
+      "transfer_memory_info": "",
+      "topic_id": "d88f1cdf509244edb61331aafce617c2",
+      "session_type": 0,
+      "bucket": {
+        "no_debug": "on"
+      },
+      "cms_test_data_ids": "",
+      "incremental_strategy": 0,
+      "location": "OjXQtFFvLVxCMGjtmzqsHukhbBzSFPUTBhnMW6ESWx0Xg4lMBneYMkWPTRbb1P5SgePoDrH30F4tag7ZVvta54EPno2z70Y0bgirylSMG7G2RUgixokCMljvGvWD75p+LNrQC8PpURqgvMnPj5kqFDQa3TihFvZ9JXtWE76fANbYV07zuAgay7jW6hCwwrbY+xNzjPqFLQMxSgP5Jx6UKMmogBc81h9Ek6poiSthbsM8c78KxwIKtvbNq84oSOA5OyOqdbA82zJi5/p8ALLoYcf1cAHOGOdVH/19yhGVs7v5d4qK9Pb5C+X5iqanzX0jFW1q8leAjHrHW8DBrDosvzhNxQEicNK7D0xfjzKLrnnrAIe26pSaezpzFRxoIjXZ0ha2IGEgqbLsIm5IQMFA6+nOqnq/2DsNCa8q9QoHfIEbJL8ZA/lBEekUgddXhU0IP+gCbEIAHJ3FD2xezuy7KKrzLISFT0H0/ahsxxt/mi44YflMywq7ng7+mUD5HsFZUjW8MsAi+mLkJG9Fe7KAuS7apvxKFFlxuqLsGdE+i72FJbWDPUgHohItdGr70erVVx4wIDT5zXANWxwB57zsm0nY",
+      "original_session_id": null,
+      "original_req_id": null,
+      "client_tm": "1766659025244",
+      "model": "quark-235b",
+      "biz_data": "{\"origin_entrance\":\"chat_common\",\"gen_doc_card\":true,\"long_text_enable\":true}"
+    }
+  },
+  "response": {
+    "success": true,
+    "response_time_ms": 564,
+    "content": [],
+    "message_types": [
+      "signal/post",
+      "bar/progress",
+      "bar/iframe",
+      "multi_load/iframe"
+    ]
+  },
+  "evaluation": {
+    "query_id": "test_coke_001",
+    "scores": {
+      "accuracy": 3.0,
+      "timeliness": 3.0,
+      "personalization": 3.0
+    },
+    "overall_score": 3.0,
+    "issues": [],
+    "suggestions": [],
+    "evaluated_dimensions": [
+      "accuracy",
+      "timeliness",
+      "personalization"
+    ]
+  }
+}

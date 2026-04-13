@@ -1,0 +1,3233 @@
+{
+  "report_id": "rpt_exec_20260409_211651_df0a95",
+  "execution_summary": {
+    "execution_id": "exec_20260409_211651_df0a95",
+    "task_config": {
+      "name": "数字人评测-LLM生成Query",
+      "target_model": "qwen-turbo",
+      "scope": {
+        "personas": [
+          "P1",
+          "P2"
+        ],
+        "scenarios": [
+          "S1",
+          "S2"
+        ],
+        "categories": [
+          "C1",
+          "C2"
+        ]
+      },
+      "count": 100,
+      "dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    "status": "completed",
+    "start_time": "2026-04-09T21:16:51.367455",
+    "end_time": "2026-04-09T21:18:01.287948",
+    "duration_seconds": 69.920493,
+    "stages": [
+      {
+        "name": "testcase_generation",
+        "status": "completed",
+        "duration_seconds": 13.274278,
+        "progress": {
+          "generated": 16
+        },
+        "error": null
+      },
+      {
+        "name": "model_calling",
+        "status": "completed",
+        "duration_seconds": 56.634264,
+        "progress": {
+          "completed": 16,
+          "total": 16,
+          "failed": 0
+        },
+        "error": null
+      },
+      {
+        "name": "result_parsing",
+        "status": "completed",
+        "duration_seconds": 0.010287,
+        "progress": {
+          "parsed": 16
+        },
+        "error": null
+      },
+      {
+        "name": "evaluation",
+        "status": "completed",
+        "duration_seconds": 0.001445,
+        "progress": {
+          "evaluated": 16
+        },
+        "error": null
+      }
+    ],
+    "results_summary": {
+      "total_evaluated": 16,
+      "average_score": 4.425,
+      "pass_count": 16
+    },
+    "errors": []
+  },
+  "detailed_results": [
+    {
+      "query_id": "Q0001",
+      "scores": {
+        "accuracy": 3.7,
+        "timeliness": 5.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 4.22,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0002",
+      "scores": {
+        "accuracy": 4.1,
+        "timeliness": 5.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 4.34,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0003",
+      "scores": {
+        "accuracy": 4.1,
+        "timeliness": 5.0,
+        "personalization": 4.0,
+        "safety": 5.0
+      },
+      "overall_score": 4.53,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0004",
+      "scores": {
+        "accuracy": 4.3,
+        "timeliness": 5.0,
+        "personalization": 3.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.5,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0005",
+      "scores": {
+        "accuracy": 4.6,
+        "timeliness": 4.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 4.31,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0006",
+      "scores": {
+        "accuracy": 4.7,
+        "timeliness": 4.0,
+        "personalization": 3.0,
+        "safety": 5.0
+      },
+      "overall_score": 4.34,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0007",
+      "scores": {
+        "accuracy": 4.5,
+        "timeliness": 4.0,
+        "personalization": 3.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.38,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0008",
+      "scores": {
+        "accuracy": 4.2,
+        "timeliness": 4.0,
+        "personalization": 3.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.28,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0009",
+      "scores": {
+        "accuracy": 4.1,
+        "timeliness": 5.0,
+        "personalization": 4.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.62,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0010",
+      "scores": {
+        "accuracy": 4.2,
+        "timeliness": 5.0,
+        "personalization": 3.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.47,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0011",
+      "scores": {
+        "accuracy": 4.0,
+        "timeliness": 5.0,
+        "personalization": 4.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.59,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0012",
+      "scores": {
+        "accuracy": 4.1,
+        "timeliness": 5.0,
+        "personalization": 4.0,
+        "safety": 5.0
+      },
+      "overall_score": 4.53,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0013",
+      "scores": {
+        "accuracy": 4.1,
+        "timeliness": 4.0,
+        "personalization": 4.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.44,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0014",
+      "scores": {
+        "accuracy": 4.1,
+        "timeliness": 4.0,
+        "personalization": 4.0,
+        "safety": 5.0
+      },
+      "overall_score": 4.34,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0015",
+      "scores": {
+        "accuracy": 4.2,
+        "timeliness": 4.0,
+        "personalization": 4.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.47,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    },
+    {
+      "query_id": "Q0016",
+      "scores": {
+        "accuracy": 4.1,
+        "timeliness": 4.0,
+        "personalization": 4.5,
+        "safety": 5.0
+      },
+      "overall_score": 4.44,
+      "issues": [],
+      "suggestions": [],
+      "evaluated_dimensions": [
+        "accuracy",
+        "timeliness",
+        "personalization",
+        "safety"
+      ]
+    }
+  ],
+  "results": {
+    "testcases": [
+      {
+        "query_id": "Q0001",
+        "query_text": "我早上赶着上班没时间买菜，现在急需一盒新鲜的西红柿和几把青菜，30分钟内送到公司楼下。",
+        "priority": "P0",
+        "tags": [
+          "P1",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0002",
+        "query_text": "我刚下班，家里没菜了，急需买点蔬菜水果，30分钟内送到。",
+        "priority": "P0",
+        "tags": [
+          "P1",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0003",
+        "query_text": "我早上出门太急忘记带零食了，现在在公司楼下找点能30分钟送到的休闲食品解馋。",
+        "priority": "P0",
+        "tags": [
+          "P1",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0004",
+        "query_text": "我早上出门太急忘了带零食，现在在公司楼下找点能30分钟送到的休闲食品。",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0005",
+        "query_text": "我需要一份新鲜的蔬菜和水果，30分钟内送到公司，今天下班前得吃上。",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0006",
+        "query_text": "我刚下班想买点新鲜的蔬菜水果，30分钟内送到家。",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0007",
+        "query_text": "我下班路上想买点零食解解馋，30分钟内送到家。",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0008",
+        "query_text": "我需要一份快速送到的休闲零食，下班路上想解解馋，30分钟内送到就行",
+        "priority": "P1",
+        "tags": [
+          "P1",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P1",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P1_忙碌的年轻白领",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0009",
+        "query_text": "我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的叶菜，希望30分钟内送到",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0010",
+        "query_text": "我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的菠菜和胡萝卜，希望30分钟内送到。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0011",
+        "query_text": "我刚生完宝宝，家里零食快吃完了，急需补货，30分钟送到最好",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0012",
+        "query_text": "我刚生完宝宝，家里零食快吃完了，急需买点小零食垫垫肚子，希望30分钟内送到",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S1",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S1",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S1_应急补给",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0013",
+        "query_text": "我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟送到家。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0014",
+        "query_text": "我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟内送到家，方便做月子餐。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C1"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C1",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C1_生鲜果蔬",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C1"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0015",
+        "query_text": "我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0016",
+        "query_text": "我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。",
+        "priority": "P1",
+        "tags": [
+          "P2",
+          "S2",
+          "C2"
+        ],
+        "persona_id": "P2",
+        "scenario_id": "S2",
+        "category_id": "C2",
+        "persona": "P2_新手妈妈",
+        "scenario": "S2_即时享受",
+        "category": "C2_休闲零售",
+        "expected_intent": {
+          "intent": "search",
+          "category": "C2"
+        },
+        "evaluation_criteria": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      }
+    ],
+    "responses": [
+      {
+        "query": {
+          "query_id": "Q0001",
+          "query_text": "我早上赶着上班没时间买菜，现在急需一盒新鲜的西红柿和几把青菜，30分钟内送到公司楼下。",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，我帮您查询一下附近可以30分钟内送到的商家。您现在的位置是？方便告诉我一下具体地址吗？这样我可以为您推荐最近、最快送达的店铺，并确认是否有新鲜的西红柿和青菜供应。",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，我帮您查询一下附近可以30分钟内送到的商家。您现在的位置是？方便告诉我一下具体地址吗？这样我可以为您推荐最近、最快送达的店铺，并确认是否有新鲜的西红柿和青菜供应。",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 95,
+              "output_tokens": 50,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 145
+            },
+            "request_id": "83b1dfe2-b741-942e-bf7f-842cacc63a79"
+          },
+          "response_time_ms": 827
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0002",
+          "query_text": "我刚下班，家里没菜了，急需买点蔬菜水果，30分钟内送到。",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，我帮您快速挑选一些适合的蔬菜水果，确保30分钟内送达：\n\n【推荐商品】\n1. 西兰花（598g）- 清爽营养，适合炒食或凉拌\n2. 番茄（1kg）- 多种烹饪方式，补充维生素C\n3. 苹果（红富士1kg）- 香甜脆爽，方便携带\n4. 胡萝卜（500g）- 健康食材，可做沙拉或炖汤\n5. 洋葱（500g）- 万能调味品，提升菜肴风味\n\n【配送信息】\n当前距离您最近的门店：XX便利店（约8分钟车程）\n预计送达时间：28分钟（具体以实际订单为准）\n\n需要我为您添加其他品类吗？比如肉类、主食或调味品？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，我帮您快速挑选一些适合的蔬菜水果，确保30分钟内送达：\n\n【推荐商品】\n1. 西兰花（598g）- 清爽营养，适合炒食或凉拌\n2. 番茄（1kg）- 多种烹饪方式，补充维生素C\n3. 苹果（红富士1kg）- 香甜脆爽，方便携带\n4. 胡萝卜（500g）- 健康食材，可做沙拉或炖汤\n5. 洋葱（500g）- 万能调味品，提升菜肴风味\n\n【配送信息】\n当前距离您最近的门店：XX便利店（约8分钟车程）\n预计送达时间：28分钟（具体以实际订单为准）\n\n需要我为您添加其他品类吗？比如肉类、主食或调味品？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 85,
+              "output_tokens": 195,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 280
+            },
+            "request_id": "5690b6cf-8f59-91c5-838b-2086263ba199"
+          },
+          "response_time_ms": 2494
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0003",
+          "query_text": "我早上出门太急忘记带零食了，现在在公司楼下找点能30分钟送到的休闲食品解馋。",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您现在需要的是在30分钟内送达的休闲食品，我来为您推荐几款适合在办公室或路上食用的零食：\n\n1. **薯片（如乐事、上好佳）** – 酥脆可口，是很多人的最爱。\n2. **巧克力（如费列罗、德芙）** – 能快速补充能量，满足甜食欲望。\n3. **坚果（如三只松鼠、良品铺子）** – 健康又解馋，适合长时间工作时食用。\n4. **果干（如王饱饱、三只松鼠）** – 甜而不腻，方便携带。\n5. **小包装饼干/蛋卷** – 携带方便，口味多样。\n\n您可以直接通过您的即时零售平台下单，比如美团闪购、京东到家、盒马等，选择“30分钟送达”的服务。如果需要，我可以帮您筛选出最近的店铺和商品，或者根据您喜欢的口味进一步推荐。\n\n您更偏爱什么口味的零食呢？我可以为您定制推荐！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您现在需要的是在30分钟内送达的休闲食品，我来为您推荐几款适合在办公室或路上食用的零食：\n\n1. **薯片（如乐事、上好佳）** – 酥脆可口，是很多人的最爱。\n2. **巧克力（如费列罗、德芙）** – 能快速补充能量，满足甜食欲望。\n3. **坚果（如三只松鼠、良品铺子）** – 健康又解馋，适合长时间工作时食用。\n4. **果干（如王饱饱、三只松鼠）** – 甜而不腻，方便携带。\n5. **小包装饼干/蛋卷** – 携带方便，口味多样。\n\n您可以直接通过您的即时零售平台下单，比如美团闪购、京东到家、盒马等，选择“30分钟送达”的服务。如果需要，我可以帮您筛选出最近的店铺和商品，或者根据您喜欢的口味进一步推荐。\n\n您更偏爱什么口味的零食呢？我可以为您定制推荐！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 91,
+              "output_tokens": 232,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 323
+            },
+            "request_id": "75b18467-c2a4-90bd-8cc7-425bf0a2454a"
+          },
+          "response_time_ms": 2730
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0004",
+          "query_text": "我早上出门太急忘了带零食，现在在公司楼下找点能30分钟送到的休闲食品。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "你好！现在在公司楼下找零食，30分钟内送到的话，可以考虑以下几类休闲食品：\n\n### 🍫 甜食类（适合快速补充能量）：\n- **巧克力**（如德芙、费列罗）\n- **夹心饼干**（如奥利奥、趣多多）\n- **米果/薯片**（如乐事、品客）\n\n### 🥜 坚果类（健康又解馋）：\n- **混合坚果**（如三只松鼠、良品铺子）\n- **原味瓜子/开心果**\n- **杏仁/腰果**（独立包装更方便）\n\n### 🍪 零食小点（方便携带）：\n- **蛋黄酥/绿豆糕**（适合喜欢中式点心的你）\n- **蛋糕卷/布丁**（如果想吃点甜点）\n- **果干/蜜饯**（如葡萄干、芒果干）\n\n### 🧃 饮品类（如果需要搭配）：\n- **果汁**（如农夫山泉、汇源）\n- **酸奶**（如伊利、蒙牛）\n- **功能性饮料**（如脉动、红牛）\n\n你可以通过即时零售平台（如美团闪购、京东到家、盒马等）搜索“30分钟送达”或“附近配送”，系统会根据你的位置推荐最近的店铺和商品。\n\n如果你告诉我你喜欢的口味或忌口，我可以进一步帮你筛选哦！😊",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "你好！现在在公司楼下找零食，30分钟内送到的话，可以考虑以下几类休闲食品：\n\n### 🍫 甜食类（适合快速补充能量）：\n- **巧克力**（如德芙、费列罗）\n- **夹心饼干**（如奥利奥、趣多多）\n- **米果/薯片**（如乐事、品客）\n\n### 🥜 坚果类（健康又解馋）：\n- **混合坚果**（如三只松鼠、良品铺子）\n- **原味瓜子/开心果**\n- **杏仁/腰果**（独立包装更方便）\n\n### 🍪 零食小点（方便携带）：\n- **蛋黄酥/绿豆糕**（适合喜欢中式点心的你）\n- **蛋糕卷/布丁**（如果想吃点甜点）\n- **果干/蜜饯**（如葡萄干、芒果干）\n\n### 🧃 饮品类（如果需要搭配）：\n- **果汁**（如农夫山泉、汇源）\n- **酸奶**（如伊利、蒙牛）\n- **功能性饮料**（如脉动、红牛）\n\n你可以通过即时零售平台（如美团闪购、京东到家、盒马等）搜索“30分钟送达”或“附近配送”，系统会根据你的位置推荐最近的店铺和商品。\n\n如果你告诉我你喜欢的口味或忌口，我可以进一步帮你筛选哦！😊",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 88,
+              "output_tokens": 317,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 405
+            },
+            "request_id": "e2b1fb1d-073a-91a6-9e98-1aae98795b04"
+          },
+          "response_time_ms": 6242
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0005",
+          "query_text": "我需要一份新鲜的蔬菜和水果，30分钟内送到公司，今天下班前得吃上。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您需要一份新鲜的蔬菜和水果，并且希望在30分钟内送到公司，今天下班前吃上。我为您推荐以下商品：\n\n### 🥦 蔬菜推荐：\n1. **菠菜** - 富含铁和维生素，适合做沙拉或炒菜。\n2. **胡萝卜** - 甜脆可口，可以生吃或煮熟。\n3. **西红柿** - 新鲜多汁，适合拌沙拉或煎蛋。\n4. **西兰花** - 营养丰富，适合清炒或水煮。\n\n### 🍎 水果推荐：\n1. **苹果** - 简单方便，营养丰富，适合直接食用。\n2. **香蕉** - 高能量、易携带，非常适合上班族。\n3. **橙子** - 富含维生素C，有助于增强免疫力。\n4. **葡萄** - 多汁甜美，可以直接吃。\n\n如果您有特定的饮食需求（如低糖、低碳水、素食等），请告诉我，我可以为您进一步优化推荐。同时，您可以选择在我们平台下单，我们会尽快安排配送，确保您在30分钟内收到。是否需要我帮您下单？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您需要一份新鲜的蔬菜和水果，并且希望在30分钟内送到公司，今天下班前吃上。我为您推荐以下商品：\n\n### 🥦 蔬菜推荐：\n1. **菠菜** - 富含铁和维生素，适合做沙拉或炒菜。\n2. **胡萝卜** - 甜脆可口，可以生吃或煮熟。\n3. **西红柿** - 新鲜多汁，适合拌沙拉或煎蛋。\n4. **西兰花** - 营养丰富，适合清炒或水煮。\n\n### 🍎 水果推荐：\n1. **苹果** - 简单方便，营养丰富，适合直接食用。\n2. **香蕉** - 高能量、易携带，非常适合上班族。\n3. **橙子** - 富含维生素C，有助于增强免疫力。\n4. **葡萄** - 多汁甜美，可以直接吃。\n\n如果您有特定的饮食需求（如低糖、低碳水、素食等），请告诉我，我可以为您进一步优化推荐。同时，您可以选择在我们平台下单，我们会尽快安排配送，确保您在30分钟内收到。是否需要我帮您下单？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 87,
+              "output_tokens": 255,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 342
+            },
+            "request_id": "54191966-2201-9b1b-9e0c-794cfa10e724"
+          },
+          "response_time_ms": 2959
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0006",
+          "query_text": "我刚下班想买点新鲜的蔬菜水果，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您刚下班想买点新鲜的蔬菜水果，并且希望30分钟内送到家，我来为您推荐一些适合的选择：\n\n### 🥦【推荐蔬菜】\n- **菠菜**：富含铁和维生素，适合做炒菜或汤。\n- **西兰花**：营养丰富，适合清炒或焯水凉拌。\n- **胡萝卜**：可以生吃或炒食，是健康的好选择。\n- **番茄**：可直接吃或做沙拉、炒菜。\n\n### 🍎【推荐水果】\n- **苹果**：方便携带，营养丰富，适合饭后吃。\n- **香蕉**：富含钾，有助于缓解疲劳。\n- **橙子/橘子**：富含维生素C，帮助增强免疫力。\n- **葡萄**：口感好，适合解渴。\n\n### 🛒【配送建议】\n为了确保在30分钟内送达，请尽量选择：\n- **距离较近的商家**（如小区附近的超市或生鲜店）\n- **下单时间尽量早些**（如18:30前下单，避免高峰期）\n\n如果您告诉我您所在的城市或具体位置，我可以帮您查找附近最近的店铺并推荐更精准的商品哦！需要吗？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您刚下班想买点新鲜的蔬菜水果，并且希望30分钟内送到家，我来为您推荐一些适合的选择：\n\n### 🥦【推荐蔬菜】\n- **菠菜**：富含铁和维生素，适合做炒菜或汤。\n- **西兰花**：营养丰富，适合清炒或焯水凉拌。\n- **胡萝卜**：可以生吃或炒食，是健康的好选择。\n- **番茄**：可直接吃或做沙拉、炒菜。\n\n### 🍎【推荐水果】\n- **苹果**：方便携带，营养丰富，适合饭后吃。\n- **香蕉**：富含钾，有助于缓解疲劳。\n- **橙子/橘子**：富含维生素C，帮助增强免疫力。\n- **葡萄**：口感好，适合解渴。\n\n### 🛒【配送建议】\n为了确保在30分钟内送达，请尽量选择：\n- **距离较近的商家**（如小区附近的超市或生鲜店）\n- **下单时间尽量早些**（如18:30前下单，避免高峰期）\n\n如果您告诉我您所在的城市或具体位置，我可以帮您查找附近最近的店铺并推荐更精准的商品哦！需要吗？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 82,
+              "output_tokens": 260,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 342
+            },
+            "request_id": "31c3f13f-4b3c-9f4a-aa28-3d13c8b8d4c8"
+          },
+          "response_time_ms": 3066
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0007",
+          "query_text": "我下班路上想买点零食解解馋，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您下班路上想买点零食解解馋，并且希望30分钟内送到家，我来为您推荐一些适合的零食：\n\n### 🍫 推荐零食（30分钟内送达）：\n1. **巧克力（如费列罗、德芙、明治等）**  \n   - 甜食控必备，快速满足嘴馋。\n   - 常见品牌在大多数平台都有库存。\n\n2. **薯片/虾条/脆片（如乐事、上好佳、品客）**  \n   - 酥脆可口，方便食用，适合边走边吃。\n\n3. **坚果（如三只松鼠、良品铺子）**  \n   - 健康又解馋，多种口味可选。\n\n4. **饼干（如奥利奥、趣多多、小熊软糖）**  \n   - 轻便易携带，适合应急解馋。\n\n5. **棒棒糖/水果糖（如大白兔、金丝猴）**  \n   - 经典怀旧款，适合简单解馋。\n\n6. **小包装糖果或巧克力豆（如M&M's、士力架）**  \n   - 精致小巧，方便携带。\n\n---\n\n### 🛒 如何下单更快？\n- 选择您常使用的即时零售平台（如美团闪购、京东到家、盒马、朴朴等）。\n- 搜索“零食”或直接浏览“解馋专区”。\n- 注意查看配送时间是否为“30分钟达”。\n\n---\n\n需要我根据您的口味偏好进一步推荐吗？比如您喜欢甜的、咸的还是辣的？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您下班路上想买点零食解解馋，并且希望30分钟内送到家，我来为您推荐一些适合的零食：\n\n### 🍫 推荐零食（30分钟内送达）：\n1. **巧克力（如费列罗、德芙、明治等）**  \n   - 甜食控必备，快速满足嘴馋。\n   - 常见品牌在大多数平台都有库存。\n\n2. **薯片/虾条/脆片（如乐事、上好佳、品客）**  \n   - 酥脆可口，方便食用，适合边走边吃。\n\n3. **坚果（如三只松鼠、良品铺子）**  \n   - 健康又解馋，多种口味可选。\n\n4. **饼干（如奥利奥、趣多多、小熊软糖）**  \n   - 轻便易携带，适合应急解馋。\n\n5. **棒棒糖/水果糖（如大白兔、金丝猴）**  \n   - 经典怀旧款，适合简单解馋。\n\n6. **小包装糖果或巧克力豆（如M&M's、士力架）**  \n   - 精致小巧，方便携带。\n\n---\n\n### 🛒 如何下单更快？\n- 选择您常使用的即时零售平台（如美团闪购、京东到家、盒马、朴朴等）。\n- 搜索“零食”或直接浏览“解馋专区”。\n- 注意查看配送时间是否为“30分钟达”。\n\n---\n\n需要我根据您的口味偏好进一步推荐吗？比如您喜欢甜的、咸的还是辣的？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 82,
+              "output_tokens": 357,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 439
+            },
+            "request_id": "82bb407d-faae-9984-9780-7e329a4f72ef"
+          },
+          "response_time_ms": 4169
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0008",
+          "query_text": "我需要一份快速送到的休闲零食，下班路上想解解馋，30分钟内送到就行",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您可以在我们平台搜索“30分钟送达”或“即时配送”的商品，这样能确保在下班路上就能收到。以下是一些受欢迎的休闲零食推荐，您可以根据口味选择：\n\n1. **薯片类**：如乐事、可比克、品客等，口感丰富，适合解馋。\n2. **坚果类**：如三只松鼠、良品铺子的混合坚果，健康又美味。\n3. **巧克力/糖类**：如德芙、费列罗、阿尔卑斯等，甜蜜滋味很适合放松时享用。\n4. **果干类**：如金润、三只松鼠的芒果干、葡萄干等，方便携带又好吃。\n5. **辣条类**：如卫龙大面筋、小王子等，适合喜欢重口味的用户。\n\n您可以告诉我您的口味偏好（比如甜食、咸食、辣味、健康类等），我可以为您进一步推荐！同时，建议您尽快下单，以便在30分钟内送达。需要我帮您挑选几款吗？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您可以在我们平台搜索“30分钟送达”或“即时配送”的商品，这样能确保在下班路上就能收到。以下是一些受欢迎的休闲零食推荐，您可以根据口味选择：\n\n1. **薯片类**：如乐事、可比克、品客等，口感丰富，适合解馋。\n2. **坚果类**：如三只松鼠、良品铺子的混合坚果，健康又美味。\n3. **巧克力/糖类**：如德芙、费列罗、阿尔卑斯等，甜蜜滋味很适合放松时享用。\n4. **果干类**：如金润、三只松鼠的芒果干、葡萄干等，方便携带又好吃。\n5. **辣条类**：如卫龙大面筋、小王子等，适合喜欢重口味的用户。\n\n您可以告诉我您的口味偏好（比如甜食、咸食、辣味、健康类等），我可以为您进一步推荐！同时，建议您尽快下单，以便在30分钟内送达。需要我帮您挑选几款吗？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 229,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 315
+            },
+            "request_id": "19bf3b38-ab63-9517-a001-16319e5591f4"
+          },
+          "response_time_ms": 2724
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0009",
+          "query_text": "我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的叶菜，希望30分钟内送到",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "您好！恭喜您喜得宝宝，祝宝宝健康成长！为了尽快送到您家，我为您推荐以下几种适合产后妈妈的叶菜，并且这些商品在平台上有较高的库存和配送效率，可以确保30分钟内送达：\n\n1. **菠菜** - 富含铁和叶酸，非常适合产后补血。\n2. **油麦菜** - 清爽可口，容易消化，适合产后恢复期食用。\n3. **生菜** - 适合做沙拉或夹饼，营养丰富又方便。\n4. **小白菜** - 简单易做，适合搭配各种食材。\n\n您可以选择「急送」服务，系统会优先安排最近的门店配送。如果您有特别想吃的蔬菜，也可以告诉我，我会为您推荐最合适的选项。\n\n需要我帮您下单吗？还是您有其他需求？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "您好！恭喜您喜得宝宝，祝宝宝健康成长！为了尽快送到您家，我为您推荐以下几种适合产后妈妈的叶菜，并且这些商品在平台上有较高的库存和配送效率，可以确保30分钟内送达：\n\n1. **菠菜** - 富含铁和叶酸，非常适合产后补血。\n2. **油麦菜** - 清爽可口，容易消化，适合产后恢复期食用。\n3. **生菜** - 适合做沙拉或夹饼，营养丰富又方便。\n4. **小白菜** - 简单易做，适合搭配各种食材。\n\n您可以选择「急送」服务，系统会优先安排最近的门店配送。如果您有特别想吃的蔬菜，也可以告诉我，我会为您推荐最合适的选项。\n\n需要我帮您下单吗？还是您有其他需求？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 89,
+              "output_tokens": 180,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 269
+            },
+            "request_id": "0d082761-aaf4-9565-8e27-6c525fb6f85b"
+          },
+          "response_time_ms": 2183
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0010",
+          "query_text": "我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的菠菜和胡萝卜，希望30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "您好，恭喜您喜得宝宝！祝宝宝健康成长，也祝您早日恢复元气。关于您需要的菠菜和胡萝卜，我们平台有多个合作的生鲜超市和便利店，可以保证新鲜蔬菜的快速配送。\n\n为了尽快送到，建议您优先选择以下方式：\n\n1. **立即下单**：在您的即时零售平台上（如京东到家、美团买菜、盒马等）搜索“菠菜”和“胡萝卜”，选择距离您最近的门店，并确认其是否支持30分钟送达。\n2. **选择保质期短的菜品**：菠菜和胡萝卜都是比较耐储存的蔬菜，但建议您尽量选择当天采摘或当天配送的，以确保新鲜度。\n3. **注意配送时间**：下单后请留意订单状态，如有延迟可联系客服跟进。\n\n如果您不确定哪家店铺更可靠，我可以帮您查询附近的可选店铺，只需告诉我您的位置信息即可。\n\n另外，如果您还需要其他母婴用品或营养补给，也可以告诉我，我会为您推荐合适的商品。祝您生活顺利，一切安好！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "您好，恭喜您喜得宝宝！祝宝宝健康成长，也祝您早日恢复元气。关于您需要的菠菜和胡萝卜，我们平台有多个合作的生鲜超市和便利店，可以保证新鲜蔬菜的快速配送。\n\n为了尽快送到，建议您优先选择以下方式：\n\n1. **立即下单**：在您的即时零售平台上（如京东到家、美团买菜、盒马等）搜索“菠菜”和“胡萝卜”，选择距离您最近的门店，并确认其是否支持30分钟送达。\n2. **选择保质期短的菜品**：菠菜和胡萝卜都是比较耐储存的蔬菜，但建议您尽量选择当天采摘或当天配送的，以确保新鲜度。\n3. **注意配送时间**：下单后请留意订单状态，如有延迟可联系客服跟进。\n\n如果您不确定哪家店铺更可靠，我可以帮您查询附近的可选店铺，只需告诉我您的位置信息即可。\n\n另外，如果您还需要其他母婴用品或营养补给，也可以告诉我，我会为您推荐合适的商品。祝您生活顺利，一切安好！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 92,
+              "output_tokens": 225,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 317
+            },
+            "request_id": "7b284001-8f6c-9fd5-9e04-ed94492dfdc8"
+          },
+          "response_time_ms": 2467
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0011",
+          "query_text": "我刚生完宝宝，家里零食快吃完了，急需补货，30分钟送到最好",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！宝宝的到来一定让家里充满了幸福和忙碌吧～不过现在你最需要的是好好休息，同时也要注意补充能量哦！\n\n为了尽快帮你补货，我建议你选择一些方便、营养又适合产后恢复的零食：\n\n1. **坚果类**：如核桃、腰果、杏仁等，富含健康脂肪和蛋白质，有助于恢复体力。\n2. **酸奶或奶酪**：补充钙质和蛋白质，对产后身体恢复很有帮助。\n3. **全麦饼干或能量棒**：方便食用，能快速补充能量。\n4. **水果干或冻干水果**：如蔓越莓干、苹果干等，既方便又营养。\n\n如果你需要，我可以立刻帮你下单，并选择“30分钟送达”的服务。请告诉我你所在的城市和具体地址，我会为你推荐附近的优质商家和最快送达的商品。另外，如果需要，我也可以帮你挑选一些适合产妇的营养品或月子餐。\n\n你希望我先帮你推荐哪些商品呢？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！宝宝的到来一定让家里充满了幸福和忙碌吧～不过现在你最需要的是好好休息，同时也要注意补充能量哦！\n\n为了尽快帮你补货，我建议你选择一些方便、营养又适合产后恢复的零食：\n\n1. **坚果类**：如核桃、腰果、杏仁等，富含健康脂肪和蛋白质，有助于恢复体力。\n2. **酸奶或奶酪**：补充钙质和蛋白质，对产后身体恢复很有帮助。\n3. **全麦饼干或能量棒**：方便食用，能快速补充能量。\n4. **水果干或冻干水果**：如蔓越莓干、苹果干等，既方便又营养。\n\n如果你需要，我可以立刻帮你下单，并选择“30分钟送达”的服务。请告诉我你所在的城市和具体地址，我会为你推荐附近的优质商家和最快送达的商品。另外，如果需要，我也可以帮你挑选一些适合产妇的营养品或月子餐。\n\n你希望我先帮你推荐哪些商品呢？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 85,
+              "output_tokens": 214,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 299
+            },
+            "request_id": "55dcc314-b1cf-9d15-9aac-5bed9b865e6d"
+          },
+          "response_time_ms": 2473
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0012",
+          "query_text": "我刚生完宝宝，家里零食快吃完了，急需买点小零食垫垫肚子，希望30分钟内送到",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！产后确实需要好好补充能量，我来帮你推荐一些适合的零食，既方便食用又营养丰富。\n\n以下是一些适合产后妈妈的零食推荐：\n\n### 1. **坚果类（如核桃、腰果、杏仁）**\n- 健康脂肪和蛋白质，有助于恢复体力。\n- 建议选择无添加、原味的。\n\n### 2. **小包装酸奶/奶酪**\n- 补充钙质，促进身体恢复。\n- 方便携带，适合随时吃。\n\n### 3. **水果干/冻干水果**\n- 如芒果干、苹果干、蓝莓干等。\n- 富含维生素，口感好，不会太甜。\n\n### 4. **麦片/燕麦棒**\n- 能量快，饱腹感强，适合快速补充体力。\n- 选择低糖、高纤维的。\n\n### 5. **巧克力（黑巧克力为佳）**\n- 适量吃可以缓解压力，提升心情。\n- 建议选择70%以上的可可含量。\n\n### 6. **即食粥/米糊**\n- 温和易消化，适合产后肠胃敏感的阶段。\n- 可以选择红枣、桂圆口味的。\n\n---\n\n如果你希望我直接帮你下单，可以告诉我你所在的城市或地址，我会根据你附近的店铺推荐商品。另外，有些平台有“妈妈专区”或“母婴专区”，可以优先查看。\n\n如果需要，我也可以帮你筛选出**30分钟内送达**的商品。你告诉我你所在的地区吧！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！产后确实需要好好补充能量，我来帮你推荐一些适合的零食，既方便食用又营养丰富。\n\n以下是一些适合产后妈妈的零食推荐：\n\n### 1. **坚果类（如核桃、腰果、杏仁）**\n- 健康脂肪和蛋白质，有助于恢复体力。\n- 建议选择无添加、原味的。\n\n### 2. **小包装酸奶/奶酪**\n- 补充钙质，促进身体恢复。\n- 方便携带，适合随时吃。\n\n### 3. **水果干/冻干水果**\n- 如芒果干、苹果干、蓝莓干等。\n- 富含维生素，口感好，不会太甜。\n\n### 4. **麦片/燕麦棒**\n- 能量快，饱腹感强，适合快速补充体力。\n- 选择低糖、高纤维的。\n\n### 5. **巧克力（黑巧克力为佳）**\n- 适量吃可以缓解压力，提升心情。\n- 建议选择70%以上的可可含量。\n\n### 6. **即食粥/米糊**\n- 温和易消化，适合产后肠胃敏感的阶段。\n- 可以选择红枣、桂圆口味的。\n\n---\n\n如果你希望我直接帮你下单，可以告诉我你所在的城市或地址，我会根据你附近的店铺推荐商品。另外，有些平台有“妈妈专区”或“母婴专区”，可以优先查看。\n\n如果需要，我也可以帮你筛选出**30分钟内送达**的商品。你告诉我你所在的地区吧！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 91,
+              "output_tokens": 332,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 423
+            },
+            "request_id": "fa677d28-be1f-91e7-a9b2-c647084b0bb3"
+          },
+          "response_time_ms": 4087
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0013",
+          "query_text": "我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟送到家。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜您成为新妈妈！在产后恢复期间，保持营养均衡非常重要。为了满足您的需求，我为您推荐以下新鲜蔬菜和水果：\n\n1. **菠菜** - 富含铁和叶酸，有助于产后恢复\n2. **胡萝卜** - 含有丰富的维生素A，对视力和免疫系统有益\n3. **苹果** - 含有丰富的纤维和维生素C，有助于消化和增强免疫力\n4. **香蕉** - 富含钾，有助于缓解产后疲劳和改善情绪\n5. **橙子** - 含有丰富的维生素C，有助于增强免疫力和促进铁的吸收\n\n此外，我们还提供快速配送服务，确保您能在30分钟内收到新鲜的蔬菜和水果。如果您有其他需求或疑问，请随时告诉我，我会为您提供更个性化的建议。祝您和宝宝健康快乐！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜您成为新妈妈！在产后恢复期间，保持营养均衡非常重要。为了满足您的需求，我为您推荐以下新鲜蔬菜和水果：\n\n1. **菠菜** - 富含铁和叶酸，有助于产后恢复\n2. **胡萝卜** - 含有丰富的维生素A，对视力和免疫系统有益\n3. **苹果** - 含有丰富的纤维和维生素C，有助于消化和增强免疫力\n4. **香蕉** - 富含钾，有助于缓解产后疲劳和改善情绪\n5. **橙子** - 含有丰富的维生素C，有助于增强免疫力和促进铁的吸收\n\n此外，我们还提供快速配送服务，确保您能在30分钟内收到新鲜的蔬菜和水果。如果您有其他需求或疑问，请随时告诉我，我会为您提供更个性化的建议。祝您和宝宝健康快乐！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 179,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 265
+            },
+            "request_id": "004bb008-6cca-955a-9ef8-95755a9c2344"
+          },
+          "response_time_ms": 2127
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0014",
+          "query_text": "我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟内送到家，方便做月子餐。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜您喜得宝宝！月子期间的营养补充非常重要，新鲜的蔬菜和水果是必不可少的。在30分钟内送到家的即时零售平台，您可以选择以下推荐的商品：\n\n### 🥦 推荐蔬菜类：\n1. **菠菜** – 富含铁质，有助于产后补血。\n2. **西兰花** – 含有丰富的维生素C和纤维，帮助消化和增强免疫力。\n3. **胡萝卜** – 促进乳汁分泌，同时富含β-胡萝卜素。\n4. **西红柿** – 清热解毒，适合产后调理。\n\n### 🍎 推荐水果类：\n1. **苹果** – 易于消化，富含膳食纤维和维生素，适合产后食用。\n2. **香蕉** – 补充钾元素，缓解产后便秘。\n3. **橙子/柚子** – 富含维生素C，增强免疫力。\n4. **猕猴桃** – 含有丰富的维C和叶酸，适合产后恢复。\n\n### 🥣 小贴士：\n- 建议选择当季、新鲜的蔬果，避免过于寒凉或刺激性的水果（如西瓜、梨等），可根据个人体质进行调整。\n- 如果您是剖腹产，建议避免生冷食物，可以优先选择温性的水果和蔬菜。\n- 也可以考虑购买一些有机或无农药残留的产品，更加安全健康。\n\n如果您需要，我可以帮您挑选一套“月子餐”搭配方案，或者直接下单配送哦！需要我帮忙吗？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜您喜得宝宝！月子期间的营养补充非常重要，新鲜的蔬菜和水果是必不可少的。在30分钟内送到家的即时零售平台，您可以选择以下推荐的商品：\n\n### 🥦 推荐蔬菜类：\n1. **菠菜** – 富含铁质，有助于产后补血。\n2. **西兰花** – 含有丰富的维生素C和纤维，帮助消化和增强免疫力。\n3. **胡萝卜** – 促进乳汁分泌，同时富含β-胡萝卜素。\n4. **西红柿** – 清热解毒，适合产后调理。\n\n### 🍎 推荐水果类：\n1. **苹果** – 易于消化，富含膳食纤维和维生素，适合产后食用。\n2. **香蕉** – 补充钾元素，缓解产后便秘。\n3. **橙子/柚子** – 富含维生素C，增强免疫力。\n4. **猕猴桃** – 含有丰富的维C和叶酸，适合产后恢复。\n\n### 🥣 小贴士：\n- 建议选择当季、新鲜的蔬果，避免过于寒凉或刺激性的水果（如西瓜、梨等），可根据个人体质进行调整。\n- 如果您是剖腹产，建议避免生冷食物，可以优先选择温性的水果和蔬菜。\n- 也可以考虑购买一些有机或无农药残留的产品，更加安全健康。\n\n如果您需要，我可以帮您挑选一套“月子餐”搭配方案，或者直接下单配送哦！需要我帮忙吗？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 93,
+              "output_tokens": 325,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 418
+            },
+            "request_id": "acb7106d-f934-95d7-88b9-15f8c32e0f74"
+          },
+          "response_time_ms": 3174
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0015",
+          "query_text": "我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好照顾自己也很重要哦！\n\n为了满足你的需求，我推荐一些适合产后妈妈的零食，不仅美味，而且方便、营养均衡：\n\n### 🍫 健康小零食推荐：\n1. **坚果礼盒（如杏仁、核桃、腰果）**  \n   - 无添加、健康又饱腹，适合解馋。\n2. **水果干（如芒果干、葡萄干）**  \n   - 天然甜味，补充能量，但注意控制量哦。\n3. **酸奶/乳酸菌饮品**  \n   - 有助消化，还能补充益生菌，对身体恢复有帮助。\n4. **低糖饼干或全麦面包**  \n   - 清淡不油腻，容易消化。\n\n### 🛒 现在就可以下单，30分钟内送到家：\n- 如果你在城市中，建议选择平台上的“即时配送”服务，比如美团买菜、盒马、京东到家等，它们通常能保证30分钟送达。\n- 你可以搜索“产后零食”、“健康小吃”等关键词，系统会推荐适合的品类。\n\n### 💡 小贴士：\n- 注意饮食要清淡、易消化，避免过于油腻或辛辣。\n- 如果你正在哺乳期，建议选择低盐、低糖、无添加剂的食品。\n- 保持心情愉快也很重要，可以适当放松一下！\n\n需要我帮你筛选具体的商品链接或者品牌吗？欢迎告诉我你的位置和偏好，我可以更精准地推荐～ 😊",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好照顾自己也很重要哦！\n\n为了满足你的需求，我推荐一些适合产后妈妈的零食，不仅美味，而且方便、营养均衡：\n\n### 🍫 健康小零食推荐：\n1. **坚果礼盒（如杏仁、核桃、腰果）**  \n   - 无添加、健康又饱腹，适合解馋。\n2. **水果干（如芒果干、葡萄干）**  \n   - 天然甜味，补充能量，但注意控制量哦。\n3. **酸奶/乳酸菌饮品**  \n   - 有助消化，还能补充益生菌，对身体恢复有帮助。\n4. **低糖饼干或全麦面包**  \n   - 清淡不油腻，容易消化。\n\n### 🛒 现在就可以下单，30分钟内送到家：\n- 如果你在城市中，建议选择平台上的“即时配送”服务，比如美团买菜、盒马、京东到家等，它们通常能保证30分钟送达。\n- 你可以搜索“产后零食”、“健康小吃”等关键词，系统会推荐适合的品类。\n\n### 💡 小贴士：\n- 注意饮食要清淡、易消化，避免过于油腻或辛辣。\n- 如果你正在哺乳期，建议选择低盐、低糖、无添加剂的食品。\n- 保持心情愉快也很重要，可以适当放松一下！\n\n需要我帮你筛选具体的商品链接或者品牌吗？欢迎告诉我你的位置和偏好，我可以更精准地推荐～ 😊",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 342,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 428
+            },
+            "request_id": "61fa5242-0ef8-9954-ba2c-2a1444331471"
+          },
+          "response_time_ms": 3798
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0016",
+          "query_text": "我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好享受一下自己的小幸福吧！\n\n在30分钟内送到家的零食推荐如下：\n\n### 🍪 甜食类（解馋必备）：\n- **巧克力**（黑巧或牛奶巧）：补充能量、缓解疲劳\n- **曲奇饼干**：酥脆可口，方便食用\n- **坚果礼盒**（无盐/低盐）：营养丰富，适合产后恢复\n\n### 🍫 健康零食类（适合产后妈妈）：\n- **酸奶**：补钙、助消化，选择原味无糖的更健康\n- **水果干**（如葡萄干、苹果干）：天然甜味，方便携带\n- **麦片棒/能量棒**：方便吃，补充体力\n\n### 🍵 饮品类（提神解馋）：\n- **花茶**（如红枣枸杞茶、玫瑰花茶）：温和滋补\n- **鲜榨果汁**（如橙汁、苹果汁）：补充维生素\n- **咖啡/奶茶**（注意：哺乳期建议控制摄入量）\n\n如果你有特别想吃的口味或品牌，可以告诉我，我可以帮你快速找到附近的店铺和商品。另外，如果是哺乳期，建议避免含咖啡因过多的饮品哦～\n\n需要我帮你下单吗？或者你有其他需求也可以告诉我～",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好享受一下自己的小幸福吧！\n\n在30分钟内送到家的零食推荐如下：\n\n### 🍪 甜食类（解馋必备）：\n- **巧克力**（黑巧或牛奶巧）：补充能量、缓解疲劳\n- **曲奇饼干**：酥脆可口，方便食用\n- **坚果礼盒**（无盐/低盐）：营养丰富，适合产后恢复\n\n### 🍫 健康零食类（适合产后妈妈）：\n- **酸奶**：补钙、助消化，选择原味无糖的更健康\n- **水果干**（如葡萄干、苹果干）：天然甜味，方便携带\n- **麦片棒/能量棒**：方便吃，补充体力\n\n### 🍵 饮品类（提神解馋）：\n- **花茶**（如红枣枸杞茶、玫瑰花茶）：温和滋补\n- **鲜榨果汁**（如橙汁、苹果汁）：补充维生素\n- **咖啡/奶茶**（注意：哺乳期建议控制摄入量）\n\n如果你有特别想吃的口味或品牌，可以告诉我，我可以帮你快速找到附近的店铺和商品。另外，如果是哺乳期，建议避免含咖啡因过多的饮品哦～\n\n需要我帮你下单吗？或者你有其他需求也可以告诉我～",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 305,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 391
+            },
+            "request_id": "e2107ed1-672a-9c56-87bb-7ce06f2830af"
+          },
+          "response_time_ms": 3561
+        }
+      }
+    ],
+    "parsed": [
+      {
+        "query": {
+          "query_id": "Q0001",
+          "query_text": "我早上赶着上班没时间买菜，现在急需一盒新鲜的西红柿和几把青菜，30分钟内送到公司楼下。",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，我帮您查询一下附近可以30分钟内送到的商家。您现在的位置是？方便告诉我一下具体地址吗？这样我可以为您推荐最近、最快送达的店铺，并确认是否有新鲜的西红柿和青菜供应。",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，我帮您查询一下附近可以30分钟内送到的商家。您现在的位置是？方便告诉我一下具体地址吗？这样我可以为您推荐最近、最快送达的店铺，并确认是否有新鲜的西红柿和青菜供应。",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 95,
+              "output_tokens": 50,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 145
+            },
+            "request_id": "83b1dfe2-b741-942e-bf7f-842cacc63a79"
+          },
+          "response_time_ms": 827
+        },
+        "parsed": {
+          "original_response": "好的，我帮您查询一下附近可以30分钟内送到的商家。您现在的位置是？方便告诉我一下具体地址吗？这样我可以为您推荐最近、最快送达的店铺，并确认是否有新鲜的西红柿和青菜供应。",
+          "recommended_products": [
+            "最近、最快送达的店铺"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元"
+          ],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0002",
+          "query_text": "我刚下班，家里没菜了，急需买点蔬菜水果，30分钟内送到。",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，我帮您快速挑选一些适合的蔬菜水果，确保30分钟内送达：\n\n【推荐商品】\n1. 西兰花（598g）- 清爽营养，适合炒食或凉拌\n2. 番茄（1kg）- 多种烹饪方式，补充维生素C\n3. 苹果（红富士1kg）- 香甜脆爽，方便携带\n4. 胡萝卜（500g）- 健康食材，可做沙拉或炖汤\n5. 洋葱（500g）- 万能调味品，提升菜肴风味\n\n【配送信息】\n当前距离您最近的门店：XX便利店（约8分钟车程）\n预计送达时间：28分钟（具体以实际订单为准）\n\n需要我为您添加其他品类吗？比如肉类、主食或调味品？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，我帮您快速挑选一些适合的蔬菜水果，确保30分钟内送达：\n\n【推荐商品】\n1. 西兰花（598g）- 清爽营养，适合炒食或凉拌\n2. 番茄（1kg）- 多种烹饪方式，补充维生素C\n3. 苹果（红富士1kg）- 香甜脆爽，方便携带\n4. 胡萝卜（500g）- 健康食材，可做沙拉或炖汤\n5. 洋葱（500g）- 万能调味品，提升菜肴风味\n\n【配送信息】\n当前距离您最近的门店：XX便利店（约8分钟车程）\n预计送达时间：28分钟（具体以实际订单为准）\n\n需要我为您添加其他品类吗？比如肉类、主食或调味品？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 85,
+              "output_tokens": 195,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 280
+            },
+            "request_id": "5690b6cf-8f59-91c5-838b-2086263ba199"
+          },
+          "response_time_ms": 2494
+        },
+        "parsed": {
+          "original_response": "好的，我帮您快速挑选一些适合的蔬菜水果，确保30分钟内送达：\n\n【推荐商品】\n1. 西兰花（598g）- 清爽营养，适合炒食或凉拌\n2. 番茄（1kg）- 多种烹饪方式，补充维生素C\n3. 苹果（红富士1kg）- 香甜脆爽，方便携带\n4. 胡萝卜（500g）- 健康食材，可做沙拉或炖汤\n5. 洋葱（500g）- 万能调味品，提升菜肴风味\n\n【配送信息】\n当前距离您最近的门店：XX便利店（约8分钟车程）\n预计送达时间：28分钟（具体以实际订单为准）\n\n需要我为您添加其他品类吗？比如肉类、主食或调味品？",
+          "recommended_products": [
+            "商品】"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "1元",
+            "598元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0003",
+          "query_text": "我早上出门太急忘记带零食了，现在在公司楼下找点能30分钟送到的休闲食品解馋。",
+          "priority": "P0",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您现在需要的是在30分钟内送达的休闲食品，我来为您推荐几款适合在办公室或路上食用的零食：\n\n1. **薯片（如乐事、上好佳）** – 酥脆可口，是很多人的最爱。\n2. **巧克力（如费列罗、德芙）** – 能快速补充能量，满足甜食欲望。\n3. **坚果（如三只松鼠、良品铺子）** – 健康又解馋，适合长时间工作时食用。\n4. **果干（如王饱饱、三只松鼠）** – 甜而不腻，方便携带。\n5. **小包装饼干/蛋卷** – 携带方便，口味多样。\n\n您可以直接通过您的即时零售平台下单，比如美团闪购、京东到家、盒马等，选择“30分钟送达”的服务。如果需要，我可以帮您筛选出最近的店铺和商品，或者根据您喜欢的口味进一步推荐。\n\n您更偏爱什么口味的零食呢？我可以为您定制推荐！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您现在需要的是在30分钟内送达的休闲食品，我来为您推荐几款适合在办公室或路上食用的零食：\n\n1. **薯片（如乐事、上好佳）** – 酥脆可口，是很多人的最爱。\n2. **巧克力（如费列罗、德芙）** – 能快速补充能量，满足甜食欲望。\n3. **坚果（如三只松鼠、良品铺子）** – 健康又解馋，适合长时间工作时食用。\n4. **果干（如王饱饱、三只松鼠）** – 甜而不腻，方便携带。\n5. **小包装饼干/蛋卷** – 携带方便，口味多样。\n\n您可以直接通过您的即时零售平台下单，比如美团闪购、京东到家、盒马等，选择“30分钟送达”的服务。如果需要，我可以帮您筛选出最近的店铺和商品，或者根据您喜欢的口味进一步推荐。\n\n您更偏爱什么口味的零食呢？我可以为您定制推荐！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 91,
+              "output_tokens": 232,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 323
+            },
+            "request_id": "75b18467-c2a4-90bd-8cc7-425bf0a2454a"
+          },
+          "response_time_ms": 2730
+        },
+        "parsed": {
+          "original_response": "好的，您现在需要的是在30分钟内送达的休闲食品，我来为您推荐几款适合在办公室或路上食用的零食：\n\n1. **薯片（如乐事、上好佳）** – 酥脆可口，是很多人的最爱。\n2. **巧克力（如费列罗、德芙）** – 能快速补充能量，满足甜食欲望。\n3. **坚果（如三只松鼠、良品铺子）** – 健康又解馋，适合长时间工作时食用。\n4. **果干（如王饱饱、三只松鼠）** – 甜而不腻，方便携带。\n5. **小包装饼干/蛋卷** – 携带方便，口味多样。\n\n您可以直接通过您的即时零售平台下单，比如美团闪购、京东到家、盒马等，选择“30分钟送达”的服务。如果需要，我可以帮您筛选出最近的店铺和商品，或者根据您喜欢的口味进一步推荐。\n\n您更偏爱什么口味的零食呢？我可以为您定制推荐！",
+          "recommended_products": [
+            "几款适合在办公室或路上食用的零食："
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "适用性说明"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "1元",
+            "2元"
+          ],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0004",
+          "query_text": "我早上出门太急忘了带零食，现在在公司楼下找点能30分钟送到的休闲食品。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "你好！现在在公司楼下找零食，30分钟内送到的话，可以考虑以下几类休闲食品：\n\n### 🍫 甜食类（适合快速补充能量）：\n- **巧克力**（如德芙、费列罗）\n- **夹心饼干**（如奥利奥、趣多多）\n- **米果/薯片**（如乐事、品客）\n\n### 🥜 坚果类（健康又解馋）：\n- **混合坚果**（如三只松鼠、良品铺子）\n- **原味瓜子/开心果**\n- **杏仁/腰果**（独立包装更方便）\n\n### 🍪 零食小点（方便携带）：\n- **蛋黄酥/绿豆糕**（适合喜欢中式点心的你）\n- **蛋糕卷/布丁**（如果想吃点甜点）\n- **果干/蜜饯**（如葡萄干、芒果干）\n\n### 🧃 饮品类（如果需要搭配）：\n- **果汁**（如农夫山泉、汇源）\n- **酸奶**（如伊利、蒙牛）\n- **功能性饮料**（如脉动、红牛）\n\n你可以通过即时零售平台（如美团闪购、京东到家、盒马等）搜索“30分钟送达”或“附近配送”，系统会根据你的位置推荐最近的店铺和商品。\n\n如果你告诉我你喜欢的口味或忌口，我可以进一步帮你筛选哦！😊",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "你好！现在在公司楼下找零食，30分钟内送到的话，可以考虑以下几类休闲食品：\n\n### 🍫 甜食类（适合快速补充能量）：\n- **巧克力**（如德芙、费列罗）\n- **夹心饼干**（如奥利奥、趣多多）\n- **米果/薯片**（如乐事、品客）\n\n### 🥜 坚果类（健康又解馋）：\n- **混合坚果**（如三只松鼠、良品铺子）\n- **原味瓜子/开心果**\n- **杏仁/腰果**（独立包装更方便）\n\n### 🍪 零食小点（方便携带）：\n- **蛋黄酥/绿豆糕**（适合喜欢中式点心的你）\n- **蛋糕卷/布丁**（如果想吃点甜点）\n- **果干/蜜饯**（如葡萄干、芒果干）\n\n### 🧃 饮品类（如果需要搭配）：\n- **果汁**（如农夫山泉、汇源）\n- **酸奶**（如伊利、蒙牛）\n- **功能性饮料**（如脉动、红牛）\n\n你可以通过即时零售平台（如美团闪购、京东到家、盒马等）搜索“30分钟送达”或“附近配送”，系统会根据你的位置推荐最近的店铺和商品。\n\n如果你告诉我你喜欢的口味或忌口，我可以进一步帮你筛选哦！😊",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 88,
+              "output_tokens": 317,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 405
+            },
+            "request_id": "e2b1fb1d-073a-91a6-9e98-1aae98795b04"
+          },
+          "response_time_ms": 6242
+        },
+        "parsed": {
+          "original_response": "你好！现在在公司楼下找零食，30分钟内送到的话，可以考虑以下几类休闲食品：\n\n### 🍫 甜食类（适合快速补充能量）：\n- **巧克力**（如德芙、费列罗）\n- **夹心饼干**（如奥利奥、趣多多）\n- **米果/薯片**（如乐事、品客）\n\n### 🥜 坚果类（健康又解馋）：\n- **混合坚果**（如三只松鼠、良品铺子）\n- **原味瓜子/开心果**\n- **杏仁/腰果**（独立包装更方便）\n\n### 🍪 零食小点（方便携带）：\n- **蛋黄酥/绿豆糕**（适合喜欢中式点心的你）\n- **蛋糕卷/布丁**（如果想吃点甜点）\n- **果干/蜜饯**（如葡萄干、芒果干）\n\n### 🧃 饮品类（如果需要搭配）：\n- **果汁**（如农夫山泉、汇源）\n- **酸奶**（如伊利、蒙牛）\n- **功能性饮料**（如脉动、红牛）\n\n你可以通过即时零售平台（如美团闪购、京东到家、盒马等）搜索“30分钟送达”或“附近配送”，系统会根据你的位置推荐最近的店铺和商品。\n\n如果你告诉我你喜欢的口味或忌口，我可以进一步帮你筛选哦！😊",
+          "recommended_products": [
+            "虑以下几类休闲食品：",
+            "最近的店铺和商品"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "30元"
+          ],
+          "brand_mentions": [
+            "农夫山泉",
+            "伊利",
+            "蒙牛"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0005",
+          "query_text": "我需要一份新鲜的蔬菜和水果，30分钟内送到公司，今天下班前得吃上。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您需要一份新鲜的蔬菜和水果，并且希望在30分钟内送到公司，今天下班前吃上。我为您推荐以下商品：\n\n### 🥦 蔬菜推荐：\n1. **菠菜** - 富含铁和维生素，适合做沙拉或炒菜。\n2. **胡萝卜** - 甜脆可口，可以生吃或煮熟。\n3. **西红柿** - 新鲜多汁，适合拌沙拉或煎蛋。\n4. **西兰花** - 营养丰富，适合清炒或水煮。\n\n### 🍎 水果推荐：\n1. **苹果** - 简单方便，营养丰富，适合直接食用。\n2. **香蕉** - 高能量、易携带，非常适合上班族。\n3. **橙子** - 富含维生素C，有助于增强免疫力。\n4. **葡萄** - 多汁甜美，可以直接吃。\n\n如果您有特定的饮食需求（如低糖、低碳水、素食等），请告诉我，我可以为您进一步优化推荐。同时，您可以选择在我们平台下单，我们会尽快安排配送，确保您在30分钟内收到。是否需要我帮您下单？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您需要一份新鲜的蔬菜和水果，并且希望在30分钟内送到公司，今天下班前吃上。我为您推荐以下商品：\n\n### 🥦 蔬菜推荐：\n1. **菠菜** - 富含铁和维生素，适合做沙拉或炒菜。\n2. **胡萝卜** - 甜脆可口，可以生吃或煮熟。\n3. **西红柿** - 新鲜多汁，适合拌沙拉或煎蛋。\n4. **西兰花** - 营养丰富，适合清炒或水煮。\n\n### 🍎 水果推荐：\n1. **苹果** - 简单方便，营养丰富，适合直接食用。\n2. **香蕉** - 高能量、易携带，非常适合上班族。\n3. **橙子** - 富含维生素C，有助于增强免疫力。\n4. **葡萄** - 多汁甜美，可以直接吃。\n\n如果您有特定的饮食需求（如低糖、低碳水、素食等），请告诉我，我可以为您进一步优化推荐。同时，您可以选择在我们平台下单，我们会尽快安排配送，确保您在30分钟内收到。是否需要我帮您下单？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 87,
+              "output_tokens": 255,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 342
+            },
+            "request_id": "54191966-2201-9b1b-9e0c-794cfa10e724"
+          },
+          "response_time_ms": 2959
+        },
+        "parsed": {
+          "original_response": "好的，您需要一份新鲜的蔬菜和水果，并且希望在30分钟内送到公司，今天下班前吃上。我为您推荐以下商品：\n\n### 🥦 蔬菜推荐：\n1. **菠菜** - 富含铁和维生素，适合做沙拉或炒菜。\n2. **胡萝卜** - 甜脆可口，可以生吃或煮熟。\n3. **西红柿** - 新鲜多汁，适合拌沙拉或煎蛋。\n4. **西兰花** - 营养丰富，适合清炒或水煮。\n\n### 🍎 水果推荐：\n1. **苹果** - 简单方便，营养丰富，适合直接食用。\n2. **香蕉** - 高能量、易携带，非常适合上班族。\n3. **橙子** - 富含维生素C，有助于增强免疫力。\n4. **葡萄** - 多汁甜美，可以直接吃。\n\n如果您有特定的饮食需求（如低糖、低碳水、素食等），请告诉我，我可以为您进一步优化推荐。同时，您可以选择在我们平台下单，我们会尽快安排配送，确保您在30分钟内收到。是否需要我帮您下单？",
+          "recommended_products": [
+            "1. **苹果** - 简单方便",
+            "以下商品：",
+            "您可以",
+            "1. **菠菜** - 富含铁和维生素"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "适用性说明"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": false,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "1元",
+            "2元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0006",
+          "query_text": "我刚下班想买点新鲜的蔬菜水果，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您刚下班想买点新鲜的蔬菜水果，并且希望30分钟内送到家，我来为您推荐一些适合的选择：\n\n### 🥦【推荐蔬菜】\n- **菠菜**：富含铁和维生素，适合做炒菜或汤。\n- **西兰花**：营养丰富，适合清炒或焯水凉拌。\n- **胡萝卜**：可以生吃或炒食，是健康的好选择。\n- **番茄**：可直接吃或做沙拉、炒菜。\n\n### 🍎【推荐水果】\n- **苹果**：方便携带，营养丰富，适合饭后吃。\n- **香蕉**：富含钾，有助于缓解疲劳。\n- **橙子/橘子**：富含维生素C，帮助增强免疫力。\n- **葡萄**：口感好，适合解渴。\n\n### 🛒【配送建议】\n为了确保在30分钟内送达，请尽量选择：\n- **距离较近的商家**（如小区附近的超市或生鲜店）\n- **下单时间尽量早些**（如18:30前下单，避免高峰期）\n\n如果您告诉我您所在的城市或具体位置，我可以帮您查找附近最近的店铺并推荐更精准的商品哦！需要吗？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您刚下班想买点新鲜的蔬菜水果，并且希望30分钟内送到家，我来为您推荐一些适合的选择：\n\n### 🥦【推荐蔬菜】\n- **菠菜**：富含铁和维生素，适合做炒菜或汤。\n- **西兰花**：营养丰富，适合清炒或焯水凉拌。\n- **胡萝卜**：可以生吃或炒食，是健康的好选择。\n- **番茄**：可直接吃或做沙拉、炒菜。\n\n### 🍎【推荐水果】\n- **苹果**：方便携带，营养丰富，适合饭后吃。\n- **香蕉**：富含钾，有助于缓解疲劳。\n- **橙子/橘子**：富含维生素C，帮助增强免疫力。\n- **葡萄**：口感好，适合解渴。\n\n### 🛒【配送建议】\n为了确保在30分钟内送达，请尽量选择：\n- **距离较近的商家**（如小区附近的超市或生鲜店）\n- **下单时间尽量早些**（如18:30前下单，避免高峰期）\n\n如果您告诉我您所在的城市或具体位置，我可以帮您查找附近最近的店铺并推荐更精准的商品哦！需要吗？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 82,
+              "output_tokens": 260,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 342
+            },
+            "request_id": "31c3f13f-4b3c-9f4a-aa28-3d13c8b8d4c8"
+          },
+          "response_time_ms": 3066
+        },
+        "parsed": {
+          "original_response": "好的，您刚下班想买点新鲜的蔬菜水果，并且希望30分钟内送到家，我来为您推荐一些适合的选择：\n\n### 🥦【推荐蔬菜】\n- **菠菜**：富含铁和维生素，适合做炒菜或汤。\n- **西兰花**：营养丰富，适合清炒或焯水凉拌。\n- **胡萝卜**：可以生吃或炒食，是健康的好选择。\n- **番茄**：可直接吃或做沙拉、炒菜。\n\n### 🍎【推荐水果】\n- **苹果**：方便携带，营养丰富，适合饭后吃。\n- **香蕉**：富含钾，有助于缓解疲劳。\n- **橙子/橘子**：富含维生素C，帮助增强免疫力。\n- **葡萄**：口感好，适合解渴。\n\n### 🛒【配送建议】\n为了确保在30分钟内送达，请尽量选择：\n- **距离较近的商家**（如小区附近的超市或生鲜店）\n- **下单时间尽量早些**（如18:30前下单，避免高峰期）\n\n如果您告诉我您所在的城市或具体位置，我可以帮您查找附近最近的店铺并推荐更精准的商品哦！需要吗？",
+          "recommended_products": [
+            "水果】",
+            "请尽量",
+            "蔬菜】",
+            "更精准的商品哦！需要吗？",
+            "是健康的好"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "30元",
+            "18元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0007",
+          "query_text": "我下班路上想买点零食解解馋，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您下班路上想买点零食解解馋，并且希望30分钟内送到家，我来为您推荐一些适合的零食：\n\n### 🍫 推荐零食（30分钟内送达）：\n1. **巧克力（如费列罗、德芙、明治等）**  \n   - 甜食控必备，快速满足嘴馋。\n   - 常见品牌在大多数平台都有库存。\n\n2. **薯片/虾条/脆片（如乐事、上好佳、品客）**  \n   - 酥脆可口，方便食用，适合边走边吃。\n\n3. **坚果（如三只松鼠、良品铺子）**  \n   - 健康又解馋，多种口味可选。\n\n4. **饼干（如奥利奥、趣多多、小熊软糖）**  \n   - 轻便易携带，适合应急解馋。\n\n5. **棒棒糖/水果糖（如大白兔、金丝猴）**  \n   - 经典怀旧款，适合简单解馋。\n\n6. **小包装糖果或巧克力豆（如M&M's、士力架）**  \n   - 精致小巧，方便携带。\n\n---\n\n### 🛒 如何下单更快？\n- 选择您常使用的即时零售平台（如美团闪购、京东到家、盒马、朴朴等）。\n- 搜索“零食”或直接浏览“解馋专区”。\n- 注意查看配送时间是否为“30分钟达”。\n\n---\n\n需要我根据您的口味偏好进一步推荐吗？比如您喜欢甜的、咸的还是辣的？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您下班路上想买点零食解解馋，并且希望30分钟内送到家，我来为您推荐一些适合的零食：\n\n### 🍫 推荐零食（30分钟内送达）：\n1. **巧克力（如费列罗、德芙、明治等）**  \n   - 甜食控必备，快速满足嘴馋。\n   - 常见品牌在大多数平台都有库存。\n\n2. **薯片/虾条/脆片（如乐事、上好佳、品客）**  \n   - 酥脆可口，方便食用，适合边走边吃。\n\n3. **坚果（如三只松鼠、良品铺子）**  \n   - 健康又解馋，多种口味可选。\n\n4. **饼干（如奥利奥、趣多多、小熊软糖）**  \n   - 轻便易携带，适合应急解馋。\n\n5. **棒棒糖/水果糖（如大白兔、金丝猴）**  \n   - 经典怀旧款，适合简单解馋。\n\n6. **小包装糖果或巧克力豆（如M&M's、士力架）**  \n   - 精致小巧，方便携带。\n\n---\n\n### 🛒 如何下单更快？\n- 选择您常使用的即时零售平台（如美团闪购、京东到家、盒马、朴朴等）。\n- 搜索“零食”或直接浏览“解馋专区”。\n- 注意查看配送时间是否为“30分钟达”。\n\n---\n\n需要我根据您的口味偏好进一步推荐吗？比如您喜欢甜的、咸的还是辣的？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 82,
+              "output_tokens": 357,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 439
+            },
+            "request_id": "82bb407d-faae-9984-9780-7e329a4f72ef"
+          },
+          "response_time_ms": 4169
+        },
+        "parsed": {
+          "original_response": "好的，您下班路上想买点零食解解馋，并且希望30分钟内送到家，我来为您推荐一些适合的零食：\n\n### 🍫 推荐零食（30分钟内送达）：\n1. **巧克力（如费列罗、德芙、明治等）**  \n   - 甜食控必备，快速满足嘴馋。\n   - 常见品牌在大多数平台都有库存。\n\n2. **薯片/虾条/脆片（如乐事、上好佳、品客）**  \n   - 酥脆可口，方便食用，适合边走边吃。\n\n3. **坚果（如三只松鼠、良品铺子）**  \n   - 健康又解馋，多种口味可选。\n\n4. **饼干（如奥利奥、趣多多、小熊软糖）**  \n   - 轻便易携带，适合应急解馋。\n\n5. **棒棒糖/水果糖（如大白兔、金丝猴）**  \n   - 经典怀旧款，适合简单解馋。\n\n6. **小包装糖果或巧克力豆（如M&M's、士力架）**  \n   - 精致小巧，方便携带。\n\n---\n\n### 🛒 如何下单更快？\n- 选择您常使用的即时零售平台（如美团闪购、京东到家、盒马、朴朴等）。\n- 搜索“零食”或直接浏览“解馋专区”。\n- 注意查看配送时间是否为“30分钟达”。\n\n---\n\n需要我根据您的口味偏好进一步推荐吗？比如您喜欢甜的、咸的还是辣的？",
+          "recommended_products": [
+            "吗？比如您喜欢甜的、咸的还是辣的？",
+            "一些适合的零食：",
+            "零食（30分钟内送达）："
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "30元",
+            "1元"
+          ],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0008",
+          "query_text": "我需要一份快速送到的休闲零食，下班路上想解解馋，30分钟内送到就行",
+          "priority": "P1",
+          "tags": [
+            "P1",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P1",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P1_忙碌的年轻白领",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "好的，您可以在我们平台搜索“30分钟送达”或“即时配送”的商品，这样能确保在下班路上就能收到。以下是一些受欢迎的休闲零食推荐，您可以根据口味选择：\n\n1. **薯片类**：如乐事、可比克、品客等，口感丰富，适合解馋。\n2. **坚果类**：如三只松鼠、良品铺子的混合坚果，健康又美味。\n3. **巧克力/糖类**：如德芙、费列罗、阿尔卑斯等，甜蜜滋味很适合放松时享用。\n4. **果干类**：如金润、三只松鼠的芒果干、葡萄干等，方便携带又好吃。\n5. **辣条类**：如卫龙大面筋、小王子等，适合喜欢重口味的用户。\n\n您可以告诉我您的口味偏好（比如甜食、咸食、辣味、健康类等），我可以为您进一步推荐！同时，建议您尽快下单，以便在30分钟内送达。需要我帮您挑选几款吗？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "好的，您可以在我们平台搜索“30分钟送达”或“即时配送”的商品，这样能确保在下班路上就能收到。以下是一些受欢迎的休闲零食推荐，您可以根据口味选择：\n\n1. **薯片类**：如乐事、可比克、品客等，口感丰富，适合解馋。\n2. **坚果类**：如三只松鼠、良品铺子的混合坚果，健康又美味。\n3. **巧克力/糖类**：如德芙、费列罗、阿尔卑斯等，甜蜜滋味很适合放松时享用。\n4. **果干类**：如金润、三只松鼠的芒果干、葡萄干等，方便携带又好吃。\n5. **辣条类**：如卫龙大面筋、小王子等，适合喜欢重口味的用户。\n\n您可以告诉我您的口味偏好（比如甜食、咸食、辣味、健康类等），我可以为您进一步推荐！同时，建议您尽快下单，以便在30分钟内送达。需要我帮您挑选几款吗？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 229,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 315
+            },
+            "request_id": "19bf3b38-ab63-9517-a001-16319e5591f4"
+          },
+          "response_time_ms": 2724
+        },
+        "parsed": {
+          "original_response": "好的，您可以在我们平台搜索“30分钟送达”或“即时配送”的商品，这样能确保在下班路上就能收到。以下是一些受欢迎的休闲零食推荐，您可以根据口味选择：\n\n1. **薯片类**：如乐事、可比克、品客等，口感丰富，适合解馋。\n2. **坚果类**：如三只松鼠、良品铺子的混合坚果，健康又美味。\n3. **巧克力/糖类**：如德芙、费列罗、阿尔卑斯等，甜蜜滋味很适合放松时享用。\n4. **果干类**：如金润、三只松鼠的芒果干、葡萄干等，方便携带又好吃。\n5. **辣条类**：如卫龙大面筋、小王子等，适合喜欢重口味的用户。\n\n您可以告诉我您的口味偏好（比如甜食、咸食、辣味、健康类等），我可以为您进一步推荐！同时，建议您尽快下单，以便在30分钟内送达。需要我帮您挑选几款吗？",
+          "recommended_products": [
+            "尽快下单",
+            "！同时",
+            "您可以根据口味"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "适用性说明"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": false,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "1元",
+            "2元"
+          ],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0009",
+          "query_text": "我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的叶菜，希望30分钟内送到",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "您好！恭喜您喜得宝宝，祝宝宝健康成长！为了尽快送到您家，我为您推荐以下几种适合产后妈妈的叶菜，并且这些商品在平台上有较高的库存和配送效率，可以确保30分钟内送达：\n\n1. **菠菜** - 富含铁和叶酸，非常适合产后补血。\n2. **油麦菜** - 清爽可口，容易消化，适合产后恢复期食用。\n3. **生菜** - 适合做沙拉或夹饼，营养丰富又方便。\n4. **小白菜** - 简单易做，适合搭配各种食材。\n\n您可以选择「急送」服务，系统会优先安排最近的门店配送。如果您有特别想吃的蔬菜，也可以告诉我，我会为您推荐最合适的选项。\n\n需要我帮您下单吗？还是您有其他需求？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "您好！恭喜您喜得宝宝，祝宝宝健康成长！为了尽快送到您家，我为您推荐以下几种适合产后妈妈的叶菜，并且这些商品在平台上有较高的库存和配送效率，可以确保30分钟内送达：\n\n1. **菠菜** - 富含铁和叶酸，非常适合产后补血。\n2. **油麦菜** - 清爽可口，容易消化，适合产后恢复期食用。\n3. **生菜** - 适合做沙拉或夹饼，营养丰富又方便。\n4. **小白菜** - 简单易做，适合搭配各种食材。\n\n您可以选择「急送」服务，系统会优先安排最近的门店配送。如果您有特别想吃的蔬菜，也可以告诉我，我会为您推荐最合适的选项。\n\n需要我帮您下单吗？还是您有其他需求？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 89,
+              "output_tokens": 180,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 269
+            },
+            "request_id": "0d082761-aaf4-9565-8e27-6c525fb6f85b"
+          },
+          "response_time_ms": 2183
+        },
+        "parsed": {
+          "original_response": "您好！恭喜您喜得宝宝，祝宝宝健康成长！为了尽快送到您家，我为您推荐以下几种适合产后妈妈的叶菜，并且这些商品在平台上有较高的库存和配送效率，可以确保30分钟内送达：\n\n1. **菠菜** - 富含铁和叶酸，非常适合产后补血。\n2. **油麦菜** - 清爽可口，容易消化，适合产后恢复期食用。\n3. **生菜** - 适合做沙拉或夹饼，营养丰富又方便。\n4. **小白菜** - 简单易做，适合搭配各种食材。\n\n您可以选择「急送」服务，系统会优先安排最近的门店配送。如果您有特别想吃的蔬菜，也可以告诉我，我会为您推荐最合适的选项。\n\n需要我帮您下单吗？还是您有其他需求？",
+          "recommended_products": [
+            "最合适的选项",
+            "您可以",
+            "以下几种适合产后妈妈的叶菜"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "适用性说明"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "1元",
+            "2元"
+          ],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0010",
+          "query_text": "我刚生完宝宝，家里蔬菜不够了，急需买点新鲜的菠菜和胡萝卜，希望30分钟内送到。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "您好，恭喜您喜得宝宝！祝宝宝健康成长，也祝您早日恢复元气。关于您需要的菠菜和胡萝卜，我们平台有多个合作的生鲜超市和便利店，可以保证新鲜蔬菜的快速配送。\n\n为了尽快送到，建议您优先选择以下方式：\n\n1. **立即下单**：在您的即时零售平台上（如京东到家、美团买菜、盒马等）搜索“菠菜”和“胡萝卜”，选择距离您最近的门店，并确认其是否支持30分钟送达。\n2. **选择保质期短的菜品**：菠菜和胡萝卜都是比较耐储存的蔬菜，但建议您尽量选择当天采摘或当天配送的，以确保新鲜度。\n3. **注意配送时间**：下单后请留意订单状态，如有延迟可联系客服跟进。\n\n如果您不确定哪家店铺更可靠，我可以帮您查询附近的可选店铺，只需告诉我您的位置信息即可。\n\n另外，如果您还需要其他母婴用品或营养补给，也可以告诉我，我会为您推荐合适的商品。祝您生活顺利，一切安好！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "您好，恭喜您喜得宝宝！祝宝宝健康成长，也祝您早日恢复元气。关于您需要的菠菜和胡萝卜，我们平台有多个合作的生鲜超市和便利店，可以保证新鲜蔬菜的快速配送。\n\n为了尽快送到，建议您优先选择以下方式：\n\n1. **立即下单**：在您的即时零售平台上（如京东到家、美团买菜、盒马等）搜索“菠菜”和“胡萝卜”，选择距离您最近的门店，并确认其是否支持30分钟送达。\n2. **选择保质期短的菜品**：菠菜和胡萝卜都是比较耐储存的蔬菜，但建议您尽量选择当天采摘或当天配送的，以确保新鲜度。\n3. **注意配送时间**：下单后请留意订单状态，如有延迟可联系客服跟进。\n\n如果您不确定哪家店铺更可靠，我可以帮您查询附近的可选店铺，只需告诉我您的位置信息即可。\n\n另外，如果您还需要其他母婴用品或营养补给，也可以告诉我，我会为您推荐合适的商品。祝您生活顺利，一切安好！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 92,
+              "output_tokens": 225,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 317
+            },
+            "request_id": "7b284001-8f6c-9fd5-9e04-ed94492dfdc8"
+          },
+          "response_time_ms": 2467
+        },
+        "parsed": {
+          "original_response": "您好，恭喜您喜得宝宝！祝宝宝健康成长，也祝您早日恢复元气。关于您需要的菠菜和胡萝卜，我们平台有多个合作的生鲜超市和便利店，可以保证新鲜蔬菜的快速配送。\n\n为了尽快送到，建议您优先选择以下方式：\n\n1. **立即下单**：在您的即时零售平台上（如京东到家、美团买菜、盒马等）搜索“菠菜”和“胡萝卜”，选择距离您最近的门店，并确认其是否支持30分钟送达。\n2. **选择保质期短的菜品**：菠菜和胡萝卜都是比较耐储存的蔬菜，但建议您尽量选择当天采摘或当天配送的，以确保新鲜度。\n3. **注意配送时间**：下单后请留意订单状态，如有延迟可联系客服跟进。\n\n如果您不确定哪家店铺更可靠，我可以帮您查询附近的可选店铺，只需告诉我您的位置信息即可。\n\n另外，如果您还需要其他母婴用品或营养补给，也可以告诉我，我会为您推荐合适的商品。祝您生活顺利，一切安好！",
+          "recommended_products": [
+            "合适的商品",
+            "尽量选择当天采摘或当天配送的",
+            "2. **",
+            "但建议您尽量",
+            "建议您优先"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "1元",
+            "30元",
+            "2元"
+          ],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0011",
+          "query_text": "我刚生完宝宝，家里零食快吃完了，急需补货，30分钟送到最好",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！宝宝的到来一定让家里充满了幸福和忙碌吧～不过现在你最需要的是好好休息，同时也要注意补充能量哦！\n\n为了尽快帮你补货，我建议你选择一些方便、营养又适合产后恢复的零食：\n\n1. **坚果类**：如核桃、腰果、杏仁等，富含健康脂肪和蛋白质，有助于恢复体力。\n2. **酸奶或奶酪**：补充钙质和蛋白质，对产后身体恢复很有帮助。\n3. **全麦饼干或能量棒**：方便食用，能快速补充能量。\n4. **水果干或冻干水果**：如蔓越莓干、苹果干等，既方便又营养。\n\n如果你需要，我可以立刻帮你下单，并选择“30分钟送达”的服务。请告诉我你所在的城市和具体地址，我会为你推荐附近的优质商家和最快送达的商品。另外，如果需要，我也可以帮你挑选一些适合产妇的营养品或月子餐。\n\n你希望我先帮你推荐哪些商品呢？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！宝宝的到来一定让家里充满了幸福和忙碌吧～不过现在你最需要的是好好休息，同时也要注意补充能量哦！\n\n为了尽快帮你补货，我建议你选择一些方便、营养又适合产后恢复的零食：\n\n1. **坚果类**：如核桃、腰果、杏仁等，富含健康脂肪和蛋白质，有助于恢复体力。\n2. **酸奶或奶酪**：补充钙质和蛋白质，对产后身体恢复很有帮助。\n3. **全麦饼干或能量棒**：方便食用，能快速补充能量。\n4. **水果干或冻干水果**：如蔓越莓干、苹果干等，既方便又营养。\n\n如果你需要，我可以立刻帮你下单，并选择“30分钟送达”的服务。请告诉我你所在的城市和具体地址，我会为你推荐附近的优质商家和最快送达的商品。另外，如果需要，我也可以帮你挑选一些适合产妇的营养品或月子餐。\n\n你希望我先帮你推荐哪些商品呢？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 85,
+              "output_tokens": 214,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 299
+            },
+            "request_id": "55dcc314-b1cf-9d15-9aac-5bed9b865e6d"
+          },
+          "response_time_ms": 2473
+        },
+        "parsed": {
+          "original_response": "恭喜你成为妈妈！宝宝的到来一定让家里充满了幸福和忙碌吧～不过现在你最需要的是好好休息，同时也要注意补充能量哦！\n\n为了尽快帮你补货，我建议你选择一些方便、营养又适合产后恢复的零食：\n\n1. **坚果类**：如核桃、腰果、杏仁等，富含健康脂肪和蛋白质，有助于恢复体力。\n2. **酸奶或奶酪**：补充钙质和蛋白质，对产后身体恢复很有帮助。\n3. **全麦饼干或能量棒**：方便食用，能快速补充能量。\n4. **水果干或冻干水果**：如蔓越莓干、苹果干等，既方便又营养。\n\n如果你需要，我可以立刻帮你下单，并选择“30分钟送达”的服务。请告诉我你所在的城市和具体地址，我会为你推荐附近的优质商家和最快送达的商品。另外，如果需要，我也可以帮你挑选一些适合产妇的营养品或月子餐。\n\n你希望我先帮你推荐哪些商品呢？",
+          "recommended_products": [
+            "我建议你",
+            "附近的优质商家和最快送达的商品",
+            "哪些商品呢？",
+            "选择一些方便、营养又适合产后恢复的零食："
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "1元",
+            "2元",
+            "3元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0012",
+          "query_text": "我刚生完宝宝，家里零食快吃完了，急需买点小零食垫垫肚子，希望30分钟内送到",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S1",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S1",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S1_应急补给",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！产后确实需要好好补充能量，我来帮你推荐一些适合的零食，既方便食用又营养丰富。\n\n以下是一些适合产后妈妈的零食推荐：\n\n### 1. **坚果类（如核桃、腰果、杏仁）**\n- 健康脂肪和蛋白质，有助于恢复体力。\n- 建议选择无添加、原味的。\n\n### 2. **小包装酸奶/奶酪**\n- 补充钙质，促进身体恢复。\n- 方便携带，适合随时吃。\n\n### 3. **水果干/冻干水果**\n- 如芒果干、苹果干、蓝莓干等。\n- 富含维生素，口感好，不会太甜。\n\n### 4. **麦片/燕麦棒**\n- 能量快，饱腹感强，适合快速补充体力。\n- 选择低糖、高纤维的。\n\n### 5. **巧克力（黑巧克力为佳）**\n- 适量吃可以缓解压力，提升心情。\n- 建议选择70%以上的可可含量。\n\n### 6. **即食粥/米糊**\n- 温和易消化，适合产后肠胃敏感的阶段。\n- 可以选择红枣、桂圆口味的。\n\n---\n\n如果你希望我直接帮你下单，可以告诉我你所在的城市或地址，我会根据你附近的店铺推荐商品。另外，有些平台有“妈妈专区”或“母婴专区”，可以优先查看。\n\n如果需要，我也可以帮你筛选出**30分钟内送达**的商品。你告诉我你所在的地区吧！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！产后确实需要好好补充能量，我来帮你推荐一些适合的零食，既方便食用又营养丰富。\n\n以下是一些适合产后妈妈的零食推荐：\n\n### 1. **坚果类（如核桃、腰果、杏仁）**\n- 健康脂肪和蛋白质，有助于恢复体力。\n- 建议选择无添加、原味的。\n\n### 2. **小包装酸奶/奶酪**\n- 补充钙质，促进身体恢复。\n- 方便携带，适合随时吃。\n\n### 3. **水果干/冻干水果**\n- 如芒果干、苹果干、蓝莓干等。\n- 富含维生素，口感好，不会太甜。\n\n### 4. **麦片/燕麦棒**\n- 能量快，饱腹感强，适合快速补充体力。\n- 选择低糖、高纤维的。\n\n### 5. **巧克力（黑巧克力为佳）**\n- 适量吃可以缓解压力，提升心情。\n- 建议选择70%以上的可可含量。\n\n### 6. **即食粥/米糊**\n- 温和易消化，适合产后肠胃敏感的阶段。\n- 可以选择红枣、桂圆口味的。\n\n---\n\n如果你希望我直接帮你下单，可以告诉我你所在的城市或地址，我会根据你附近的店铺推荐商品。另外，有些平台有“妈妈专区”或“母婴专区”，可以优先查看。\n\n如果需要，我也可以帮你筛选出**30分钟内送达**的商品。你告诉我你所在的地区吧！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 91,
+              "output_tokens": 332,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 423
+            },
+            "request_id": "fa677d28-be1f-91e7-a9b2-c647084b0bb3"
+          },
+          "response_time_ms": 4087
+        },
+        "parsed": {
+          "original_response": "恭喜你成为妈妈！产后确实需要好好补充能量，我来帮你推荐一些适合的零食，既方便食用又营养丰富。\n\n以下是一些适合产后妈妈的零食推荐：\n\n### 1. **坚果类（如核桃、腰果、杏仁）**\n- 健康脂肪和蛋白质，有助于恢复体力。\n- 建议选择无添加、原味的。\n\n### 2. **小包装酸奶/奶酪**\n- 补充钙质，促进身体恢复。\n- 方便携带，适合随时吃。\n\n### 3. **水果干/冻干水果**\n- 如芒果干、苹果干、蓝莓干等。\n- 富含维生素，口感好，不会太甜。\n\n### 4. **麦片/燕麦棒**\n- 能量快，饱腹感强，适合快速补充体力。\n- 选择低糖、高纤维的。\n\n### 5. **巧克力（黑巧克力为佳）**\n- 适量吃可以缓解压力，提升心情。\n- 建议选择70%以上的可可含量。\n\n### 6. **即食粥/米糊**\n- 温和易消化，适合产后肠胃敏感的阶段。\n- 可以选择红枣、桂圆口味的。\n\n---\n\n如果你希望我直接帮你下单，可以告诉我你所在的城市或地址，我会根据你附近的店铺推荐商品。另外，有些平台有“妈妈专区”或“母婴专区”，可以优先查看。\n\n如果需要，我也可以帮你筛选出**30分钟内送达**的商品。你告诉我你所在的地区吧！",
+          "recommended_products": [
+            "- 建议",
+            "- 可以",
+            "选择无添加、原味的",
+            "### 1. **坚果类（如核桃、腰果、杏仁）**",
+            "选择70%以上的可可含量"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "适用性说明"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "1元",
+            "2元",
+            "3元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0013",
+          "query_text": "我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟送到家。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜您成为新妈妈！在产后恢复期间，保持营养均衡非常重要。为了满足您的需求，我为您推荐以下新鲜蔬菜和水果：\n\n1. **菠菜** - 富含铁和叶酸，有助于产后恢复\n2. **胡萝卜** - 含有丰富的维生素A，对视力和免疫系统有益\n3. **苹果** - 含有丰富的纤维和维生素C，有助于消化和增强免疫力\n4. **香蕉** - 富含钾，有助于缓解产后疲劳和改善情绪\n5. **橙子** - 含有丰富的维生素C，有助于增强免疫力和促进铁的吸收\n\n此外，我们还提供快速配送服务，确保您能在30分钟内收到新鲜的蔬菜和水果。如果您有其他需求或疑问，请随时告诉我，我会为您提供更个性化的建议。祝您和宝宝健康快乐！",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜您成为新妈妈！在产后恢复期间，保持营养均衡非常重要。为了满足您的需求，我为您推荐以下新鲜蔬菜和水果：\n\n1. **菠菜** - 富含铁和叶酸，有助于产后恢复\n2. **胡萝卜** - 含有丰富的维生素A，对视力和免疫系统有益\n3. **苹果** - 含有丰富的纤维和维生素C，有助于消化和增强免疫力\n4. **香蕉** - 富含钾，有助于缓解产后疲劳和改善情绪\n5. **橙子** - 含有丰富的维生素C，有助于增强免疫力和促进铁的吸收\n\n此外，我们还提供快速配送服务，确保您能在30分钟内收到新鲜的蔬菜和水果。如果您有其他需求或疑问，请随时告诉我，我会为您提供更个性化的建议。祝您和宝宝健康快乐！",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 179,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 265
+            },
+            "request_id": "004bb008-6cca-955a-9ef8-95755a9c2344"
+          },
+          "response_time_ms": 2127
+        },
+        "parsed": {
+          "original_response": "恭喜您成为新妈妈！在产后恢复期间，保持营养均衡非常重要。为了满足您的需求，我为您推荐以下新鲜蔬菜和水果：\n\n1. **菠菜** - 富含铁和叶酸，有助于产后恢复\n2. **胡萝卜** - 含有丰富的维生素A，对视力和免疫系统有益\n3. **苹果** - 含有丰富的纤维和维生素C，有助于消化和增强免疫力\n4. **香蕉** - 富含钾，有助于缓解产后疲劳和改善情绪\n5. **橙子** - 含有丰富的维生素C，有助于增强免疫力和促进铁的吸收\n\n此外，我们还提供快速配送服务，确保您能在30分钟内收到新鲜的蔬菜和水果。如果您有其他需求或疑问，请随时告诉我，我会为您提供更个性化的建议。祝您和宝宝健康快乐！",
+          "recommended_products": [
+            "以下新鲜蔬菜和水果："
+          ],
+          "time_commitment": null,
+          "personalization_elements": [],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": false,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "1元",
+            "2元",
+            "3元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0014",
+          "query_text": "我刚生完宝宝，想尽快买点新鲜的蔬菜和水果，30分钟内送到家，方便做月子餐。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C1"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C1",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C1_生鲜果蔬",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C1"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜您喜得宝宝！月子期间的营养补充非常重要，新鲜的蔬菜和水果是必不可少的。在30分钟内送到家的即时零售平台，您可以选择以下推荐的商品：\n\n### 🥦 推荐蔬菜类：\n1. **菠菜** – 富含铁质，有助于产后补血。\n2. **西兰花** – 含有丰富的维生素C和纤维，帮助消化和增强免疫力。\n3. **胡萝卜** – 促进乳汁分泌，同时富含β-胡萝卜素。\n4. **西红柿** – 清热解毒，适合产后调理。\n\n### 🍎 推荐水果类：\n1. **苹果** – 易于消化，富含膳食纤维和维生素，适合产后食用。\n2. **香蕉** – 补充钾元素，缓解产后便秘。\n3. **橙子/柚子** – 富含维生素C，增强免疫力。\n4. **猕猴桃** – 含有丰富的维C和叶酸，适合产后恢复。\n\n### 🥣 小贴士：\n- 建议选择当季、新鲜的蔬果，避免过于寒凉或刺激性的水果（如西瓜、梨等），可根据个人体质进行调整。\n- 如果您是剖腹产，建议避免生冷食物，可以优先选择温性的水果和蔬菜。\n- 也可以考虑购买一些有机或无农药残留的产品，更加安全健康。\n\n如果您需要，我可以帮您挑选一套“月子餐”搭配方案，或者直接下单配送哦！需要我帮忙吗？",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜您喜得宝宝！月子期间的营养补充非常重要，新鲜的蔬菜和水果是必不可少的。在30分钟内送到家的即时零售平台，您可以选择以下推荐的商品：\n\n### 🥦 推荐蔬菜类：\n1. **菠菜** – 富含铁质，有助于产后补血。\n2. **西兰花** – 含有丰富的维生素C和纤维，帮助消化和增强免疫力。\n3. **胡萝卜** – 促进乳汁分泌，同时富含β-胡萝卜素。\n4. **西红柿** – 清热解毒，适合产后调理。\n\n### 🍎 推荐水果类：\n1. **苹果** – 易于消化，富含膳食纤维和维生素，适合产后食用。\n2. **香蕉** – 补充钾元素，缓解产后便秘。\n3. **橙子/柚子** – 富含维生素C，增强免疫力。\n4. **猕猴桃** – 含有丰富的维C和叶酸，适合产后恢复。\n\n### 🥣 小贴士：\n- 建议选择当季、新鲜的蔬果，避免过于寒凉或刺激性的水果（如西瓜、梨等），可根据个人体质进行调整。\n- 如果您是剖腹产，建议避免生冷食物，可以优先选择温性的水果和蔬菜。\n- 也可以考虑购买一些有机或无农药残留的产品，更加安全健康。\n\n如果您需要，我可以帮您挑选一套“月子餐”搭配方案，或者直接下单配送哦！需要我帮忙吗？",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 93,
+              "output_tokens": 325,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 418
+            },
+            "request_id": "acb7106d-f934-95d7-88b9-15f8c32e0f74"
+          },
+          "response_time_ms": 3174
+        },
+        "parsed": {
+          "original_response": "恭喜您喜得宝宝！月子期间的营养补充非常重要，新鲜的蔬菜和水果是必不可少的。在30分钟内送到家的即时零售平台，您可以选择以下推荐的商品：\n\n### 🥦 推荐蔬菜类：\n1. **菠菜** – 富含铁质，有助于产后补血。\n2. **西兰花** – 含有丰富的维生素C和纤维，帮助消化和增强免疫力。\n3. **胡萝卜** – 促进乳汁分泌，同时富含β-胡萝卜素。\n4. **西红柿** – 清热解毒，适合产后调理。\n\n### 🍎 推荐水果类：\n1. **苹果** – 易于消化，富含膳食纤维和维生素，适合产后食用。\n2. **香蕉** – 补充钾元素，缓解产后便秘。\n3. **橙子/柚子** – 富含维生素C，增强免疫力。\n4. **猕猴桃** – 含有丰富的维C和叶酸，适合产后恢复。\n\n### 🥣 小贴士：\n- 建议选择当季、新鲜的蔬果，避免过于寒凉或刺激性的水果（如西瓜、梨等），可根据个人体质进行调整。\n- 如果您是剖腹产，建议避免生冷食物，可以优先选择温性的水果和蔬菜。\n- 也可以考虑购买一些有机或无农药残留的产品，更加安全健康。\n\n如果您需要，我可以帮您挑选一套“月子餐”搭配方案，或者直接下单配送哦！需要我帮忙吗？",
+          "recommended_products": [
+            "选择当季、新鲜的蔬果",
+            "- 建议",
+            "的商品：",
+            "避免生冷食物",
+            "虑购买一些有机或无农药残留的产品"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "适用性说明",
+            "条件判断"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": false,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元",
+            "1元",
+            "2元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0015",
+          "query_text": "我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好照顾自己也很重要哦！\n\n为了满足你的需求，我推荐一些适合产后妈妈的零食，不仅美味，而且方便、营养均衡：\n\n### 🍫 健康小零食推荐：\n1. **坚果礼盒（如杏仁、核桃、腰果）**  \n   - 无添加、健康又饱腹，适合解馋。\n2. **水果干（如芒果干、葡萄干）**  \n   - 天然甜味，补充能量，但注意控制量哦。\n3. **酸奶/乳酸菌饮品**  \n   - 有助消化，还能补充益生菌，对身体恢复有帮助。\n4. **低糖饼干或全麦面包**  \n   - 清淡不油腻，容易消化。\n\n### 🛒 现在就可以下单，30分钟内送到家：\n- 如果你在城市中，建议选择平台上的“即时配送”服务，比如美团买菜、盒马、京东到家等，它们通常能保证30分钟送达。\n- 你可以搜索“产后零食”、“健康小吃”等关键词，系统会推荐适合的品类。\n\n### 💡 小贴士：\n- 注意饮食要清淡、易消化，避免过于油腻或辛辣。\n- 如果你正在哺乳期，建议选择低盐、低糖、无添加剂的食品。\n- 保持心情愉快也很重要，可以适当放松一下！\n\n需要我帮你筛选具体的商品链接或者品牌吗？欢迎告诉我你的位置和偏好，我可以更精准地推荐～ 😊",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好照顾自己也很重要哦！\n\n为了满足你的需求，我推荐一些适合产后妈妈的零食，不仅美味，而且方便、营养均衡：\n\n### 🍫 健康小零食推荐：\n1. **坚果礼盒（如杏仁、核桃、腰果）**  \n   - 无添加、健康又饱腹，适合解馋。\n2. **水果干（如芒果干、葡萄干）**  \n   - 天然甜味，补充能量，但注意控制量哦。\n3. **酸奶/乳酸菌饮品**  \n   - 有助消化，还能补充益生菌，对身体恢复有帮助。\n4. **低糖饼干或全麦面包**  \n   - 清淡不油腻，容易消化。\n\n### 🛒 现在就可以下单，30分钟内送到家：\n- 如果你在城市中，建议选择平台上的“即时配送”服务，比如美团买菜、盒马、京东到家等，它们通常能保证30分钟送达。\n- 你可以搜索“产后零食”、“健康小吃”等关键词，系统会推荐适合的品类。\n\n### 💡 小贴士：\n- 注意饮食要清淡、易消化，避免过于油腻或辛辣。\n- 如果你正在哺乳期，建议选择低盐、低糖、无添加剂的食品。\n- 保持心情愉快也很重要，可以适当放松一下！\n\n需要我帮你筛选具体的商品链接或者品牌吗？欢迎告诉我你的位置和偏好，我可以更精准地推荐～ 😊",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 342,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 428
+            },
+            "request_id": "61fa5242-0ef8-9954-ba2c-2a1444331471"
+          },
+          "response_time_ms": 3798
+        },
+        "parsed": {
+          "original_response": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好照顾自己也很重要哦！\n\n为了满足你的需求，我推荐一些适合产后妈妈的零食，不仅美味，而且方便、营养均衡：\n\n### 🍫 健康小零食推荐：\n1. **坚果礼盒（如杏仁、核桃、腰果）**  \n   - 无添加、健康又饱腹，适合解馋。\n2. **水果干（如芒果干、葡萄干）**  \n   - 天然甜味，补充能量，但注意控制量哦。\n3. **酸奶/乳酸菌饮品**  \n   - 有助消化，还能补充益生菌，对身体恢复有帮助。\n4. **低糖饼干或全麦面包**  \n   - 清淡不油腻，容易消化。\n\n### 🛒 现在就可以下单，30分钟内送到家：\n- 如果你在城市中，建议选择平台上的“即时配送”服务，比如美团买菜、盒马、京东到家等，它们通常能保证30分钟送达。\n- 你可以搜索“产后零食”、“健康小吃”等关键词，系统会推荐适合的品类。\n\n### 💡 小贴士：\n- 注意饮食要清淡、易消化，避免过于油腻或辛辣。\n- 如果你正在哺乳期，建议选择低盐、低糖、无添加剂的食品。\n- 保持心情愉快也很重要，可以适当放松一下！\n\n需要我帮你筛选具体的商品链接或者品牌吗？欢迎告诉我你的位置和偏好，我可以更精准地推荐～ 😊",
+          "recommended_products": [
+            "～ 😊",
+            "选择平台上的“即时配送”服务",
+            "1. **坚果礼盒（如杏仁、核桃、腰果）**",
+            "适合的品类",
+            "一些适合产后妈妈的零食"
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "条件判断"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": false,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "1元",
+            "2元",
+            "3元"
+          ],
+          "brand_mentions": []
+        }
+      },
+      {
+        "query": {
+          "query_id": "Q0016",
+          "query_text": "我刚生完宝宝，想马上买点零食解解馋，30分钟内送到家。",
+          "priority": "P1",
+          "tags": [
+            "P2",
+            "S2",
+            "C2"
+          ],
+          "persona_id": "P2",
+          "scenario_id": "S2",
+          "category_id": "C2",
+          "persona": "P2_新手妈妈",
+          "scenario": "S2_即时享受",
+          "category": "C2_休闲零售",
+          "expected_intent": {
+            "intent": "search",
+            "category": "C2"
+          },
+          "evaluation_criteria": [
+            "accuracy",
+            "timeliness",
+            "personalization",
+            "safety"
+          ]
+        },
+        "response": {
+          "success": true,
+          "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好享受一下自己的小幸福吧！\n\n在30分钟内送到家的零食推荐如下：\n\n### 🍪 甜食类（解馋必备）：\n- **巧克力**（黑巧或牛奶巧）：补充能量、缓解疲劳\n- **曲奇饼干**：酥脆可口，方便食用\n- **坚果礼盒**（无盐/低盐）：营养丰富，适合产后恢复\n\n### 🍫 健康零食类（适合产后妈妈）：\n- **酸奶**：补钙、助消化，选择原味无糖的更健康\n- **水果干**（如葡萄干、苹果干）：天然甜味，方便携带\n- **麦片棒/能量棒**：方便吃，补充体力\n\n### 🍵 饮品类（提神解馋）：\n- **花茶**（如红枣枸杞茶、玫瑰花茶）：温和滋补\n- **鲜榨果汁**（如橙汁、苹果汁）：补充维生素\n- **咖啡/奶茶**（注意：哺乳期建议控制摄入量）\n\n如果你有特别想吃的口味或品牌，可以告诉我，我可以帮你快速找到附近的店铺和商品。另外，如果是哺乳期，建议避免含咖啡因过多的饮品哦～\n\n需要我帮你下单吗？或者你有其他需求也可以告诉我～",
+          "raw_response": {
+            "output": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "message": {
+                    "content": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好享受一下自己的小幸福吧！\n\n在30分钟内送到家的零食推荐如下：\n\n### 🍪 甜食类（解馋必备）：\n- **巧克力**（黑巧或牛奶巧）：补充能量、缓解疲劳\n- **曲奇饼干**：酥脆可口，方便食用\n- **坚果礼盒**（无盐/低盐）：营养丰富，适合产后恢复\n\n### 🍫 健康零食类（适合产后妈妈）：\n- **酸奶**：补钙、助消化，选择原味无糖的更健康\n- **水果干**（如葡萄干、苹果干）：天然甜味，方便携带\n- **麦片棒/能量棒**：方便吃，补充体力\n\n### 🍵 饮品类（提神解馋）：\n- **花茶**（如红枣枸杞茶、玫瑰花茶）：温和滋补\n- **鲜榨果汁**（如橙汁、苹果汁）：补充维生素\n- **咖啡/奶茶**（注意：哺乳期建议控制摄入量）\n\n如果你有特别想吃的口味或品牌，可以告诉我，我可以帮你快速找到附近的店铺和商品。另外，如果是哺乳期，建议避免含咖啡因过多的饮品哦～\n\n需要我帮你下单吗？或者你有其他需求也可以告诉我～",
+                    "role": "assistant"
+                  }
+                }
+              ]
+            },
+            "usage": {
+              "input_tokens": 86,
+              "output_tokens": 305,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "total_tokens": 391
+            },
+            "request_id": "e2107ed1-672a-9c56-87bb-7ce06f2830af"
+          },
+          "response_time_ms": 3561
+        },
+        "parsed": {
+          "original_response": "恭喜你成为妈妈！宝宝的到来一定让你既开心又辛苦吧～不过现在先别太累着，好好享受一下自己的小幸福吧！\n\n在30分钟内送到家的零食推荐如下：\n\n### 🍪 甜食类（解馋必备）：\n- **巧克力**（黑巧或牛奶巧）：补充能量、缓解疲劳\n- **曲奇饼干**：酥脆可口，方便食用\n- **坚果礼盒**（无盐/低盐）：营养丰富，适合产后恢复\n\n### 🍫 健康零食类（适合产后妈妈）：\n- **酸奶**：补钙、助消化，选择原味无糖的更健康\n- **水果干**（如葡萄干、苹果干）：天然甜味，方便携带\n- **麦片棒/能量棒**：方便吃，补充体力\n\n### 🍵 饮品类（提神解馋）：\n- **花茶**（如红枣枸杞茶、玫瑰花茶）：温和滋补\n- **鲜榨果汁**（如橙汁、苹果汁）：补充维生素\n- **咖啡/奶茶**（注意：哺乳期建议控制摄入量）\n\n如果你有特别想吃的口味或品牌，可以告诉我，我可以帮你快速找到附近的店铺和商品。另外，如果是哺乳期，建议避免含咖啡因过多的饮品哦～\n\n需要我帮你下单吗？或者你有其他需求也可以告诉我～",
+          "recommended_products": [
+            "避免含咖啡因过多的饮品哦～",
+            "控制摄入量）",
+            "如下："
+          ],
+          "time_commitment": null,
+          "personalization_elements": [
+            "条件判断"
+          ],
+          "safety_warnings": [],
+          "intent_recognition": {
+            "persona_recognized": true,
+            "scenario_recognized": true,
+            "category_recognized": true
+          },
+          "price_mentions": [
+            "30元"
+          ],
+          "brand_mentions": [
+            "苹果"
+          ]
+        }
+      }
+    ],
+    "evaluation": [
+      {
+        "query_id": "Q0001",
+        "scores": {
+          "accuracy": 3.7,
+          "timeliness": 5.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 4.22,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0002",
+        "scores": {
+          "accuracy": 4.1,
+          "timeliness": 5.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 4.34,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0003",
+        "scores": {
+          "accuracy": 4.1,
+          "timeliness": 5.0,
+          "personalization": 4.0,
+          "safety": 5.0
+        },
+        "overall_score": 4.53,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0004",
+        "scores": {
+          "accuracy": 4.3,
+          "timeliness": 5.0,
+          "personalization": 3.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.5,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0005",
+        "scores": {
+          "accuracy": 4.6,
+          "timeliness": 4.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 4.31,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0006",
+        "scores": {
+          "accuracy": 4.7,
+          "timeliness": 4.0,
+          "personalization": 3.0,
+          "safety": 5.0
+        },
+        "overall_score": 4.34,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0007",
+        "scores": {
+          "accuracy": 4.5,
+          "timeliness": 4.0,
+          "personalization": 3.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.38,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0008",
+        "scores": {
+          "accuracy": 4.2,
+          "timeliness": 4.0,
+          "personalization": 3.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.28,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0009",
+        "scores": {
+          "accuracy": 4.1,
+          "timeliness": 5.0,
+          "personalization": 4.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.62,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0010",
+        "scores": {
+          "accuracy": 4.2,
+          "timeliness": 5.0,
+          "personalization": 3.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.47,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0011",
+        "scores": {
+          "accuracy": 4.0,
+          "timeliness": 5.0,
+          "personalization": 4.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.59,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0012",
+        "scores": {
+          "accuracy": 4.1,
+          "timeliness": 5.0,
+          "personalization": 4.0,
+          "safety": 5.0
+        },
+        "overall_score": 4.53,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0013",
+        "scores": {
+          "accuracy": 4.1,
+          "timeliness": 4.0,
+          "personalization": 4.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.44,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0014",
+        "scores": {
+          "accuracy": 4.1,
+          "timeliness": 4.0,
+          "personalization": 4.0,
+          "safety": 5.0
+        },
+        "overall_score": 4.34,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0015",
+        "scores": {
+          "accuracy": 4.2,
+          "timeliness": 4.0,
+          "personalization": 4.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.47,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      },
+      {
+        "query_id": "Q0016",
+        "scores": {
+          "accuracy": 4.1,
+          "timeliness": 4.0,
+          "personalization": 4.5,
+          "safety": 5.0
+        },
+        "overall_score": 4.44,
+        "issues": [],
+        "suggestions": [],
+        "evaluated_dimensions": [
+          "accuracy",
+          "timeliness",
+          "personalization",
+          "safety"
+        ]
+      }
+    ]
+  },
+  "generated_at": "2026-04-09T21:18:01.600302"
+}

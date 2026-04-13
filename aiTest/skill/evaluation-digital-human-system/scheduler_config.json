@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "enabled": false,
+    "daily_time": "09:00",
+    "weekly_day": null,
+    "weekly_time": null,
+    "interval_minutes": null,
+    "cron_expression": null
+  },
+  "dingtalk": {
+    "enabled": true,
+    "webhook_url": "https://oapi.dingtalk.com/robot/send?access_token=5fdbc51c7ee2de8403bd8791f7ba565561cea605cf12dee9cd2ae37c2f7eff91",
+    "secret": "SECf2064ffe7d83450180b1dee1d1cd557b3644a0dcf1d08eff14bb21d253e36f1f",
+    "at_mobiles": [],
+    "at_all": false
+  }
+}
