@@ -232,9 +232,12 @@ class QwenAgent(BaseAgent):
                 # 使用qwen-chat-client HTTP API
                 request_data = self._build_request(query_text, system_prompt, **kwargs)
 
+                # 获取实际使用的完整URL和headers
+                actual_url, actual_headers = self._get_request_url_and_headers(request_data)
+
                 # 记录完整请求信息
-                request_info["url"] = f"{self.base_url}/api/v1/chat/debug"
-                request_info["headers"] = self._build_headers(request_data['req_id'])
+                request_info["url"] = actual_url
+                request_info["headers"] = actual_headers
                 request_info["request_body"] = request_data
 
                 if self.stream or stream_callback:
@@ -478,13 +481,12 @@ class QwenAgent(BaseAgent):
 
         return request_data
 
-    def _execute_request(self, request_data: Dict) -> Dict:
-        """执行HTTP请求（同步）- 完全按照curl参数设定"""
-
-        # 使用debug接口URL（必须包含完整查询参数，否则403）
+    def _get_request_url_and_headers(self, request_data: Dict) -> tuple:
+        """获取实际请求的完整URL和Headers（用于记录）"""
+        # 完整URL（必须包含所有查询参数，否则403）
         url = 'https://chat2.qianwen.com/api/v1/chat/debug?bi=997&biz_id=ai_qwen&chat_client=native&fr=iphone&kps_wg=OjUEb%2B9gZOHZ%2FXIjTHFjdn70lyMsOp99xW5FcIcSO93XiTdqHIBg5uKlV7ZwRb0Ok1MbfiVfI6fTlJUNNrNbAx5o3Jq9QYvgUwJmjGc0y5vVnb0b1WlG1PqYmjdZeuDFur7SCUI8do%2BfYd%2BCib9B2JOqJXv%2B6OlqVTSXDG9kKk1W4Q%3D%3D&mt=%2BSQB0pZLPI%2Fg3xKbVLwhWJ5o88xVOrN3&nn=OjU%3D&nonce=709AEA8D045C491B8A4361B787D1FE05&pc=OjWqjjPaD70yY5oZssOhlyr1SEEoUxk9ZZIplEuMbiyPzhxt8RthnNeeOUQ94BLtWvtM%2FRsXB6PFx1zGD8TwozKj&pf=200&pr=qwen&protocol_version=v2&sign_type=2&sign_wg=OjXSN%2BtZ5zOpUEn%2B0pZndOnsJWyYmCqqYxxYdfPDrvLqOFWItFGYDPa4HGS8e9YQJlg%3D&sv=love&timestamp=1766659025252&uc_param_str=utmtpcsnnnvebipfdnprfrsvcgbcxsginx&ut=OjXcgGy9ah4NNZJcstSR9lJy%2FOnq7TSgk7oSJLu87Q%2BmSA%3D%3D&vcode=1766659025249&sign=3a35ec9df845f223e09c12f1098f2ef86fb7e3805dc8&ve=6.5.8.2774'
 
-        # 构建请求头（完全按照curl设定）
+        # 构建请求头
         headers = {
             'sec-ch-ua-platform': 'macOS',
             'X-Appkey': '34400722',
@@ -511,6 +513,14 @@ class QwenAgent(BaseAgent):
             'X-Sgext': 'JBPVqs5csx3%2Fx9FBtsQ6XqrgmuSJ55%2Fhmvab5In2m%2BKc45zgkuGT44nlmuec5ZrlmuWa5ZrlmuWa9pr2mvaa5YnlmuWa9pr2k%2FaY9pP2m%2Fab9pv2mvac5ZrlmvaYscv2mfaS9pn20Lntu4n1ivXI9Yr1mvaTipv4mvj1tPX4m%2FOa85rl9bf17Zj4m%2Fia%2BJr4morOiv%2BD5If85OSN%2F7nj6PWz9eaH5Yflh%2BWH4vXkmoqOipvm9ZTNlOuU65TrlOuU65TrlOuU65TrlOuU65TrlOuKm%2BP15fXkyYqS54zljOWM5YzljOWM5YzljOWM5Yzl9eTPipr4mYqY5vXtmPOH5ITlmuWa85rzmvOa85rzmoqY4fXkh%2BWH7Yflh%2BWH5Yflh%2BWH5Yfl9eefio60%2F%2FX%2BX%2BpcGe05P%2BmfCG2Yeep8iazZjIkPm0wbjmvNmgwuDhp%2BCg76Ccipjj9eeM5IzljOWM5Izk9Q%3D%3D',
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'
         }
+
+        return url, headers
+
+    def _execute_request(self, request_data: Dict) -> Dict:
+        """执行HTTP请求（同步）- 完全按照curl参数设定"""
+
+        # 获取完整URL和Headers
+        url, headers = self._get_request_url_and_headers(request_data)
 
         # 发送POST请求（流式读取）
         response = requests.post(
