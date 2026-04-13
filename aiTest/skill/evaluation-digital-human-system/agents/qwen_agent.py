@@ -481,8 +481,8 @@ class QwenAgent(BaseAgent):
     def _execute_request(self, request_data: Dict) -> Dict:
         """执行HTTP请求（同步）- 完全按照curl参数设定"""
 
-        # 使用debug接口URL（包含所有查询参数）
-        url = 'https://chat2.qianwen.com/api/v1/chat/debug'
+        # 使用debug接口URL（必须包含完整查询参数，否则403）
+        url = 'https://chat2.qianwen.com/api/v1/chat/debug?bi=997&biz_id=ai_qwen&chat_client=native&fr=iphone&kps_wg=OjUEb%2B9gZOHZ%2FXIjTHFjdn70lyMsOp99xW5FcIcSO93XiTdqHIBg5uKlV7ZwRb0Ok1MbfiVfI6fTlJUNNrNbAx5o3Jq9QYvgUwJmjGc0y5vVnb0b1WlG1PqYmjdZeuDFur7SCUI8do%2BfYd%2BCib9B2JOqJXv%2B6OlqVTSXDG9kKk1W4Q%3D%3D&mt=%2BSQB0pZLPI%2Fg3xKbVLwhWJ5o88xVOrN3&nn=OjU%3D&nonce=709AEA8D045C491B8A4361B787D1FE05&pc=OjWqjjPaD70yY5oZssOhlyr1SEEoUxk9ZZIplEuMbiyPzhxt8RthnNeeOUQ94BLtWvtM%2FRsXB6PFx1zGD8TwozKj&pf=200&pr=qwen&protocol_version=v2&sign_type=2&sign_wg=OjXSN%2BtZ5zOpUEn%2B0pZndOnsJWyYmCqqYxxYdfPDrvLqOFWItFGYDPa4HGS8e9YQJlg%3D&sv=love&timestamp=1766659025252&uc_param_str=utmtpcsnnnvebipfdnprfrsvcgbcxsginx&ut=OjXcgGy9ah4NNZJcstSR9lJy%2FOnq7TSgk7oSJLu87Q%2BmSA%3D%3D&vcode=1766659025249&sign=3a35ec9df845f223e09c12f1098f2ef86fb7e3805dc8&ve=6.5.8.2774'
 
         # 构建请求头（完全按照curl设定）
         headers = {
