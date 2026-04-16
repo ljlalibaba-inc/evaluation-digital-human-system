@@ -8,7 +8,17 @@
       "categories": ["C5", "C4"]
     },
     "count": 3,
-    "dimensions": ["accuracy", "timeliness", "personalization", "safety"]
+    "dimensions": ["accuracy", "timeliness", "personalization", "safety"],
+    "evaluation_mode": {
+      "use_llm": true,
+      "llm_model": "qwen-plus",
+      "available_models": [
+        "qwen-plus",
+        "qwen-turbo",
+        "qwen-max",
+        "gpt-5.4-mini-0317-global"
+      ]
+    }
   },
   "schedule": {
     "enabled": false,

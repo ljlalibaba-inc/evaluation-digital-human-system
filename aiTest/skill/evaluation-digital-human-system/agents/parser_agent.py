@@ -5,6 +5,7 @@
 集成 result_parse Skill
 """
 
+import json
 import re
 from typing import Dict, List, Optional, Any
 from .base_agent import BaseAgent
@@ -34,19 +35,161 @@ class ResultParserAgent(BaseAgent):
             return {"error": "响应为空或调用失败"}
         
         content = response.get('content', '')
+        raw_response = response.get('raw_response', {})
+        
+        # 提取结构化商品数据（从 multi_load/iframe 消息）
+        structured_items = self._extract_structured_items(raw_response)
+        
+        # 如果content为空但有结构化数据，生成文本摘要
+        if not content and structured_items:
+            content = self._generate_summary_from_items(structured_items)
         
         result = {
             "original_response": content,
-            "recommended_products": self._extract_products(content),
-            "time_commitment": self._extract_time_commitment(content),
-            "personalization_elements": self._extract_personalization(content),
-            "safety_warnings": self._extract_safety_warnings(content),
-            "intent_recognition": self._analyze_intent(content, query),
-            "price_mentions": self._extract_prices(content),
-            "brand_mentions": self._extract_brands(content)
+            "data": {
+                "structured_items": structured_items,
+                "recommended_products": self._extract_products(content) if not structured_items else [item.get('itemName', '') for item in structured_items],
+                "time_commitment": self._extract_time_commitment(content),
+                "personalization_elements": self._extract_personalization(content),
+                "safety_warnings": self._extract_safety_warnings(content),
+                "intent_recognition": self._analyze_intent(content, query),
+                "price_mentions": self._extract_prices(content) if not structured_items else [f"{item.get('price', '')}元" for item in structured_items if item.get('price')],
+                "brand_mentions": self._extract_brands(content) if not structured_items else [item.get('brandName', '') for item in structured_items if item.get('brandName')]
+            }
         }
         
         return result
+    
+    def _extract_structured_items(self, raw_response: Dict) -> List[Dict]:
+        """
+        从 multi_load/iframe 类型的消息中提取结构化商品数据
+        
+        从 raw_response 中最后一个包含 multi_load/iframe 的消息结构中提取
+        提取路径: 
+        - 商品数据: data.messages[].meta_data.multi_load[].content.resultData.searchShopItems.guiItemList
+        - 推荐类型: data.messages[].meta_data.multi_load[].content.resultData.recommendType
+        """
+        items = []
+        
+        try:
+            # 获取 raw_lines 或 content
+            raw_lines = raw_response.get('raw_lines', [])
+            if not raw_lines and raw_response.get('content'):
+                raw_lines = [raw_response.get('content')]
+            
+            # 收集所有包含 multi_load/iframe 的消息
+            multi_load_messages = []
+            
+            for line in raw_lines:
+                try:
+                    data = json.loads(line) if isinstance(line, str) else line
+                    
+                    # 获取 messages 数组
+                    messages = data.get('data', {}).get('messages', [])
+                    
+                    for msg in messages:
+                        # 检查 mime_type 是否为 multi_load/iframe
+                        mime_type = msg.get('mime_type', '')
+                        if mime_type == 'multi_load/iframe':
+                            multi_load_messages.append(msg)
+                except (json.JSONDecodeError, Exception) as e:
+                    continue
+            
+            # 从最后一个 multi_load/iframe 消息中提取数据
+            if multi_load_messages:
+                last_msg = multi_load_messages[-1]
+                meta_data = last_msg.get('meta_data', {})
+                multi_load_list = meta_data.get('multi_load', [])
+                
+                # multi_load 是列表，遍历每个元素
+                for multi_load in multi_load_list:
+                    # 处理 multi_load 可能是列表的情况
+                    if isinstance(multi_load, list):
+                        for ml_item in multi_load:
+                            if isinstance(ml_item, dict):
+                                items.extend(self._extract_from_multi_load_item(ml_item))
+                    elif isinstance(multi_load, dict):
+                        items.extend(self._extract_from_multi_load_item(multi_load))
+                    
+        except Exception as e:
+            self.log(f"提取结构化商品数据失败: {e}")
+        
+        return items
+    
+    def _extract_from_multi_load_item(self, multi_load: Dict) -> List[Dict]:
+        """从单个 multi_load 项中提取商品数据"""
+        items = []
+        try:
+            content_data = multi_load.get('content', {})
+            if not isinstance(content_data, dict):
+                return items
+            result_data = content_data.get('resultData', {})
+            # searchShopItems 是列表，每个元素是一个店铺
+            search_shop_items = result_data.get('searchShopItems', [])
+            # 从 resultData 层级获取 recommendType（适用于整个结果集）
+            recommend_type = result_data.get('recommendType', '')
+            
+            for shop in search_shop_items:
+                if not isinstance(shop, dict):
+                    continue
+                # 从店铺中提取商品列表
+                gui_item_list = shop.get('guiItemList', [])
+                shop_name = shop.get('shopName', '')
+                shop_rating = shop.get('rating', '')
+                shop_distance = shop.get('distance', '')
+                
+                for item in gui_item_list:
+                    if not isinstance(item, dict):
+                        continue
+                    extracted_item = {
+                        "itemName": item.get("itemName", ""),
+                        "price": item.get("price", ""),
+                        "llmRelevantLevelScore": item.get("llmRelevantLevelScore", ""),
+                        "brandName": item.get("brandName", ""),
+                        "distance": shop_distance,
+                        "shopName": shop_name,
+                        "rating": shop_rating,
+                        "recommendType": recommend_type
+                    }
+                    # 只添加有有效数据的项
+                    if extracted_item["itemName"]:
+                        items.append(extracted_item)
+        except Exception as e:
+            self.log(f"提取单个 multi_load 项失败: {e}")
+        
+        return items
+    
+    def _generate_summary_from_items(self, items: List[Dict]) -> str:
+        """从结构化商品数据生成文本摘要"""
+        if not items:
+            return ""
+        
+        summary_parts = []
+        summary_parts.append(f"为您找到 {len(items)} 个相关商品：\\n")
+        
+        for i, item in enumerate(items[:5], 1):  # 最多显示5个
+            name = item.get('itemName', '')
+            price = item.get('price', '')
+            shop = item.get('shopName', '')
+            distance = item.get('distance', '')
+            rating = item.get('rating', '')
+            
+            parts = [f"{i}. {name}"]
+            if price:
+                parts.append(f"价格：{price}元")
+            if shop:
+                parts.append(f"店铺：{shop}")
+            if distance:
+                parts.append(f"距离：{distance}m")
+            if rating:
+                parts.append(f"评分：{rating}")
+            
+            summary_parts.append("，".join(parts))
+        
+        if len(items) > 5:
+            summary_parts.append(f"\\n...还有 {len(items) - 5} 个商品")
+        
+        return "\\n".join(summary_parts)
     
     def _extract_products(self, content: str) -> List[str]:
         """提取推荐的商品"""

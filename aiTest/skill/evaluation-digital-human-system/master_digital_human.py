@@ -153,13 +153,26 @@ class MasterDigitalHuman:
             from agents.parser_agent import ResultParserAgent
             from agents.eval_agent import SearchEvalAgent
             
-            # 获取qwen配置（支持流式调用和自动认证）
+            # 获取qwen配置（默认使用qwen_chat模式）
             qwen_config = self.config.get('qwen_config', {})
+            # 如果未指定api_mode，默认使用qwen_chat
+            if 'api_mode' not in qwen_config:
+                qwen_config['api_mode'] = 'qwen_chat'
             
             self.register_agent("testcase", TestCaseAgent())
             self.register_agent("qwen", QwenAgent(qwen_config))
             self.register_agent("parser", ResultParserAgent())
-            self.register_agent("evaluator", SearchEvalAgent())
+            
+            # 获取评测配置
+            eval_config = self.config.get('evaluation', {})
+            eval_mode_config = eval_config.get('evaluation_mode', {})
+            evaluator_config = {
+                'evaluation': {
+                    'use_llm': eval_mode_config.get('use_llm', True),
+                    'llm_model': eval_mode_config.get('llm_model', 'qwen3.6-plus')
+                }
+            }
+            self.register_agent("evaluator", SearchEvalAgent(evaluator_config))
             
         except ImportError as e:
             print(f"警告: 部分Agent导入失败: {e}")
@@ -421,40 +434,60 @@ class MasterDigitalHuman:
                     parsed_results.append({
                         "query": item["query"],
                         "response": item["response"],
-                        "parsed": parsed
+                        "parsedResponse": parsed
                     })
             except Exception as e:
                 print(f"[Master] 解析失败: {e}")
                 parsed_results.append({
                     "query": item["query"],
                     "response": item["response"],
-                    "parsed": None,
+                    "parsedResponse": None,
                     "error": str(e)
                 })
         
-        result.results["parsed"] = parsed_results
+        result.results["parsedResponse"] = parsed_results
         stage.progress = {"parsed": len(parsed_results)}
         
+        # 保存解析结果到文件
+        self._save_parsed_results(execution_id, parsed_results)
+        
         print(f"[Master] 结果解析完成: {len(parsed_results)}条")
+    
+    def _save_parsed_results(self, execution_id: str, parsed_results: list):
+        """保存解析结果到文件"""
+        import json
+        import os
+        
+        # 确保 results 目录存在
+        os.makedirs("./results", exist_ok=True)
+        
+        # 构建文件路径
+        filepath = f"./results/parsed_results_{execution_id}.json"
+        
+        # 保存到文件
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(parsed_results, f, ensure_ascii=False, indent=2)
+        
+        print(f"[Master] 解析结果已保存: {filepath}")
     
     def _stage_evaluate(self, execution_id: str, stage: StageInfo):
         """阶段4: 评测结果"""
         result = self.executions[execution_id]
         config = result.task_config
-        
+
         eval_agent = self.agents.get("evaluator")
         if not eval_agent:
             raise ValueError("评测Agent未注册")
-        
+
         # 使用解析后的结果或原始响应
-        items = result.results.get("parsed") or result.results.get("responses", [])
+        items = result.results.get("parsedResponse") or result.results.get("responses", [])
         evaluations = []
-        
+
         for item in items:
             try:
                 query = item.get("query")
                 response = item.get("response")
-                
+
                 if response:
                     eval_result = eval_agent.evaluate(
                         query=query,
@@ -465,11 +498,48 @@ class MasterDigitalHuman:
             except Exception as e:
                 print(f"[Master] 评测失败: {e}")
                 evaluations.append({"error": str(e)})
-        
+
         result.results["evaluation"] = evaluations
         stage.progress = {"evaluated": len(evaluations)}
-        
+
+        # 保存评测结果到文件
+        self._save_evaluation_results(execution_id, evaluations)
+
         print(f"[Master] 评测完成: {len(evaluations)}条")
+
+    def _save_evaluation_results(self, execution_id: str, evaluations: list):
+        """保存评测结果到文件"""
+        import json
+        import os
+
+        # 确保 results 目录存在
+        os.makedirs(self.results_dir, exist_ok=True)
+
+        # 构建保存数据
+        save_data = {
+            "execution_id": execution_id,
+            "saved_at": datetime.now().isoformat(),
+            "total_evaluations": len(evaluations),
+            "evaluations": []
+        }
+
+        # 转换评测结果为可序列化格式
+        for eval_result in evaluations:
+            if hasattr(eval_result, 'to_dict'):
+                save_data["evaluations"].append(eval_result.to_dict())
+            elif hasattr(eval_result, '__dict__'):
+                save_data["evaluations"].append(eval_result.__dict__)
+            else:
+                save_data["evaluations"].append(eval_result)
+
+        # 构建文件路径
+        filepath = os.path.join(self.results_dir, f"evaluation_results_{execution_id}.json")
+
+        # 保存到文件
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(save_data, f, ensure_ascii=False, indent=2)
+
+        print(f"[Master] 评测结果已保存: {filepath}")
     
     def _get_system_prompt(self) -> str:
         """获取系统Prompt"""
@@ -545,7 +615,7 @@ class MasterDigitalHuman:
             full_results["responses"].append(item)
 
         # 转换parsed为可序列化格式
-        parsed_list = result.results.get("parsed", [])
+        parsed_list = result.results.get("parsedResponse", [])
         for p in parsed_list:
             if isinstance(p, dict):
                 item = {"query": None, "response": None, "parsed": None}
@@ -565,13 +635,13 @@ class MasterDigitalHuman:
                 else:
                     item["response"] = response
 
-                parsed = p.get("parsed")
+                parsed = p.get("parsedResponse")
                 if hasattr(parsed, 'to_dict'):
-                    item["parsed"] = parsed.to_dict()
+                    item["parsedResponse"] = parsed.to_dict()
                 elif hasattr(parsed, '__dict__'):
-                    item["parsed"] = parsed.__dict__
+                    item["parsedResponse"] = parsed.__dict__
                 else:
-                    item["parsed"] = parsed
+                    item["parsedResponse"] = parsed
 
                 if "error" in p:
                     item["error"] = p["error"]

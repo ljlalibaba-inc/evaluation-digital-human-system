@@ -9,8 +9,8 @@ import sys
 import json
 import time
 
-# 切换到脚本所在目录
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# 添加父目录到路径以导入模块
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from master_digital_human import MasterDigitalHuman, TaskConfig
 

@@ -9,33 +9,33 @@ import sys
 import json
 import time
 
-# 切换到脚本所在目录
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# 添加父目录到路径以导入模块
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from master_digital_human import MasterDigitalHuman, TaskConfig
+from agents.qwen_agent import QwenAgent
 
 def main():
     print("=" * 70)
     print("使用 Qwen Chat API 模式执行评测任务")
     print("=" * 70)
 
-    # 初始化Master，使用 qwen_chat 模式
+    # 初始化Master
     master = MasterDigitalHuman()
 
-    # 更新 Qwen Agent 配置为 qwen_chat 模式
-    master.agents['qwen'].config = {
+    # 重新创建 Qwen Agent，使用 qwen_chat 模式
+    qwen_config = {
         'api_mode': 'qwen_chat',
         'model': 'quark-235b',
         'use_production': True
     }
-    master.agents['qwen'].api_mode = 'qwen_chat'
-    master.agents['qwen'].base_url = 'https://chat2.qianwen.com'
-    master.agents['qwen'].model = 'quark-235b'
+    master.agents['qwen'] = QwenAgent(qwen_config)
 
     print(f"\nAPI 配置:")
     print(f"  API Mode: {master.agents['qwen'].api_mode}")
     print(f"  Base URL: {master.agents['qwen'].base_url}")
     print(f"  Model: {master.agents['qwen'].model}")
+    print(f"  环境: {'线上环境' if master.agents['qwen'].use_production else '预发环境'}")
 
     # 创建任务配置
     config = TaskConfig(

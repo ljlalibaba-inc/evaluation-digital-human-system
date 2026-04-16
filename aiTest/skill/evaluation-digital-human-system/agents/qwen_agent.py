@@ -25,37 +25,7 @@ class QwenAgent(BaseAgent):
     支持流式调用和自动获取认证参数
     """
 
-    # 默认地址配置（杭州阿里巴巴西溪园区）
-    DEFAULT_ADDRESS = "杭州阿里巴巴西溪园区"
 
-    # 默认location（杭州阿里巴巴西溪园区对应的加密location）
-    DEFAULT_LOCATION = "OjXQtFFvLVxCMGjtmzqsHukhbBzSFPUTBhnMW6ESWx0Xg4lMBneYMkWPTRbb1P5SgePoDrH30F4tag7ZVvta54EPno2z70Y0bgirylSMG7G2RUgixokCMljvGvWD75p+LNrQC8PpURqgvMnPj5kqFDQa3TihFvZ9JXtWE76fANbYV07zuAgay7jW6hCwwrbY+xNzjPqFLQMxSgP5Jx6UKMmogBc81h9Ek6poiSthbsM8c78KxwIKtvbNq84oSOA5OyOqdbA82zJi5/p8ALLoYcf1cAHOGOdVH/19yhGVs7v5d4qK9Pb5C+X5iqanzX0jFW1q8leAjHrHW8DBrDosvzhNxQEicNK7D0xfjzKLrnnrAIe26pSaezpzFRxoIjXZ0ha2IGEgqbLsIm5IQMFA6+nOqnq/2DsNCa8q9QoHfIEbJL8ZA/lBEekUgddXhU0IP+gCbEIAHJ3FD2xezuy7KKrzLISFT0H0/ahsxxt/mi44YflMywq7ng7+mUD5HsFZUjW8MsAi+mLkJG9Fe7KAuS7apvxKFFlxuqLsGdE+i72FJbWDPUgHohItdGr70erVVx4wIDT5zXANWxwB57zsm0nY"
-
-    # 地址到location的映射表（预定义的地址编码）
-    ADDRESS_LOCATION_MAP = {
-        # 杭州（默认地址）
-        "杭州": DEFAULT_LOCATION,
-        "杭州市": DEFAULT_LOCATION,
-        "杭州西湖区": DEFAULT_LOCATION,
-        "杭州市西湖区": DEFAULT_LOCATION,
-        "杭州阿里巴巴西溪园区": DEFAULT_LOCATION,
-        "阿里巴巴西溪园区": DEFAULT_LOCATION,
-        "西溪园区": DEFAULT_LOCATION,
-        # 北京
-        "北京": "BeijingLocationHash123...",
-        "北京市": "BeijingLocationHash123...",
-        "北京朝阳区": "BeijingChaoyangHash456...",
-        "北京市朝阳区": "BeijingChaoyangHash456...",
-        # 上海
-        "上海": "ShanghaiLocationHash789...",
-        "上海市": "ShanghaiLocationHash789...",
-        # 广州
-        "广州": "GuangzhouLocationHash012...",
-        "广州市": "GuangzhouLocationHash012...",
-        # 深圳
-        "深圳": "ShenzhenLocationHash345...",
-        "深圳市": "ShenzhenLocationHash345...",
-    }
 
     def __init__(self, config: Dict = None):
         super().__init__("QwenAgent", config or {})
@@ -74,9 +44,9 @@ class QwenAgent(BaseAgent):
             self.base_url = "https://chat2.qianwen.com" if self.use_production else "https://pre-chat2-ea.qianwen.com"
             self.model = self.config.get('model', "quark-235b")
             
-            # 认证参数 - 写死的默认值（从curl提取）
-            self.x_sign = self.config.get('x_sign', 'iz0pIe007xAALA79Sn0WiQ8LY1n%2BTA78DW%2FfCpZf92Fhbk7hJ5i9NPDx%2F9W7t8zphxqBwMuvpct9tsqQXs1KqK%2B4qFwO7A78DuwO%2FA')
-            self.wpk_reqid = self.config.get('wpk_reqid', '8791d3864f7f4f80bb43790352518b86')
+            # 认证参数 - 优先从环境变量读取，其次从配置读取，最后使用默认值
+            self.x_sign = self.config.get('x_sign') or os.getenv('QWEN_X_SIGN', 'iz0pIe007xAAhdhFW3Y7oQLitN2Z5dhF3bdww0DmIdi53khXzKFrhumMuWwBQEFIMOXjXqMfFYw7NxwxiHScAgpyDufoQJYV6GXYRd')
+            self.wpk_reqid = self.config.get('wpk_reqid') or os.getenv('QWEN_WPK_REQID', 'f8b4f1e218b441838175b5510b027531')
             
             # 其他必要的认证参数（从curl提取）
             self.app_key = self.config.get('app_key', '34400722')
@@ -85,9 +55,9 @@ class QwenAgent(BaseAgent):
             self.pv = self.config.get('pv', '6.3')
             self.device_id = self.config.get('device_id', 'aR89N69/QVoDACshFdu81cwp')
             self.wpk_bid = self.config.get('wpk_bid', 'a3ucabr5-b1ayd2v5')
-            self.umt = self.config.get('umt', '%2BSQB0pZLPI%2Fg3xKbVLwhWJ5o88xVOrN3')
-            self.mini_wua = self.config.get('mini_wua', 'iUgTzOsenPdfyUTYWbiCL0n6ffAca3euQshoOYYw7IQhXf2vH3tSVjzIP8jL0gilsrbs7m1gS%2B2vW%2FokjlDLKeeU8sp3g3yvjzOJUO6MDbMP8cKtoM0j28vl3sFd8A6H5bg666FaZCSgLVt%2BUJ7pEhAzDqgFkQx06Dgas%2F%2BxPqk%2Bx2rjMHbZ320tiajS%2Bi%2BTOpdK9WgHbJnAlyA%3D%3D')
-            self.sgext = self.config.get('sgext', 'JBPVqs5csx3%2Fx9FBtsQ6XqrgmuSJ55%2Fhmvab5In2m%2BKc45zgkuGT44nlmuec5ZrlmuWa5ZrlmuWa9pr2mvaa5YnlmuWa9pr2k%2FaY9pP2m%2Fab9pv2mvac5ZrlmvaYscv2mfaS9pn20Lntu4n1ivXI9Yr1mvaTipv4mvj1tPX4m%2FOa85rl9bf17Zj4m%2Fia%2BJr4morOiv%2BD5If85OSN%2F7nj6PWz9eaH5Yflh%2BWH4vXkmoqOipvm9ZTNlOuU65TrlOuU65TrlOuU65TrlOuU65TrlOuKm%2BP15fXkyYqS54zljOWM5YzljOWM5YzljOWM5Yzl9eTPipr4mYqY5vXtmPOH5ITlmuWa85rzmvOa85rzmoqY4fXkh%2BWH7Yflh%2BWH5Yflh%2BWH5Yfl9eefio60%2F%2FX%2BX%2BpcGe05P%2BmfCG2Yeep8iazZjIkPm0wbjmvNmgwuDhp%2BCg76Ccipjj9eeM5IzljOWM5Izk9Q%3D%3D')
+            self.umt = self.config.get('umt', 'GbkBIU5LPDMclhKdkFmQ3ooDsbe1rNye')
+            self.mini_wua = self.config.get('mini_wua', 'iJwSsM5z3%2Fcjk%2F0ZcSAriWpK5HuNIonUh7GloLEnqa9%2F0qkK3cbSUa4Ff3G49%2FcSQ7qQuDatYTEDK5Fok3wiF8rvGxqi66yei8dz8ZmPCNsgHjNc1BIYOl4aeVX3C6MOkYllBTTfpn6U2K9SKzoYpUExnETOAN5gFi9h%2FTIbWG5yb%2BY2%2FAe6HYOo8')
+            self.sgext = self.config.get('sgext', 'JBPsc06U%2B5ANtjcaQDLrNnPZQ91Q2UraUN5Fz1DdRNtF3kfUS9pDz0PcQdpD3EPcQ9xD3EPcQ9xQ3FDcUNxDz0PcQ9xQ3FDdUN1Q3VDdUN1Q3VDcUNxD3EPcUN4XjVDfUNRQ31CWHbsqz1PMQo1TzFPcUNUs3V7dXrMSs17dVdxV3EOzEbNK3F7dXtxe3F7cXt5e3lXdVdxV3FXdXtxe3UTbQ9lA3UffRMFCskLbRNxG30LYQNst3FXcVdwsiCy5JaIhukKiK7kfpU6zFbNAwUPBQ8FDwUHeLN1AszKLMq0yrTKtMq0yrTKtMq0yrTKtMq0yrTKtMq0s3UWzQ7NCjyzVQ8pDykPKQdwS3VXeStgSykKIStpVwULKXtlDykvfVdxV3UKzQoks3F7cLN5As0rcVcFCwkPcQ9xV3FXcVdxV3kHKQ8pDykPKQ8pB3izeR7NCwUPBQsFDwUPBQ8FDwUPBQ8FDs0HULK1B3Be8JalOsw%3D%3D')
             
             # 登录配置 - 用于自动获取认证参数
             self.login_config = self.config.get('login_config', {})
@@ -216,8 +186,7 @@ class QwenAgent(BaseAgent):
             query_text: 用户Query
             system_prompt: 系统提示词（可选）
             stream_callback: 流式回调函数，接收每个chunk的内容（可选）
-            **kwargs: 其他参数
-                - address: 地址字符串，如"杭州阿里巴巴西溪园区"，默认使用DEFAULT_ADDRESS
+
 
         Returns:
             API响应结果（包含完整请求信息）
@@ -234,8 +203,7 @@ class QwenAgent(BaseAgent):
                 "request_info": None
             }
 
-        # 获取address（用于记录和转换location）
-        address = kwargs.get('address', self.DEFAULT_ADDRESS)
+
 
         # 构建请求信息（用于保存完整请求）
         request_info = {
@@ -244,7 +212,7 @@ class QwenAgent(BaseAgent):
             "model": self.model,
             "query_text": query_text,
             "system_prompt": system_prompt,
-            "address": address,
+
             "timestamp": datetime.now().isoformat()
         }
 
@@ -437,125 +405,6 @@ class QwenAgent(BaseAgent):
             "raw_response": None
         }
 
-    def _get_location_by_address(self, address: Optional[str] = None) -> str:
-        """
-        根据地址获取对应的location值（按照qwen-chat-client的LocationService方式实现）
-
-        优先级：
-        1. 使用高德地图API（如果配置了AMAP_KEY环境变量）
-        2. 使用内置地址映射表
-        3. 返回默认位置（杭州阿里巴巴西溪园区）
-
-        Args:
-            address: 地址字符串，如"杭州阿里巴巴西溪园区"
-
-        Returns:
-            location编码值
-        """
-        if not address or not address.strip():
-            address = self.DEFAULT_ADDRESS
-
-        # 方式1: 使用高德地图API获取经纬度（如果配置了AMAP_KEY）
-        amap_key = os.getenv("AMAP_KEY")
-        if amap_key:
-            location = self._geocode_with_amap(address, amap_key)
-            if location:
-                return location
-
-        # 方式2: 使用内置地址映射表
-        location = self._get_location_from_mapping(address)
-        if location:
-            return location
-
-        # 方式3: 返回默认位置（杭州阿里巴巴西溪园区）
-        print(f"⚠️  无法解析地址: {address}，使用默认位置（杭州阿里巴巴西溪园区）")
-        return self.DEFAULT_LOCATION
-
-    def _geocode_with_amap(self, address: str, amap_key: str) -> Optional[str]:
-        """
-        使用高德地图API进行地理编码
-
-        Args:
-            address: 地址字符串
-            amap_key: 高德地图API Key
-
-        Returns:
-            location字符串，失败返回None
-        """
-        try:
-            encoded_address = urllib.parse.quote(address)
-            url = f"https://restapi.amap.com/v3/geocode/geo?key={amap_key}&address={encoded_address}"
-
-            print(f"🗺️  使用高德地图解析地址: {address}")
-
-            response = requests.get(url, timeout=10)
-            response.raise_for_status()
-
-            result = response.json()
-            if result.get("status") == "1" and result.get("geocodes"):
-                # 获取第一个结果的经纬度
-                geocode = result["geocodes"][0]
-                location = geocode.get("location", "")
-                if location:
-                    # 将经纬度编码为location格式
-                    return self._encode_location(f"{address}:{location}")
-
-        except Exception as e:
-            print(f"⚠️  高德地图API调用失败: {e}")
-
-        return None
-
-    def _get_location_from_mapping(self, address: str) -> Optional[str]:
-        """
-        从内置地址映射表中获取location
-
-        Args:
-            address: 地址字符串
-
-        Returns:
-            location字符串，未找到返回None
-        """
-        # 直接匹配
-        if address in self.ADDRESS_LOCATION_MAP:
-            return self.ADDRESS_LOCATION_MAP[address]
-
-        # 模糊匹配
-        for known_address, location in self.ADDRESS_LOCATION_MAP.items():
-            if known_address in address or address in known_address:
-                return location
-
-        return None
-
-    def _encode_location(self, address_with_coords: str) -> str:
-        """
-        将地址和经纬度编码为location格式
-        注意：实际编码方式需要根据千问API的要求实现
-        这里使用简化示例（MD5哈希模拟加密）
-
-        Args:
-            address_with_coords: 包含地址和经纬度的字符串
-
-        Returns:
-            编码后的location字符串
-        """
-        import hashlib
-
-        try:
-            # 使用MD5哈希模拟加密
-            md5_hash = hashlib.md5(address_with_coords.encode('utf-8')).hexdigest()
-
-            # 扩展为类似原location的长度（约400字符）
-            base = md5_hash
-            encoded = base
-            while len(encoded) < 400:
-                encoded += base
-
-            return encoded[:400]
-
-        except Exception as e:
-            print(f"⚠️  地址编码失败: {e}")
-            return self.DEFAULT_LOCATION
-
     def _build_request(
         self,
         message: str,
@@ -568,10 +417,6 @@ class QwenAgent(BaseAgent):
         session_id = kwargs.get('session_id') or str(uuid.uuid4()).replace("-", "")
         req_id = kwargs.get('req_id') or f"AI_SEARCH_DEBUG_{str(uuid.uuid4()).replace('-', '')}"
         timestamp = int(time.time() * 1000)
-
-        # 获取address并转换为location
-        address = kwargs.get('address', self.DEFAULT_ADDRESS)
-        location = self._get_location_by_address(address)
 
         # 构建消息
         messages = []
@@ -588,6 +433,10 @@ class QwenAgent(BaseAgent):
         })
 
         # 构建请求体（完全按照curl中的JSON结构）
+        # 使用当前时间戳（毫秒）
+        current_timestamp = int(time.time() * 1000)
+        current_timestamp_str = str(current_timestamp)
+
         request_data = {
             "req_id": req_id,
             "prefetch_req_id": None,
@@ -597,13 +446,11 @@ class QwenAgent(BaseAgent):
             "sub_scene": "chat",
             "scene_param": "retry",
             "agent_id": None,
-            "debug": "debug_level=DEBUG1",
-            "debug_info": None,
             "from": "kkframenew",
             "display_ext": "",
             "deep_search": 0,
             "grade": "",
-            "timestamp": 1775558599803,
+            "timestamp": current_timestamp,
             "messages": messages,
             "ai_tool_scene": "",
             "u_supplement": "",
@@ -613,15 +460,17 @@ class QwenAgent(BaseAgent):
             "transfer_memory_info": "",
             "topic_id": "d88f1cdf509244edb61331aafce617c2",
             "session_type": 0,
-            "bucket": {"no_debug": "on"},
+            "bucket": {"ef_shangou": "on"},
             "cms_test_data_ids": "",
             "incremental_strategy": 0,
             "original_session_id": None,
             "original_req_id": None,
-            "client_tm": "1766659025244",
+            "client_tm": current_timestamp_str,
+            "update_timestamp": current_timestamp_str,
             "model": kwargs.get('model', self.model),
             "biz_data": '{"origin_entrance":"chat_common","gen_doc_card":true,"long_text_enable":true}',
-            "location": location
+            "amap_location": "120.01557240711386,30.28562512138549",
+            "address": "浙江省杭州市余杭区高教路靠近阿里巴巴西溪园区C区"
         }
 
         return request_data
@@ -629,21 +478,46 @@ class QwenAgent(BaseAgent):
     def _get_request_url_and_headers(self, request_data: Dict) -> tuple:
         """获取实际请求的完整URL和Headers（用于记录）"""
         # 完整URL（必须包含所有查询参数，否则403）
-        url = 'https://chat2.qianwen.com/api/v1/chat/debug?bi=997&biz_id=ai_qwen&chat_client=native&fr=iphone&kps_wg=OjUEb%2B9gZOHZ%2FXIjTHFjdn70lyMsOp99xW5FcIcSO93XiTdqHIBg5uKlV7ZwRb0Ok1MbfiVfI6fTlJUNNrNbAx5o3Jq9QYvgUwJmjGc0y5vVnb0b1WlG1PqYmjdZeuDFur7SCUI8do%2BfYd%2BCib9B2JOqJXv%2B6OlqVTSXDG9kKk1W4Q%3D%3D&mt=%2BSQB0pZLPI%2Fg3xKbVLwhWJ5o88xVOrN3&nn=OjU%3D&nonce=709AEA8D045C491B8A4361B787D1FE05&pc=OjWqjjPaD70yY5oZssOhlyr1SEEoUxk9ZZIplEuMbiyPzhxt8RthnNeeOUQ94BLtWvtM%2FRsXB6PFx1zGD8TwozKj&pf=200&pr=qwen&protocol_version=v2&sign_type=2&sign_wg=OjXSN%2BtZ5zOpUEn%2B0pZndOnsJWyYmCqqYxxYdfPDrvLqOFWItFGYDPa4HGS8e9YQJlg%3D&sv=love&timestamp=1766659025252&uc_param_str=utmtpcsnnnvebipfdnprfrsvcgbcxsginx&ut=OjXcgGy9ah4NNZJcstSR9lJy%2FOnq7TSgk7oSJLu87Q%2BmSA%3D%3D&vcode=1766659025249&sign=3a35ec9df845f223e09c12f1098f2ef86fb7e3805dc8&ve=6.5.8.2774'
+        # 参数值已经URL编码，直接拼接
+        url = ('https://chat2.qianwen.com/api/v1/chat/debug?'
+               'bi=997&'
+               'biz_id=ai_qwen&'
+               'ca=OjXvwEAmhObgWE%2bCJAgwJDjBgZD5yoo3FC8o74edvw34rpR7oIE%2fMWPzBapYlEXU%2bMAzlD%2bR7RTDLqc6uSr1ZfD%2bdREG9G2%2b75%2bZBKsEaZ6ZQIeLWKlCK5liwKE2yEBo7TrHRP2hNgDqyPPrQu25xvODi2%2f3LCGu2Wqz%2fj4%2bKfjsSiEa1ybh%2fGq1YPWpNXror%2fP9sRo5M88u6pxa%2f1keXHRkV16ZGCit69d4%2bF7XMVNeeGWjifM6k9Tps0daM5of3l2vxvMyUSvovaOAJNo8%2bR9vindKJqD5BZyCmT2SxzVChbylHygT51urqzjs5BsWt11S51HqofEq7MWWJi5Z7kazMFiaOd3Un7BfXqYjKZDebixQNh%2fSyBvBkoExGQG55WMtlb8mYBa%2frn3Ehd92Z7XAb03rMFbdr7vEVfrlxJUmO8ZozlPilooZ8OY2o%2fT6Fys%3d&'
+               'chat_client=native&'
+               'fr=iphone&'
+               'gi=bTkwBTw0WBlp%2boTnF4tQcpQ2nmwgK%2fdMeUVd7CP6%2fTbXw%2f0%3d&'
+               'kp=OjWpxqqVPrU4xtxg8MwCwOlH4KZcior8CpU%2bglFYCcibHqnVfQHcweIs4EhE3hPy%2bhI%2fZwqxN0Z%2bGCDDD7sUoo8or5AQDctUtW9IFDlt5AnHY7fjYKBP%2beuQ48xx9m%2b7l812tbDPGmtSHsSHecohR5IH3h37J1YYj2w4TXEPGEiL3w%3d%3d&'
+               'kps_wg=OjWpxqqVPrU4xtxg8MwCwOlH4KZcior8CpU%2BglFYCcibHqnVfQHcweIs4EhE3hPy%2BhI%2FZwqxN0Z%2BGCDDD7sUoo8or5AQDctUtW9IFDlt5AnHY7fjYKBP%2BeuQ48xx9m%2B7l812tbDPGmtSHsSHecohR5IH3h37J1YYj2w4TXEPGEiL3w%3D%3D&'
+               'mt=hJgBrDFLPKqi2RKdhpsJD02d%2bfQ8Dvsy&'
+               'nn=OjU%3d&'
+               'nonce=8F17E301EA0B47D49A41AFFC9402F416&'
+               'pc=OjWqjjPaD70yY5oZssOhlyr1Rmz5HOs4nHuWrfs%2f1PRTJ5PgK9VAcVOgkE2jNSxSk5DW1V2oidb0pc%2btpl%2fB%2b0o0&'
+               'pf=200&'
+               'pr=qwen&'
+               'protocol_version=v2&'
+               'sign_type=2&'
+               'sign_wg=OjVrGodG0ntsfU%2F3i5OF3O4bwoR7YVvkDapJ5bdOAuvtnO%2FkjqaTKNh7YlmYZ5wU%2Fp4%3D&'
+               'sv=love&'
+               'timestamp=1776249008771&'
+               'uc_param_str=utmtpcsnnnvebipfdnprfrsvcgbcxsginxodcakp&'
+               'ut=OjVYKtlbZZA5iyQSSCcDlU63XpANlvc%2bEZwULg2Ms%2bJAbw%3d%3d&'
+               'vcode=1776249008769&'
+               've=6.6.0.2780&'
+               'sign=3a353d01e56bae37f20c7953090c9c545814fd46b62a')
 
         # 构建请求头
         headers = {
             'sec-ch-ua-platform': 'macOS',
             'X-Appkey': '34400722',
-            'X-Wpk-Reqid': '8791d3864f7f4f80bb43790352518b86',
+            'X-Wpk-Reqid': 'f8b4f1e218b441838175b5510b027531',
             'X-Pv': '6.3',
             'sec-ch-ua': '"Chromium";v="146", "Not-A.Brand";v="24", "Google Chrome";v="146"',
-            'X-Umt': '%2BSQB0pZLPI%2Fg3xKbVLwhWJ5o88xVOrN3',
+            'X-Umt': 'GbkBIU5LPDMclhKdkFmQ3ooDsbe1rNye',
             'sec-ch-ua-mobile': '?0',
             'X-App-Ver': '5.1.20',
             'X-Bx-Version': '6.7.250903',
             'Accept': 'application/json, text/event-stream, text/event-stream',
-            'X-Mini-Wua': 'iUgTzOsenPdfyUTYWbiCL0n6ffAca3euQshoOYYw7IQhXf2vH3tSVjzIP8jL0gilsrbs7m1gS%2B2vW%2FokjlDLKeeU8sp3g3yvjzOJUO6MDbMP8cKtoM0j28vl3sFd8A6H5bg666FaZCSgLVt%2BUJ7pEhAzDqgFkQx06Dgas%2F%2BxPqk%2Bx2rjMHbZ320tiajS%2Bi%2BTOpdK9WgHbJnAlyA%3D%3D',
+            'X-Mini-Wua': 'iJwSsM5z3%2Fcjk%2F0ZcSAriWpK5HuNIonUh7GloLEnqa9%2F0qkK3cbSUa4Ff3G49%2FcSQ7qQuDatYTEDK5Fok3wiF8rvGxqi66yei8dz8ZmPCNsgHjNc1BIYOl4aeVX3C6MOkYllBTTfpn6U2K9SKzoYpUExnETOAN5gFi9h%2FTIbWG5yb%2BY2%2FAe6HYOo8',
             'Content-Type': 'application/json',
             'X-Deviceid': 'aR89N69/QVoDACshFdu81cwp',
             'X-Utdid': 'aR89N69/QVoDACshFdu81cwp',
@@ -653,9 +527,9 @@ class QwenAgent(BaseAgent):
             'X-T': '1766659025',
             'X-Ttid': 'qwen@qwen_ios_5.1.20',
             'X-Wpk-Traceid': 'd9cf28b282c6431ebe411022ffc98dcf',
-            'X-Sign': 'iz0pIe007xAALA79Sn0WiQ8LY1n%2BTA78DW%2FfCpZf92Fhbk7hJ5i9NPDx%2F9W7t8zphxqBwMuvpct9tsqQXs1KqK%2B4qFwO7A78DuwO%2FA',
+            'X-Sign': 'iz0pIe007xAAhdhFW3Y7oQLitN2Z5dhF3bdww0DmIdi53khXzKFrhumMuWwBQEFIMOXjXqMfFYw7NxwxiHScAgpyDufoQJYV6GXYRd',
             'X-Wpk-Bid': 'a3ucabr5-b1ayd2v5',
-            'X-Sgext': 'JBPVqs5csx3%2Fx9FBtsQ6XqrgmuSJ55%2Fhmvab5In2m%2BKc45zgkuGT44nlmuec5ZrlmuWa5ZrlmuWa9pr2mvaa5YnlmuWa9pr2k%2FaY9pP2m%2Fab9pv2mvac5ZrlmvaYscv2mfaS9pn20Lntu4n1ivXI9Yr1mvaTipv4mvj1tPX4m%2FOa85rl9bf17Zj4m%2Fia%2BJr4morOiv%2BD5If85OSN%2F7nj6PWz9eaH5Yflh%2BWH4vXkmoqOipvm9ZTNlOuU65TrlOuU65TrlOuU65TrlOuU65TrlOuKm%2BP15fXkyYqS54zljOWM5YzljOWM5YzljOWM5Yzl9eTPipr4mYqY5vXtmPOH5ITlmuWa85rzmvOa85rzmoqY4fXkh%2BWH7Yflh%2BWH5Yflh%2BWH5Yfl9eefio60%2F%2FX%2BX%2BpcGe05P%2BmfCG2Yeep8iazZjIkPm0wbjmvNmgwuDhp%2BCg76Ccipjj9eeM5IzljOWM5Izk9Q%3D%3D',
+            'X-Sgext': 'JBPsc06U%2B5ANtjcaQDLrNnPZQ91Q2UraUN5Fz1DdRNtF3kfUS9pDz0PcQdpD3EPcQ9xD3EPcQ9xQ3FDcUNxDz0PcQ9xQ3FDdUN1Q3VDdUN1Q3VDcUNxD3EPcUN4XjVDfUNRQ31CWHbsqz1PMQo1TzFPcUNUs3V7dXrMSs17dVdxV3EOzEbNK3F7dXtxe3F7cXt5e3lXdVdxV3FXdXtxe3UTbQ9lA3UffRMFCskLbRNxG30LYQNst3FXcVdwsiCy5JaIhukKiK7kfpU6zFbNAwUPBQ8FDwUHeLN1AszKLMq0yrTKtMq0yrTKtMq0yrTKtMq0yrTKtMq0s3UWzQ7NCjyzVQ8pDykPKQdwS3VXeStgSykKIStpVwULKXtlDykvfVdxV3UKzQoks3F7cLN5As0rcVcFCwkPcQ9xV3FXcVdxV3kHKQ8pDykPKQ8pB3izeR7NCwUPBQsFDwUPBQ8FDwUPBQ8FDs0HULK1B3Be8JalOsw%3D%3D',
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'
         }
 
