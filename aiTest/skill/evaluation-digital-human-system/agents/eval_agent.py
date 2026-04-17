@@ -326,7 +326,7 @@ class SearchEvalAgent(BaseAgent):
                 f"     - 距离: {item.get('distance', '未知')}\n"
                 f"     - 品牌: {item.get('brandName', '未知')}\n"
                 f"     - 月销量: {item.get('monthSales', '未知')}"
-                for i, item in enumerate(structured_items[:10])  # 最多10个商品
+                for i, item in enumerate(structured_items[:5])  # 最多5个商品，避免输出过长被截断
             ])
 
         # 检测场景类型
@@ -492,104 +492,82 @@ class SearchEvalAgent(BaseAgent):
 
 ## 1. 商品级别评测表格 (evaluation_table)
 
-对于每个推荐的商品，请以表格形式输出评测结果：
+对前3个推荐商品进行代表性评测（不必逐一评测所有商品）：
 
 ```json
-{
+{{
     "evaluation_table": [
-        {
-            "query": "用户原始查询内容",
+        {{
+            "query": "用户原始查询（截断到30字）",
             "score": <1-5的整数>,
-            "core_intent_match": "核心意图匹配情况说明（20-50字）",
-            "attribute_consistency": "属性一致性说明（20-50字）",
-            "timeliness_availability": "时效性与可用性说明（20-50字）",
-            "rating": "评分等级：完美匹配/高度相关/一般相关/弱相关/不相关",
-            "reasoning": "详细的分析理由（50-100字，说明为什么给出这个评分）"
-        }
+            "core_intent_match": "匹配情况（15字内）",
+            "attribute_consistency": "属性说明（15字内）",
+            "timeliness_availability": "时效说明（15字内）",
+            "rating": "完美匹配/高度相关/一般相关/弱相关/不相关"
+        }}
     ]
-}
+}}
 ```
 
 **表格列说明**:
-- **query**: 用户原始查询内容
+- **query**: 用户查询（简短截断）
 - **score**: 1-5分的综合评分
-- **核心意图匹配**: 商品是否解决了用户的核心需求？简要说明匹配程度
-- **属性一致性**: 品牌、型号、规格、适用人群等关键属性是否一致？
-- **时效性与可用性**: 商品是否在售？配送时效是否符合紧急程度？
-- **评分**: 评分等级（完美匹配/高度相关/一般相关/弱相关/不相关）
-- **理由**: 详细的分析理由，引用具体的商品属性和查询内容
+- **核心意图匹配**: 简要说明（15字内）
+- **属性一致性**: 简要说明（15字内）
+- **时效性与可用性**: 简要说明（15字内）
+- **评分**: 评分等级
 
 ## 2. 综合评测结果 (overall_evaluation)
 
 ```json
-{
-    "overall_evaluation": {
-        "scores": {
-            "accuracy": <1-5的整数>,
-            "timeliness": <1-5的整数>,
-            "personalization": <1-5的整数>,
-            "safety": <0-5的整数>,
-            "diversity": <1-5的整数>,
-            "novelty": <1-5的整数>
-        },
+{{
+    "overall_evaluation": {{
+        "scores": {{
+            "accuracy": <1-5>,
+            "timeliness": <1-5>,
+            "personalization": <1-5>,
+            "safety": <0-5>,
+            "diversity": <1-5>,
+            "novelty": <1-5>
+        }},
         "overall_score": <加权总分>,
-        "issues": [
-            "发现的具体问题1",
-            "发现的具体问题2"
-        ],
-        "suggestions": [
-            "具体的改进建议1",
-            "具体的改进建议2"
-        ],
-        "evaluation_summary": "对整体推荐质量的简要评价（50-100字）"
-    }
-}
+        "issues": ["问题1（20字内）", "问题2（20字内）"],
+        "suggestions": ["建议1（20字内）", "建议2（20字内）"],
+        "evaluation_summary": "整体评价（30字内）"
+    }}
+}}
 ```
 
 ## 3. 完整输出示例
 
 ```json
-{
+{{
     "evaluation_table": [
-        {
-            "query": "我是一个忙碌的白领，最近加班特别多，感觉有点感冒了，想买点感冒药",
+        {{
+            "query": "忙碌白领想买感冒药",
             "score": 4,
-            "core_intent_match": "感冒灵颗粒直接匹配感冒症状，维C辅助增强免疫力，核心意图匹配良好",
-            "attribute_consistency": "商品为常见感冒药品牌，规格标准，适用人群为成人，与查询一致",
-            "timeliness_availability": "30分钟送达承诺符合应急需求，商品在售状态明确",
-            "rating": "高度相关",
-            "reasoning": "推荐的感冒灵颗粒和维生素C泡腾片都能有效缓解感冒症状，价格适中，店铺可靠，配送时效满足应急需求。但缺少具体的用药指导和注意事项说明。"
-        }
+            "core_intent_match": "感冒灵匹配感冒症状",
+            "attribute_consistency": "品牌规格适用人群一致",
+            "timeliness_availability": "30分钟送达满足需求",
+            "rating": "高度相关"
+        }}
     ],
-    "overall_evaluation": {
-        "scores": {
-            "accuracy": 4,
-            "timeliness": 4,
-            "personalization": 3,
-            "safety": 4,
-            "diversity": 3,
-            "novelty": 2
-        },
+    "overall_evaluation": {{
+        "scores": {{"accuracy": 4, "timeliness": 4, "personalization": 3, "safety": 4, "diversity": 3, "novelty": 2}},
         "overall_score": 3.6,
-        "issues": [
-            "缺少具体的用药指导和注意事项",
-            "个性化程度可以进一步提升"
-        ],
-        "suggestions": [
-            "增加用药指导和禁忌说明",
-            "针对忙碌白领群体优化推荐话术"
-        ],
-        "evaluation_summary": "整体推荐质量良好，商品与用户需求匹配度较高，时效承诺合理，但安全提示和个性化方面还有提升空间。"
-    }
-}
+        "issues": ["缺少用药指导", "个性化不足"],
+        "suggestions": ["增加用药禁忌说明", "优化白领群体话术"],
+        "evaluation_summary": "商品匹配度高，时效合理，安全提示和个性化有提升空间"
+    }}
+}}
 ```
 
 **重要提示**:
-1. evaluation_table 必须包含每个商品的详细评测，以表格形式呈现
-2. 表格中的每个字段都必须填写，不能留空
-3. 分析理由要具体，引用具体的商品名称、价格、品牌等属性
-4. 评分严格按照1-5分标准（1=不相关，5=完美匹配）
-5. 确保输出的是有效的JSON格式，不要添加JSON之外的文本
+1. 输出必须是有效JSON，不要添加JSON之外的文本或markdown代码块标记
+2. evaluation_table 最多3条代表性商品即可
+3. 所有描述尽量简短（15-30字），避免输出过长
+4. 评分严格按照1-5分标准
+5. 直接输出JSON，不要包裹在```json```代码块中
 
 请开始评测："""
 
@@ -604,8 +582,8 @@ class SearchEvalAgent(BaseAgent):
     def _call_qwen(self, prompt: str) -> str:
         """调用千问模型"""
         try:
-            # 使用QwenAgent的call方法
-            result = self.llm_client.call(prompt)
+            # 使用QwenAgent的call方法，设置较大的 max_tokens 避免输出被截断
+            result = self.llm_client.call(prompt, max_tokens=4000)
             
             # 检查调用是否成功
             if isinstance(result, dict):
@@ -651,28 +629,90 @@ class SearchEvalAgent(BaseAgent):
             raise
     
     def _parse_llm_evaluation_result(self, result: str) -> Dict:
-        """解析大模型的评测结果"""
+        """解析大模型的评测结果（增强截断JSON容错）"""
         import re
 
         # 如果结果是字典（已经是解析后的），直接使用
         if isinstance(result, dict):
             data = result
         else:
-            # 尝试直接解析JSON
+            # 预处理：去除 markdown 代码块标记
+            cleaned = result.strip()
+            if cleaned.startswith('```json'):
+                cleaned = cleaned[7:]
+            elif cleaned.startswith('```'):
+                cleaned = cleaned[3:]
+            if cleaned.endswith('```'):
+                cleaned = cleaned[:-3]
+            cleaned = cleaned.strip()
+
+            data = None
+
+            # 尝试1：直接解析
             try:
-                data = json.loads(result)
+                data = json.loads(cleaned)
             except json.JSONDecodeError:
-                # 尝试提取JSON部分
-                json_match = re.search(r'\{[\s\S]*\}', result)
+                pass
+
+            # 尝试2：提取最外层 JSON 对象
+            if data is None:
+                json_match = re.search(r'\{[\s\S]*\}', cleaned)
                 if json_match:
                     try:
                         data = json.loads(json_match.group())
-                    except:
-                        self.log(f"无法解析大模型输出: {result[:200]}...")
-                        return {"scores": {}, "issues": [], "suggestions": []}
-                else:
-                    self.log(f"无法从输出中提取JSON: {result[:200]}...")
-                    return {"scores": {}, "issues": [], "suggestions": []}
+                    except json.JSONDecodeError:
+                        pass
+
+            # 尝试3：修复截断的 JSON（逐步裁剪尾部找到合法 JSON 子串）
+            if data is None:
+                # 尝试补全截断的 JSON
+                for suffix in ['}}}', '}}', '}', ']}}}', ']}}', ']}', '"]}}}', '"]}', '"]}}']:
+                    try:
+                        data = json.loads(cleaned + suffix)
+                        self.log(f"通过补全 '{suffix}' 修复了截断的JSON")
+                        break
+                    except json.JSONDecodeError:
+                        continue
+
+            # 尝试4：只提取 overall_evaluation 部分
+            if data is None:
+                oe_match = re.search(r'"overall_evaluation"\s*:\s*(\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})', cleaned)
+                if oe_match:
+                    try:
+                        oe_data = json.loads(oe_match.group(1))
+                        data = {"overall_evaluation": oe_data}
+                        self.log("从截断JSON中成功提取 overall_evaluation")
+                    except json.JSONDecodeError:
+                        pass
+
+            # 尝试5：用正则直接提取 scores
+            if data is None:
+                scores = {}
+                for dim in ['accuracy', 'timeliness', 'personalization', 'safety', 'diversity', 'novelty']:
+                    score_match = re.search(rf'"{dim}"\s*:\s*(\d+)', cleaned)
+                    if score_match:
+                        scores[dim] = int(score_match.group(1))
+                if scores:
+                    self.log(f"通过正则从截断JSON中提取了 {len(scores)} 个维度分数")
+                    # 提取 issues 和 suggestions
+                    issues = re.findall(r'"issues"\s*:\s*\[(.*?)\]', cleaned, re.DOTALL)
+                    suggestions = re.findall(r'"suggestions"\s*:\s*\[(.*?)\]', cleaned, re.DOTALL)
+                    issue_list = re.findall(r'"([^"]+)"', issues[0]) if issues else []
+                    suggestion_list = re.findall(r'"([^"]+)"', suggestions[0]) if suggestions else []
+                    summary_match = re.search(r'"evaluation_summary"\s*:\s*"([^"]*)"', cleaned)
+                    summary = summary_match.group(1) if summary_match else ""
+                    return {
+                        "scores": scores,
+                        "issues": issue_list,
+                        "suggestions": suggestion_list,
+                        "evaluation_table": [],
+                        "overall_score": 0,
+                        "evaluation_summary": summary
+                    }
+
+            if data is None:
+                self.log(f"无法解析大模型输出: {result[:200]}...")
+                return {"scores": {}, "issues": [], "suggestions": []}
 
         # 支持新的表格格式
         if "evaluation_table" in data or "overall_evaluation" in data:

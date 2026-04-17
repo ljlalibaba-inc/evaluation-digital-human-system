@@ -483,12 +483,44 @@ class MasterDigitalHuman:
         items = result.results.get("parsedResponse") or result.results.get("responses", [])
         evaluations = []
 
+        # 构建 query_id -> parsedResponse 的映射，用于附加结构化数据
+        parsed_map = {}
+        for p in result.results.get("parsedResponse", []):
+            if isinstance(p, dict):
+                query = p.get("query")
+                qid = None
+                if isinstance(query, dict):
+                    qid = query.get("query_id")
+                elif hasattr(query, "query_id"):
+                    qid = query.query_id
+                if qid:
+                    parsed_map[qid] = p
+
         for item in items:
             try:
                 query = item.get("query")
                 response = item.get("response")
 
                 if response:
+                    # 获取 query_id
+                    qid = None
+                    if isinstance(query, dict):
+                        qid = query.get("query_id")
+                    elif hasattr(query, "query_id"):
+                        qid = query.query_id
+
+                    # 将解析后的结构化数据附加到 response 中
+                    if qid and qid in parsed_map:
+                        pd = parsed_map[qid].get("parsedResponse", {})
+                        if isinstance(pd, dict):
+                            # eval_agent 从 response.data 中读取 structured_items 等
+                            # parsedResponse 结构: {"original_response": ..., "data": {...}}
+                            # 我们需要把 parsedResponse.data 直接放到 response.data
+                            if not isinstance(response, dict):
+                                response = {"content": str(response)}
+                            parsed_data = pd.get("data", pd)  # 取 data 层，兼容直接就是 data 的情况
+                            response["data"] = parsed_data
+
                     eval_result = eval_agent.evaluate(
                         query=query,
                         response=response,

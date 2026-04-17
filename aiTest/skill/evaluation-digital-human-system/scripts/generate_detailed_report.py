@@ -633,6 +633,10 @@ class DetailedReportGenerator:
                     <div style="font-size: 12px; color: #666; margin-bottom: 8px;">
                         {self._generate_evaluation_mode_badge(result if isinstance(result, dict) else {})}
                     </div>
+                    
+                    <!-- 综合评测结果 -->
+                    {self._generate_evaluation_summary_block(result)}
+                    
                     <div class="score-dimensions">
                         {self._generate_dimension_scores(scores)}
                     </div>
@@ -640,6 +644,12 @@ class DetailedReportGenerator:
                     <div style="margin-top: 16px;">
                         {self._generate_dimension_details(scores, issues, parsed_info)}
                     </div>
+                    
+                    <!-- 商品级别评测表格 -->
+                    {self._generate_evaluation_table_block(result)}
+                    
+                    <!-- 改进建议 -->
+                    {self._generate_suggestions_block(result)}
                 </div>
                 
                 <!-- 问题提示 -->
@@ -1191,6 +1201,91 @@ class DetailedReportGenerator:
         html_parts.append('</div>')
         return '\n'.join(html_parts)
     
+    def _generate_evaluation_summary_block(self, result: Dict) -> str:
+        """生成综合评测结果块（从 llm_evaluation.parsed_result.evaluation_summary）"""
+        llm_eval = result.get('llm_evaluation', {})
+        parsed = llm_eval.get('parsed_result', {})
+        summary = parsed.get('evaluation_summary', '')
+        if not summary:
+            return ''
+        
+        import html
+        escaped = html.escape(str(summary))
+        return f'''
+                    <div class="overall-info" style="background: #e6f7ff; border: 1px solid #91d5ff; border-radius: 8px; padding: 16px; margin: 12px 0;">
+                        <h4 style="color: #1890ff; margin-bottom: 10px; font-size: 15px;">📊 综合评测结果</h4>
+                        <p style="margin: 0; line-height: 1.8; font-size: 14px;">{escaped}</p>
+                    </div>
+'''
+
+    def _generate_evaluation_table_block(self, result: Dict) -> str:
+        """生成商品级别评测表格（从 llm_evaluation.parsed_result.evaluation_table）"""
+        llm_eval = result.get('llm_evaluation', {})
+        parsed = llm_eval.get('parsed_result', {})
+        table = parsed.get('evaluation_table', [])
+        if not table:
+            return ''
+        
+        import html
+        html_parts = []
+        html_parts.append('''
+                    <div style="margin-top: 16px;">
+                        <h4 style="font-size: 15px; color: #333; margin-bottom: 12px;">📋 商品级别评测表格</h4>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                            <thead>
+                                <tr style="background: #fafafa;">
+                                    <th style="padding: 8px; border: 1px solid #e8e8e8; text-align: left;">Query</th>
+                                    <th style="padding: 8px; border: 1px solid #e8e8e8; text-align: center;">Score</th>
+                                    <th style="padding: 8px; border: 1px solid #e8e8e8;">核心意图匹配</th>
+                                    <th style="padding: 8px; border: 1px solid #e8e8e8;">属性一致性</th>
+                                    <th style="padding: 8px; border: 1px solid #e8e8e8;">时效性与可用性</th>
+                                    <th style="padding: 8px; border: 1px solid #e8e8e8; text-align: center;">Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+''')
+        for row in table:
+            query = html.escape(str(row.get('query', '')))
+            score = row.get('score', 0)
+            intent = html.escape(str(row.get('core_intent_match', '')))
+            attr = html.escape(str(row.get('attribute_consistency', '')))
+            time = html.escape(str(row.get('timeliness_availability', '')))
+            rating = html.escape(str(row.get('rating', '')))
+            html_parts.append(f'''                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #e8e8e8; max-width: 200px;">{query[:100]}</td>
+                                    <td style="padding: 8px; border: 1px solid #e8e8e8; text-align: center; font-weight: bold;">{score}</td>
+                                    <td style="padding: 8px; border: 1px solid #e8e8e8; max-width: 150px;">{intent[:80]}</td>
+                                    <td style="padding: 8px; border: 1px solid #e8e8e8; max-width: 150px;">{attr[:80]}</td>
+                                    <td style="padding: 8px; border: 1px solid #e8e8e8; max-width: 150px;">{time[:80]}</td>
+                                    <td style="padding: 8px; border: 1px solid #e8e8e8; text-align: center;">{rating}</td>
+                                </tr>
+''')
+        html_parts.append('''                            </tbody>
+                        </table>
+                    </div>
+''')
+        return '\n'.join(html_parts)
+
+    def _generate_suggestions_block(self, result: Dict) -> str:
+        """生成改进建议块（从 detailed_results 顶层的 suggestions）"""
+        suggestions = result.get('suggestions', [])
+        if not suggestions:
+            return ''
+        
+        import html
+        html_parts = []
+        html_parts.append(f'''
+                    <div style="margin-top: 16px; background: #f6ffed; border: 1px solid #b7eb8f; border-radius: 8px; padding: 16px;">
+                        <h4 style="color: #389e0d; margin-bottom: 10px; font-size: 15px;">💡 改进建议 ({len(suggestions)}条)</h4>
+                        <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px; color: #389e0d;">
+''')
+        for s in suggestions:
+            html_parts.append(f'                            <li style="margin-bottom: 6px;">{html.escape(str(s))}</li>\n')
+        html_parts.append('''                        </ul>
+                    </div>
+''')
+        return '\n'.join(html_parts)
+
     def _generate_summary_rows(self, results: List[Dict]) -> str:
         """生成汇总表格行"""
         rows = []
