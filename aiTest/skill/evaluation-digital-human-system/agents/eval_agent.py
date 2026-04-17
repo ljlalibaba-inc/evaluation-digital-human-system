@@ -134,6 +134,39 @@ class SearchEvalAgent(BaseAgent):
         query_text = query.get('query_text', '') if isinstance(query, dict) else str(query)
         query_tags = query.get('tags', []) if isinstance(query, dict) else []
 
+        # 零结果快速判定：如果没有任何商品返回，直接判定为 0 分
+        if not structured_items or len(structured_items) == 0:
+            self.log(f"零结果: 千问未返回任何商品，直接判定为0分")
+            zero_scores = {}
+            for dim in dimensions:
+                zero_scores[dim] = 0
+            # 额外维度也设为0
+            for extra_dim in ['diversity', 'novelty', 'shop_quality', 'product_richness']:
+                zero_scores[extra_dim] = 0
+
+            return {
+                "query_id": query.get('query_id', '') if isinstance(query, dict) else '',
+                "persona_id": query.get('persona_id', '') if isinstance(query, dict) else '',
+                "scenario_id": query.get('scenario_id', '') if isinstance(query, dict) else '',
+                "overall_score": 0,
+                "scores": zero_scores,
+                "issues": ["千问模型未返回任何商品结果，属于严重功能缺失"],
+                "suggestions": ["排查模型调用链路，确保商品召回逻辑正常工作"],
+                "evaluation_input": input_params,
+                "llm_evaluation": {
+                    "parsed_result": {
+                        "scores": zero_scores,
+                        "issues": ["千问模型未返回任何商品结果，属于严重功能缺失"],
+                        "suggestions": ["排查模型调用链路，确保商品召回逻辑正常工作"],
+                        "evaluation_table": [],
+                        "overall_score": 0,
+                        "evaluation_summary": "零结果：千问模型未返回任何商品，全维度判定为0分。属于严重的搜索/推荐功能缺失。"
+                    },
+                    "raw_response": "ZERO_RESULT_FAST_PATH",
+                    "fallback_to_rule": False
+                }
+            }
+
         # 执行各维度评测
         scores = {}
         issues = []

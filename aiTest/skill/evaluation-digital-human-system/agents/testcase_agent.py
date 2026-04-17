@@ -29,6 +29,8 @@ class TestCaseAgent(BaseAgent):
         self.qwen_agent = QwenAgent(config.get('qwen_config', {})) if config else None
         # 用例保存路径
         self.output_dir = config.get('output_dir', '.') if config else '.'
+        # 已生成的 query 历史（用于去重）
+        self._generated_history = []
     
     def _load_dataset(self):
         """加载数据集"""
@@ -146,6 +148,9 @@ class TestCaseAgent(BaseAgent):
         """
         self._load_dataset()
 
+        # 清空历史记录（每次生成重新开始）
+        self._generated_history = []
+
         # 确定要使用的维度值
         target_personas = personas if personas else list(self.TEST_CASE_TEMPLATES.keys())
         target_scenarios = scenarios if scenarios else list(self.SCENARIO_TAGS.keys())
@@ -176,13 +181,13 @@ class TestCaseAgent(BaseAgent):
                         # 为每个组合生成指定数量的用例
                         for case_idx in range(cases_per_combination):
                             # 调用大模型生成query
-                            query_text = self._generate_query_with_llm(
+                            generation_result = self._generate_query_with_llm(
                                 persona_id, scenario_id, category_id, case_idx
                             )
 
                             query = {
                                 "query_id": f"Q{query_counter:04d}",
-                                "query_text": query_text,
+                                "query_text": generation_result["query_text"],
                                 "priority": "P0" if query_counter <= 3 else "P1",
                                 "tags": [persona_id, scenario_id, category_id],
                                 "persona_id": persona_id,
@@ -192,7 +197,12 @@ class TestCaseAgent(BaseAgent):
                                 "scenario": f"{scenario_id}_{self.SCENARIO_TAGS.get(scenario_id, '')}",
                                 "category": f"{category_id}_{self.CATEGORY_TAGS.get(category_id, '')}",
                                 "expected_intent": {"intent": "search", "category": category_id},
-                                "evaluation_criteria": ["accuracy", "timeliness", "personalization", "safety"]
+                                "evaluation_criteria": ["accuracy", "timeliness", "personalization", "safety"],
+                                "generation_info": {
+                                    "method": generation_result["generation_method"],
+                                    "llm_input": generation_result.get("llm_input"),
+                                    "llm_output": generation_result.get("llm_output")
+                                }
                             }
                             queries.append(query)
                             query_counter += 1
@@ -315,8 +325,120 @@ class TestCaseAgent(BaseAgent):
 
         self.log(f"最新用例集已更新: {latest_path}")
     
-    def _generate_query_with_llm(self, persona_id: str, scenario_id: str, category_id: str, variant: int = 0) -> str:
-        """调用大模型生成Query
+    # 场景角度提示：为每个 P×S×C 组合提供多种不同的需求角度
+    DIVERSITY_ANGLES = {
+        "C5": [  # 医药健康
+            "突发身体不适（头痛、胃痛、牙痛、过敏等不同症状）",
+            "慢性病日常用药补充（降压药、降糖药、维生素等）",
+            "家庭常备药品囤货（创可贴、消毒液、体温计等）",
+            "季节性健康需求（防晒、驱蚊、润喉、暖宝宝等）",
+            "运动/职业相关（护腰、眼药水、咽炎片、肌肉酸痛等）",
+            "心理/睡眠相关（助眠、安神、褪黑素等）",
+        ],
+        "C4": [  # 母婴用品
+            "喂养相关（奶粉、奶瓶、辅食工具、吸奶器等）",
+            "日常护理（纸尿裤、湿巾、护臀膏、婴儿洗护等）",
+            "出行装备（婴儿推车配件、防走失绳、遮阳帽等）",
+            "玩具/早教（安抚玩具、牙胶、布书、积木等）",
+            "婴儿衣物（连体衣、口水巾、袜子、帽子等）",
+            "安全防护（防撞角、插座保护盖、婴儿监控等）",
+        ],
+        "C1": [  # 生鲜果蔬
+            "应季水果（当季特色水果、进口水果等）",
+            "做饭食材（肉禽蛋、蔬菜、调味料等）",
+            "即食/轻食（沙拉、鲜切水果、酸奶等）",
+        ],
+        "C2": [  # 休闲零食
+            "追剧零食（薯片、坚果、饮料等）",
+            "办公室零食（咖啡、饼干、巧克力等）",
+            "聚会零食（啤酒、烧烤食材、卤味等）",
+        ],
+        "C3": [  # 3C数码
+            "手机配件（充电线、充电宝、手机壳等）",
+            "办公设备（键盘、鼠标、U盘等）",
+            "生活电器（小风扇、加湿器等）",
+        ],
+        "C6": [  # 日用百货
+            "清洁用品（洗衣液、拖把、垃圾袋等）",
+            "个人护理（牙膏、洗发水、纸巾等）",
+            "厨房用品（保鲜膜、收纳盒等）",
+        ],
+        "C7": [  # 鲜花礼品
+            "节日送礼（鲜花、礼盒、蛋糕等）",
+            "居家装饰（绿植、香薰、干花等）",
+        ],
+        "C8": [  # 宠物用品
+            "宠物食品（猫粮、狗粮、零食等）",
+            "宠物用品（猫砂、牵引绳等）",
+        ],
+    }
+
+    # 人群特征细化：提供更丰富的人设背景变体
+    PERSONA_VARIANTS = {
+        "P1": [
+            "互联网公司产品经理，经常加班到深夜，独居，注重效率",
+            "金融行业分析师，工作压力大，周末喜欢健身，追求品质",
+            "创业公司技术负责人，作息不规律，经常出差，喜欢尝试新品",
+            "外企市场专员，早出晚归，注重健康饮食，喜欢囤货",
+            "设计师，自由职业，作息不固定，喜欢宅家，注重生活品质",
+            "销售经理，应酬多，肠胃不好，需要经常备药",
+        ],
+        "P2": [
+            "新手妈妈，宝宝3个月大，全职带娃，经验不足容易焦虑",
+            "二胎妈妈，大宝3岁小宝6个月，时间紧张需要高效购物",
+            "职场妈妈，白天上班晚上带娃，依赖即时配送",
+            "新手妈妈，宝宝1岁刚学走路，需要各种安全防护用品",
+            "年轻妈妈，宝宝8个月开始添加辅食，关注食品安全",
+            "新手妈妈，宝宝2个月，纯母乳喂养但奶量不够需要混合喂养",
+        ],
+        "P3": [
+            "大三学生，考试周压力大，宿舍生活",
+            "研究生，实验室常驻，经常熬夜写论文",
+            "大一新生，刚入学不熟悉环境，预算有限",
+        ],
+        "P4": [
+            "精致白领女性，注重护肤和生活品质",
+            "都市单身男青年，喜欢尝试网红产品",
+        ],
+        "P5": [
+            "退休阿姨，注重养生，每天买菜做饭",
+            "退休大爷，有慢性病需要长期用药",
+        ],
+        "P6": [
+            "双职工家庭，孩子上小学，周末需要采购一周食材",
+            "双职工家庭，刚搬新家，需要添置日用品",
+        ],
+    }
+
+    SCENARIO_CONTEXT = {
+        "S1": [  # 应急补给
+            "突发状况，急需30分钟内送达",
+            "家里某样东西突然用完了，急需补充",
+            "身体突然不舒服，需要马上买药",
+            "意外情况，需要紧急购买某样东西",
+        ],
+        "S2": [  # 即时享受
+            "下班回家想犒劳自己，想马上享受",
+            "突然嘴馋/想用某样东西，想即刻满足",
+            "周末宅家，想立刻获得某样商品提升幸福感",
+            "晚上突然想吃/用某样东西",
+        ],
+        "S3": [  # 懒人便利
+            "不想出门，希望送货上门",
+            "天气不好，懒得出去买",
+        ],
+        "S4": [  # 计划性消费
+            "提前囤货，看到划算的想买",
+            "定期补充家里的常用物品",
+        ],
+        "S5": [  # 节日聚会
+            "朋友聚会需要准备",
+            "节日送礼需要",
+        ],
+    }
+
+    def _generate_query_with_llm(self, persona_id: str, scenario_id: str, category_id: str, variant: int = 0) -> Dict:
+        """调用大模型生成Query（增强多样性版本）
 
         Args:
             persona_id: 人群ID
@@ -325,58 +447,154 @@ class TestCaseAgent(BaseAgent):
             variant: 变体索引，用于同一组合生成多个不同用例
 
         Returns:
-            生成的query文本
+            包含生成的query文本和大模型调用信息的字典
         """
         if not self.qwen_agent:
-            # 如果没有配置大模型，使用模板
-            return self._select_query_template(persona_id, scenario_id, category_id, variant)
+            query_text = self._select_query_template(persona_id, scenario_id, category_id, variant)
+            return {
+                "query_text": query_text,
+                "generation_method": "template",
+                "llm_input": None,
+                "llm_output": None
+            }
 
         persona_name = self.TEST_CASE_TEMPLATES.get(persona_id, {}).get('name', persona_id)
         scenario_name = self.SCENARIO_TAGS.get(scenario_id, scenario_id)
         category_name = self.CATEGORY_TAGS.get(category_id, category_id)
 
+        # 选取人设变体
+        persona_variants = self.PERSONA_VARIANTS.get(persona_id, [persona_name])
+        persona_detail = persona_variants[variant % len(persona_variants)]
+
+        # 选取需求角度
+        angles = self.DIVERSITY_ANGLES.get(category_id, [f"{category_name}相关需求"])
+        # 随机打乱后选取，确保不同 variant 选不同角度
+        shuffled_angles = angles.copy()
+        random.shuffle(shuffled_angles)
+        selected_angle = shuffled_angles[variant % len(shuffled_angles)]
+
+        # 选取场景上下文
+        scenario_contexts = self.SCENARIO_CONTEXT.get(scenario_id, [scenario_name])
+        scenario_detail = scenario_contexts[variant % len(scenario_contexts)]
+
+        # 构建已生成 query 的历史（同一 P×S×C 组合的）
+        same_combo_history = [
+            h["query_text"] for h in self._generated_history
+            if h.get("persona_id") == persona_id
+            and h.get("scenario_id") == scenario_id
+            and h.get("category_id") == category_id
+        ]
+
+        history_block = ""
+        if same_combo_history:
+            history_list = "\n".join(f"  - {q[:80]}" for q in same_combo_history)
+            history_block = f"""
+
+【已有Query - 请勿重复】
+以下是同一组合已经生成的Query，你必须生成完全不同的内容（不同的症状/商品/场景/需求）：
+{history_list}"""
+
         # 构建prompt
         system_prompt = """你是一个即时零售场景下的用户Query生成专家。
-你的任务是根据给定的人群、场景、品类维度，生成真实、自然的用户搜索Query。
-要求：
-1. 以第一人称"我"开头，描述用户的身份和需求
-2. Query要符合该人群的语言习惯和购物需求
-3. 体现该场景的特点（如应急、即时、计划性等）
-4. 包含对品类的具体需求
-5. 可以提及配送时效要求（如30分钟送达）
-6. 只返回Query文本，不要解释"""
+你的任务是根据给定的人群、场景、品类维度，生成真实、自然、多样化的用户搜索Query。
 
-        user_prompt = f"""请为以下维度生成一条用户搜索Query：
+核心要求：
+1. 以第一人称描述，但不要每次都用"我是一个XX"的固定句式开头
+2. Query必须体现该人群的真实语言习惯（如妈妈群体会说"宝宝"、白领会说"加班"等）
+3. 必须包含对品类的具体需求（具体的商品名或品类关键词）
+4. 可以提及配送时效要求，但不要每次都说"30分钟"
+5. 每次生成的内容必须在商品类型、具体症状/需求、表达方式上有明显差异
+6. 口语化、自然，像真人在搜索框里打的话
+7. 只返回Query文本，不要解释、不要编号、不要引号"""
 
-【人群】{persona_name} ({persona_id})
-【场景】{scenario_name} ({scenario_id})
-【品类】{category_name} ({category_id})
-【变体】第{variant + 1}条（同一组合的不同表达）
+        user_prompt = f"""请生成一条即时零售用户搜索Query：
 
-请生成一条自然、真实的用户Query："""
+【人群画像】{persona_detail}
+【购物场景】{scenario_name} - {scenario_detail}
+【商品品类】{category_name}
+【需求角度】请从"{selected_angle}"这个角度出发
+【变体要求】这是第{variant + 1}条，请确保与之前的Query在商品种类和表达方式上完全不同{history_block}
+
+请直接输出Query文本："""
 
         try:
             result = self.qwen_agent.call(
                 query_text=user_prompt,
                 system_prompt=system_prompt,
-                temperature=0.8
+                temperature=0.95  # 提高温度增加多样性
             )
+
+            llm_info = {
+                "input": {
+                    "system_prompt": system_prompt,
+                    "user_prompt": user_prompt,
+                    "temperature": 0.95,
+                    "model": getattr(self.qwen_agent, 'model', 'unknown'),
+                    "api_mode": getattr(self.qwen_agent, 'api_mode', 'unknown')
+                },
+                "output": {
+                    "success": result.get('success'),
+                    "content": result.get('content'),
+                    "raw_response": result.get('raw_response'),
+                    "error": result.get('error'),
+                    "response_time_ms": result.get('response_time_ms')
+                }
+            }
 
             if result.get('success'):
                 query_text = result.get('content', '').strip()
-                # 清理可能的引号
-                query_text = query_text.strip('"').strip("'")
-                if query_text:
-                    self.log(f"LLM生成Query [{persona_id}×{scenario_id}×{category_id}]: {query_text[:50]}...")
-                    return query_text
+                # 清理可能的引号和编号
+                query_text = query_text.strip('"').strip("'").strip()
+                # 去掉可能的编号前缀如 "1. " "- "
+                import re
+                query_text = re.sub(r'^[\d]+[\.\、]\s*', '', query_text)
+                query_text = re.sub(r'^[-—]\s*', '', query_text)
 
-            # 如果调用失败，使用模板
+                if query_text:
+                    # 记录到历史
+                    self._generated_history.append({
+                        "query_text": query_text,
+                        "persona_id": persona_id,
+                        "scenario_id": scenario_id,
+                        "category_id": category_id,
+                    })
+                    self.log(f"LLM生成Query [{persona_id}×{scenario_id}×{category_id}]: {query_text[:50]}...")
+                    return {
+                        "query_text": query_text,
+                        "generation_method": "llm",
+                        "llm_input": llm_info["input"],
+                        "llm_output": llm_info["output"]
+                    }
+
             self.log(f"LLM调用失败，使用模板: {result.get('error', 'unknown')}")
-            return self._select_query_template(persona_id, scenario_id, category_id, variant)
+            query_text = self._select_query_template(persona_id, scenario_id, category_id, variant)
+            return {
+                "query_text": query_text,
+                "generation_method": "template_fallback",
+                "llm_input": llm_info["input"],
+                "llm_output": llm_info["output"]
+            }
 
         except Exception as e:
             self.log(f"LLM调用异常: {e}")
-            return self._select_query_template(persona_id, scenario_id, category_id, variant)
+            query_text = self._select_query_template(persona_id, scenario_id, category_id, variant)
+            return {
+                "query_text": query_text,
+                "generation_method": "template_fallback",
+                "llm_input": {
+                    "system_prompt": system_prompt,
+                    "user_prompt": user_prompt,
+                    "temperature": 0.95,
+                    "model": getattr(self.qwen_agent, 'model', 'unknown'),
+                    "api_mode": getattr(self.qwen_agent, 'api_mode', 'unknown')
+                },
+                "llm_output": {
+                    "success": False,
+                    "error": str(e),
+                    "content": None,
+                    "raw_response": None
+                }
+            }
 
     def _select_query_template(self, persona_id: str, scenario_id: str, category_id: str, variant: int = 0) -> str:
         """根据P/S/C维度选择最合适的Query模板（备用方案）
